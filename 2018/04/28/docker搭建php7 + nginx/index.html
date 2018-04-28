@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="菜园子">
 <meta property="og:description" content="安装docker  下载相关镜像 12docker pull nginxdocker pull php:7.1.0-fpm  建立相关挂载目录 12mkdir -p /docker/wwwmkdir -p /docker/nginx/conf.d  nginx 配置 12345678910111213141516171819202122vim /docker/nginx/conf.d/defau">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-28T09:50:51.000Z">
+<meta property="og:updated_time" content="2018-04-28T09:53:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker搭建php7 + nginx">
 <meta name="twitter:description" content="安装docker  下载相关镜像 12docker pull nginxdocker pull php:7.1.0-fpm  建立相关挂载目录 12mkdir -p /docker/wwwmkdir -p /docker/nginx/conf.d  nginx 配置 12345678910111213141516171819202122vim /docker/nginx/conf.d/defau">
@@ -313,8 +313,14 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /docker/nginx/conf.d/default.conf</span><br><span class="line"><span class="comment">## 例子</span></span><br><span class="line">server &#123;</span><br><span class="line">listen  80 default_server;</span><br><span class="line">server_name _;</span><br><span class="line">root   /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">  index index.html index.htm index.php;</span><br><span class="line">  autoindex off;</span><br><span class="line">&#125;</span><br><span class="line">location ~ \.php(.*)$ &#123;</span><br><span class="line">  root   /var/www/html/;</span><br><span class="line">  fastcgi_pass 172.17.0.2:9000;</span><br><span class="line">  fastcgi_index index.php;</span><br><span class="line">  fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;</span><br><span class="line">  fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">  fastcgi_param PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  fastcgi_param PATH_TRANSLATED <span class="variable">$document_root</span><span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  include  fastcgi_params;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动php镜像,nginx 镜像</p>
-<h4 id="php-端口映射"><a href="#php-端口映射" class="headerlink" title="php 端口映射"></a>php 端口映射</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9000:9000 --name myphp \</span><br><span class="line">-v /docker/www/:/var/www/html/ \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d php:7.1.0-fpm</span><br></pre></td></tr></table></figure>
-<h4 id="nginx-端口映射"><a href="#nginx-端口映射" class="headerlink" title="nginx 端口映射"></a>nginx 端口映射</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name mynginx \</span><br><span class="line">-v /docker/www:/usr/share/nginx/html \</span><br><span class="line">-v /docker/nginx/conf.d:/etc/nginx/conf.d \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d nginx</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>php 端口映射启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9000:9000 --name myphp \</span><br><span class="line">-v /docker/www/:/var/www/html/ \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d php:7.1.0-fpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nginx 端口映射启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name mynginx \</span><br><span class="line">-v /docker/www:/usr/share/nginx/html \</span><br><span class="line">-v /docker/nginx/conf.d:/etc/nginx/conf.d \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d nginx</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 </li>
 <li><p>自行配置需要的项目和站点conf</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">查看运行的容器 ： docker ps -a</span><br><span class="line">停止，启动，重启   docker stop start restart  id</span><br><span class="line">删除容器： docker  rm  id</span><br></pre></td></tr></table></figure>
@@ -417,17 +423,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -478,22 +475,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#php-端口映射"><span class="nav-number">1.</span> <span class="nav-text">php 端口映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-端口映射"><span class="nav-number">2.</span> <span class="nav-text">nginx 端口映射</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
