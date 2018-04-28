@@ -317,10 +317,8 @@
 </li>
 <li><p>启动php镜像,nginx 镜像</p>
 <h4 id="php-端口映射"><a href="#php-端口映射" class="headerlink" title="php 端口映射"></a>php 端口映射</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9000:9000 --name myphp \</span><br><span class="line">-v /docker/www/:/var/www/html/ \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d php:7.1.0-fpm</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 <h4 id="nginx-端口映射"><a href="#nginx-端口映射" class="headerlink" title="nginx 端口映射"></a>nginx 端口映射</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name mynginx \</span><br><span class="line">-v /docker/www:/usr/share/nginx/html \</span><br><span class="line">-v /docker/nginx/conf.d:/etc/nginx/conf.d \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d nginx</span><br></pre></td></tr></table></figure>
-<ol>
+</li>
 <li><p>自行配置需要的项目和站点conf</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">查看运行的容器 ： docker ps -a</span><br><span class="line">停止，启动，重启   docker stop start restart  id</span><br><span class="line">删除容器： docker  rm  id</span><br></pre></td></tr></table></figure>
 <p>todo 多站点再完善！！！</p>
