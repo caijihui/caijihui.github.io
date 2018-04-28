@@ -232,6 +232,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/24小时制时间交叉判断/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2018/03/09/24小时制时间交叉判断/" itemprop="url">js 24小时制时间交叉判断</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T11:51:49+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="javascript-24小时交叉比较函数"><a href="#javascript-24小时交叉比较函数" class="headerlink" title="javascript 24小时交叉比较函数"></a>javascript 24小时交叉比较函数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CompareTime(beginTime,endTime,nowTimeStar,nowTimeEnd)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    var strb = beginTime.split (<span class="string">":"</span>);</span><br><span class="line">    <span class="keyword">if</span> (strb.length != 2) &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var stre = endTime.split (<span class="string">":"</span>);</span><br><span class="line">    <span class="keyword">if</span> (stre.length != 2) &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var strns = nowTimeStar.split (<span class="string">":"</span>);</span><br><span class="line">    <span class="keyword">if</span> (strns.length != 2) &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var strne = nowTimeEnd.split (<span class="string">":"</span>);</span><br><span class="line">    <span class="keyword">if</span> (strne.length != 2) &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var b = new Date ();</span><br><span class="line">    var e = new Date ();</span><br><span class="line">    var ns = new Date ();</span><br><span class="line">    var ne = new Date ();</span><br><span class="line"></span><br><span class="line">    b.setHours (strb[0]);</span><br><span class="line">    b.setMinutes (strb[1]);</span><br><span class="line">    e.setHours (stre[0]);</span><br><span class="line">    e.setMinutes (stre[1]);</span><br><span class="line">    ns.setHours (strns[0]);</span><br><span class="line">    ns.setMinutes (strns[1]);</span><br><span class="line">    ne.setHours (strne[0]);</span><br><span class="line">    ne.setMinutes (strne[1]);</span><br><span class="line"></span><br><span class="line">    //交叉了</span><br><span class="line">    <span class="keyword">if</span>((ns.getTime () - b.getTime () &gt; 0 &amp;&amp; ns.getTime () - e.getTime () &lt; 0 )|| (ne.getTime () - b.getTime () &gt; 0 &amp;&amp; ne.getTime () - e.getTime () &lt; 0) || (ns.getTime() &lt;= b.getTime() &amp;&amp; ne.getTime() &gt;= e.getTime()))&#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如有不足，请提醒。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/08/搭建svn服务器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -547,7 +670,7 @@
               
                 <a href="../../archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -560,7 +683,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

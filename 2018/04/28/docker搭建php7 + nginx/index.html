@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="常见问题," />
+  <meta name="keywords" content="docker,nginx," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="由于 Chrome 升级了浏览器版本到 63，现在所有的 .dev 和 .app 都将会自动将 HTTP 到 HTTPS 上，原因是谷歌已经拿下了 .dev 的顶级域名；目前唯一的方法就是修改你的 .dev 或者 .app 域名了，或者换成火狐或者其他浏览器开发；建议将你的域名改成 .test 或者 .localhost 参考地址：https://segmentfault.com/q/101000">
-<meta name="keywords" content="常见问题">
+<meta name="description" content="安装docker  下载相关镜像 12docker pull nginxdocker pull php:7.1.0-fpm  建立相关挂载目录 12mkdir -p /docker/wwwmkdir -p /docker/nginx/conf.d  nginx 配置 12345678910111213141516171819202122vim /docker/nginx/conf.d/defau">
+<meta name="keywords" content="docker,nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="本地配置的 *.dev,*.app域名 在谷歌浏览器中总是自动转跳到https 导致不能访问">
-<meta property="og:url" content="http://hexo.51cjh.top/2018/03/09/dev-app域名/index.html">
+<meta property="og:title" content="nginx">
+<meta property="og:url" content="http://hexo.51cjh.top/2018/04/28/docker搭建php7 + nginx/index.html">
 <meta property="og:site_name" content="菜园子">
-<meta property="og:description" content="由于 Chrome 升级了浏览器版本到 63，现在所有的 .dev 和 .app 都将会自动将 HTTP 到 HTTPS 上，原因是谷歌已经拿下了 .dev 的顶级域名；目前唯一的方法就是修改你的 .dev 或者 .app 域名了，或者换成火狐或者其他浏览器开发；建议将你的域名改成 .test 或者 .localhost 参考地址：https://segmentfault.com/q/101000">
+<meta property="og:description" content="安装docker  下载相关镜像 12docker pull nginxdocker pull php:7.1.0-fpm  建立相关挂载目录 12mkdir -p /docker/wwwmkdir -p /docker/nginx/conf.d  nginx 配置 12345678910111213141516171819202122vim /docker/nginx/conf.d/defau">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-16T05:18:03.000Z">
+<meta property="og:updated_time" content="2018-04-28T09:47:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="本地配置的 *.dev,*.app域名 在谷歌浏览器中总是自动转跳到https 导致不能访问">
-<meta name="twitter:description" content="由于 Chrome 升级了浏览器版本到 63，现在所有的 .dev 和 .app 都将会自动将 HTTP 到 HTTPS 上，原因是谷歌已经拿下了 .dev 的顶级域名；目前唯一的方法就是修改你的 .dev 或者 .app 域名了，或者换成火狐或者其他浏览器开发；建议将你的域名改成 .test 或者 .localhost 参考地址：https://segmentfault.com/q/101000">
+<meta name="twitter:title" content="nginx">
+<meta name="twitter:description" content="安装docker  下载相关镜像 12docker pull nginxdocker pull php:7.1.0-fpm  建立相关挂载目录 12mkdir -p /docker/wwwmkdir -p /docker/nginx/conf.d  nginx 配置 12345678910111213141516171819202122vim /docker/nginx/conf.d/defau">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://hexo.51cjh.top/2018/03/09/dev-app域名/"/>
+  <link rel="canonical" href="http://hexo.51cjh.top/2018/04/28/docker搭建php7 + nginx/"/>
 
 
 
 
 
-  <title>本地配置的 *.dev,*.app域名 在谷歌浏览器中总是自动转跳到https 导致不能访问 | 菜园子</title>
+  <title>nginx | 菜园子</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">本地配置的 *.dev,*.app域名 在谷歌浏览器中总是自动转跳到https 导致不能访问</h1>
+          <h1 class="post-title" itemprop="name headline">nginx</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T13:21:33+08:00">
-                2018-03-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-28T17:31:28+08:00">
+                2018-04-28
               </time>
             
 
@@ -300,8 +300,34 @@
       
 
       
-        <p>由于 Chrome 升级了浏览器版本到 63，现在所有的 .dev 和 .app 都将会自动将 HTTP 到 HTTPS 上，<br>原因是谷歌已经拿下了 .dev 的顶级域名；<br>目前唯一的方法就是修改你的 .dev 或者 .app 域名了，或者换成火狐或者其他浏览器开发；<br>建议将你的域名改成 .test 或者 .localhost</p>
-<h2 id="参考地址：https-segmentfault-com-q-1010000012339191"><a href="#参考地址：https-segmentfault-com-q-1010000012339191" class="headerlink" title="参考地址：https://segmentfault.com/q/1010000012339191"></a>参考地址：<a href="https://segmentfault.com/q/1010000012339191" target="_blank" rel="noopener">https://segmentfault.com/q/1010000012339191</a></h2>
+        <ol>
+<li><p>安装docker</p>
+</li>
+<li><p>下载相关镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br><span class="line">docker pull php:7.1.0-fpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建立相关挂载目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /docker/www</span><br><span class="line">mkdir -p /docker/nginx/conf.d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nginx 配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /docker/nginx/conf.d/default.conf</span><br><span class="line"><span class="comment">## 例子</span></span><br><span class="line">server &#123;</span><br><span class="line">listen  80 default_server;</span><br><span class="line">server_name _;</span><br><span class="line">root   /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">  index index.html index.htm index.php;</span><br><span class="line">  autoindex off;</span><br><span class="line">&#125;</span><br><span class="line">location ~ \.php(.*)$ &#123;</span><br><span class="line">  root   /var/www/html/;</span><br><span class="line">  fastcgi_pass 172.17.0.2:9000;</span><br><span class="line">  fastcgi_index index.php;</span><br><span class="line">  fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;</span><br><span class="line">  fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">  fastcgi_param PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  fastcgi_param PATH_TRANSLATED <span class="variable">$document_root</span><span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  include  fastcgi_params;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动php镜像,nginx 镜像</p>
+<h4 id="php-端口映射"><a href="#php-端口映射" class="headerlink" title="php 端口映射"></a>php 端口映射</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9000:9000 --name myphp \</span><br><span class="line">-v /docker/www/:/var/www/html/ \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d php:7.1.0-fpm</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="nginx-端口映射"><a href="#nginx-端口映射" class="headerlink" title="nginx 端口映射"></a>nginx 端口映射</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name mynginx \</span><br><span class="line">-v /docker/www:/usr/share/nginx/html \</span><br><span class="line">-v /docker/nginx/conf.d:/etc/nginx/conf.d \</span><br><span class="line">--privileged=<span class="literal">true</span> \</span><br><span class="line">-d nginx</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>自行配置需要的项目和站点conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">查看运行的容器 ： docker ps -a</span><br><span class="line">停止，启动，重启   docker stop start restart  id</span><br><span class="line">删除容器： docker  rm  id</span><br></pre></td></tr></table></figure>
+<p>todo 多站点再完善！！！</p>
+</li>
+<li><p>重启nginx镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart mynginx</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>参考地址： <a href="http://www.jb51.net/article/113296.htm" target="_blank" rel="noopener">http://www.jb51.net/article/113296.htm</a></p>
+
       
     </div>
     
@@ -318,7 +344,9 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/常见问题/" rel="tag"># 常见问题</a>
+            <a href="../../../../tags/docker/" rel="tag"># docker</a>
+          
+            <a href="../../../../tags/nginx/" rel="tag"># nginx</a>
           
         </div>
       
@@ -331,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../24小时制时间交叉判断/" rel="next" title="js 24小时制时间交叉判断">
-                <i class="fa fa-chevron-left"></i> js 24小时制时间交叉判断
+              <a href="../../23/guzzle异步发送/" rel="next" title="guzzle异步发送">
+                <i class="fa fa-chevron-left"></i> guzzle异步发送
               </a>
             
           </div>
@@ -340,10 +368,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../网站功能点所需要的技术/" rel="prev" title="网站功能点所需要的技术">
-                网站功能点所需要的技术 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -466,7 +490,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考地址：https-segmentfault-com-q-1010000012339191"><span class="nav-number">1.</span> <span class="nav-text">参考地址：https://segmentfault.com/q/1010000012339191</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#php-端口映射"><span class="nav-number">1.</span> <span class="nav-text">php 端口映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-端口映射"><span class="nav-number">2.</span> <span class="nav-text">nginx 端口映射</span></a></li></ol></div>
             
 
           </div>
