@@ -313,7 +313,7 @@
 </ol>
 <p>证书信息可以随便填或者留空，只有Common Name要根据你的域名填写。</p>
 <p>以我的本地网站为例<br>Common Name (e.g. server FQDN or YOUR name) []: test.com</p>
-<p>也可以通过*.hz.com来匹配你的二级域名</p>
+<p>也可以通过*.test.com来匹配你的二级域名</p>
 <h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name test.com;</span><br><span class="line"></span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate /path/to/server.pem;</span><br><span class="line">    ssl_certificate_key /path/to/privkey.pem;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重启服务器</p>
 <h2 id="配置本地信任站点"><a href="#配置本地信任站点" class="headerlink" title="配置本地信任站点"></a>配置本地信任站点</h2><p>浏览器打开 <a href="https://test.com" target="_blank" rel="noopener">https://test.com</a></p>
