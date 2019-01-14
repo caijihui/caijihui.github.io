@@ -232,6 +232,428 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top2019/01/14/laravel踩过的坑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="2019/01/14/laravel踩过的坑/" itemprop="url">laravel踩过的坑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T15:27:19+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ORM-get-查询无数据-为空处理"><a href="#ORM-get-查询无数据-为空处理" class="headerlink" title="ORM  get() 查询无数据,为空处理"></a>ORM  get() 查询无数据,为空处理</h2><p>可以通过以下方式验证数据是否为空<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$users = DB::table(<span class="string">'users'</span>)-&gt;where(<span class="string">'pid'</span>,<span class="number">1</span>)-&gt;get();</span><br><span class="line"> <span class="keyword">if</span> ($users-&gt;first()) &#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line">  &#125; </span><br><span class="line"> <span class="keyword">if</span> (!$users-&gt;isEmpty()) &#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line">  &#125; </span><br><span class="line"> <span class="keyword">if</span> ($users-&gt;count()) &#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="ORM-first-为空处理"><a href="#ORM-first-为空处理" class="headerlink" title="ORM first() 为空处理"></a>ORM first() 为空处理</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$userInfo = DB::table(<span class="string">'users'</span>)-&gt;where(<span class="string">'pid'</span>,<span class="number">1</span>)-&gt;orderBy(<span class="string">'id'</span>,<span class="string">'desc'</span>)-&gt;first(); </span><br><span class="line"><span class="keyword">if</span>($userInfo)&#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>($userInfo !== <span class="keyword">null</span>)&#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="routes-web-php-POST-请求-报419"><a href="#routes-web-php-POST-请求-报419" class="headerlink" title="/routes/web.php  POST 请求 报419"></a>/routes/web.php  POST 请求 报419</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">419 unknown status</span><br><span class="line">一般是发送的请求有 csrf-token校验,但是你没有发送csrf-token这个参数，注意查看http头是否带有csrf-token</span><br><span class="line">可以在 /app/Http/Kernel.php </span><br><span class="line">把 \App\Http\Middleware\VerifyCsrfToken::class, 注释掉，以后post 请求就不用填加csrf-token 参数头了</span><br></pre></td></tr></table></figure>
+<h2 id="null-false-比较语法"><a href="#null-false-比较语法" class="headerlink" title="null false  比较语法"></a>null false  比较语法</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$res = <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">null</span> !== $res)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"11"</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"22"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">null</span> != $res)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"r0"</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"r1"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">r1</span><br></pre></td></tr></table></figure>
+<p>空字符串(‘’)，false,NULL和0是值相等而类型不一样,不能使用=== !== 进行比较 。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top2019/01/14/markdown学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="2019/01/14/markdown学习/" itemprop="url">macdown学习-样板</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T13:59:58+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>@<a href="这里写自定义目录标题">TOC</a></p>
+<h1 id="欢迎使用Markdown编辑器"><a href="#欢迎使用Markdown编辑器" class="headerlink" title="欢迎使用Markdown编辑器"></a>欢迎使用Markdown编辑器</h1><p>你好！ 这是你第一次使用 <strong>Markdown编辑器</strong> 所展示的欢迎页。如果你想学习如何使用Markdown编辑器, 可以仔细阅读这篇文章，了解一下Markdown的基本语法知识。</p>
+<h2 id="新的改变"><a href="#新的改变" class="headerlink" title="新的改变"></a>新的改变</h2><p>我们对Markdown编辑器进行了一些功能拓展与语法支持，除了标准的Markdown编辑器功能，我们增加了如下几点新功能，帮助你用它写博客：</p>
+<ol>
+<li><strong>全新的界面设计</strong> ，将会带来全新的写作体验；</li>
+<li>在创作中心设置你喜爱的代码高亮样式，Markdown <strong>将代码片显示选择的高亮样式</strong> 进行展示；</li>
+<li>增加了 <strong>图片拖拽</strong> 功能，你可以将本地的图片直接拖拽到编辑区域直接展示；</li>
+<li>全新的 <strong>KaTeX数学公式</strong> 语法；</li>
+<li>增加了支持<strong>甘特图的mermaid语法<a href="[mermaid语法说明](https://mermaidjs.github.io/)">^1</a></strong> 功能；</li>
+<li>增加了 <strong>多屏幕编辑</strong> Markdown文章功能；</li>
+<li>增加了 <strong>焦点写作模式、预览模式、简洁写作模式、左右区域同步滚轮设置</strong> 等功能，功能按钮位于编辑区域与预览区域中间；</li>
+<li>增加了 <strong>检查列表</strong> 功能。</li>
+</ol>
+<h2 id="功能快捷键"><a href="#功能快捷键" class="headerlink" title="功能快捷键"></a>功能快捷键</h2><p>撤销：<kbd>Ctrl/Command</kbd> + <kbd>Z</kbd><br>重做：<kbd>Ctrl/Command</kbd> + <kbd>Y</kbd><br>加粗：<kbd>Ctrl/Command</kbd> + <kbd>B</kbd><br>斜体：<kbd>Ctrl/Command</kbd> + <kbd>I</kbd><br>标题：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd><br>无序列表：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd><br>有序列表：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd><br>检查列表：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd><br>插入代码：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd><br>插入链接：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd><br>插入图片：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd></p>
+<h2 id="合理的创建标题，有助于目录的生成"><a href="#合理的创建标题，有助于目录的生成" class="headerlink" title="合理的创建标题，有助于目录的生成"></a>合理的创建标题，有助于目录的生成</h2><p>直接输入1次<kbd>#</kbd>，并按下<kbd>space</kbd>后，将生成1级标题。<br>输入2次<kbd>#</kbd>，并按下<kbd>space</kbd>后，将生成2级标题。<br>以此类推，我们支持6级标题。有助于使用<code>TOC</code>语法后生成一个完美的目录。</p>
+<h2 id="如何改变文本的样式"><a href="#如何改变文本的样式" class="headerlink" title="如何改变文本的样式"></a>如何改变文本的样式</h2><p><em>强调文本</em> <em>强调文本</em></p>
+<p><strong>加粗文本</strong> <strong>加粗文本</strong><br>==ddddd==</p>
+<p>==标记文本==</p>
+<p><del>删除文本</del><br>H~2~</p>
+<blockquote>
+<p>引用文本</p>
+</blockquote>
+<p>H~2~O is是液体。</p>
+<p>2^10^ 运算结果是 1024.</p>
+<h2 id="插入链接与图片"><a href="#插入链接与图片" class="headerlink" title="插入链接与图片"></a>插入链接与图片</h2><p>链接: <a href="https://mp.csdn.net" target="_blank" rel="noopener">link</a>.</p>
+<p>图片: <img src="https://avatar.csdn.net/7/7/B/1_ralf_hx163com.jpg" alt="Alt"></p>
+<p>带尺寸的图片: <img src="https://avatar.csdn.net/7/7/B/1_ralf_hx163com.jpg =30x30" alt="Alt"></p>
+<p>当然，我们为了让用户更加便捷，我们增加了图片拖拽功能。</p>
+<h2 id="如何插入一段漂亮的代码片"><a href="#如何插入一段漂亮的代码片" class="headerlink" title="如何插入一段漂亮的代码片"></a>如何插入一段漂亮的代码片</h2><p>去<a href="https://mp.csdn.net/configure" target="_blank" rel="noopener">博客设置</a>页面，选择一款你喜欢的代码片高亮样式，下面展示同样高亮的 <code>代码片</code>.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// An highlighted block</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="string">'bar'</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="生成一个适合你的列表"><a href="#生成一个适合你的列表" class="headerlink" title="生成一个适合你的列表"></a>生成一个适合你的列表</h2><ul>
+<li>项目<ul>
+<li>项目<ul>
+<li>项目</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>项目1</li>
+<li>项目2</li>
+<li>项目3</li>
+</ol>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 计划任务</li>
+<li style="list-style: none"><input type="checkbox" checked> 完成任务</li>
+</ul>
+<h2 id="创建一个表格"><a href="#创建一个表格" class="headerlink" title="创建一个表格"></a>创建一个表格</h2><p>一个简单的表格是这么创建的：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电脑</td>
+<td>$1600</td>
+</tr>
+<tr>
+<td>手机</td>
+<td>$12</td>
+</tr>
+<tr>
+<td>导管</td>
+<td>$1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="设定内容居中、居左、居右"><a href="#设定内容居中、居左、居右" class="headerlink" title="设定内容居中、居左、居右"></a>设定内容居中、居左、居右</h3><p>使用<code>:---------:</code>居中<br>使用<code>:----------</code>居左<br>使用<code>----------:</code>居右</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">第一列</th>
+<th style="text-align:right">第二列</th>
+<th style="text-align:left">第三列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">第一列文本居中</td>
+<td style="text-align:right">第二列文本居右</td>
+<td style="text-align:left">第三列文本居左</td>
+</tr>
+</tbody>
+</table>
+<h3 id="SmartyPants"><a href="#SmartyPants" class="headerlink" title="SmartyPants"></a>SmartyPants</h3><p>SmartyPants将ASCII标点字符转换为“智能”印刷标点HTML实体。例如：</p>
+<table>
+<thead>
+<tr>
+<th>TYPE</th>
+<th>ASCII</th>
+<th>HTML                         </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single backticks</td>
+<td><code>&#39;Isn&#39;t this fun?&#39;</code></td>
+<td>‘Isn’t this fun?’</td>
+</tr>
+<tr>
+<td>Quotes</td>
+<td><code>&quot;Isn&#39;t this fun?&quot;</code></td>
+<td>“Isn’t this fun?”</td>
+</tr>
+<tr>
+<td>Dashes</td>
+<td><code>-- is en-dash, --- is em-dash</code></td>
+<td>– is en-dash, — is em-dash</td>
+</tr>
+</tbody>
+</table>
+<h2 id="创建一个自定义列表"><a href="#创建一个自定义列表" class="headerlink" title="创建一个自定义列表"></a>创建一个自定义列表</h2><p>Markdown<br>:  Text-to-HTML conversion tool</p>
+<p>Authors<br>:  John<br>:  Luke</p>
+<h2 id="如何创建一个注脚"><a href="#如何创建一个注脚" class="headerlink" title="如何创建一个注脚"></a>如何创建一个注脚</h2><p>一个具有注脚的文本。<a href="注脚的解释">^2</a></p>
+<h2 id="注释也是必不可少的"><a href="#注释也是必不可少的" class="headerlink" title="注释也是必不可少的"></a>注释也是必不可少的</h2><p>Markdown将文本转换为 HTML。</p>
+<p>*[HTML]:   超文本标记语言</p>
+<h2 id="KaTeX数学公式"><a href="#KaTeX数学公式" class="headerlink" title="KaTeX数学公式"></a>KaTeX数学公式</h2><p>您可以使用渲染LaTeX数学表达式 <a href="https://khan.github.io/KaTeX/" target="_blank" rel="noopener">KaTeX</a>:</p>
+<p>Gamma公式展示 $\Gamma(n) = (n-1)!\quad\forall<br>n\in\mathbb N$ 是通过欧拉积分</p>
+<p>$$<br>\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.<br>$$</p>
+<blockquote>
+<p>你可以找到更多关于的信息 <strong>LaTeX</strong> 数学表达式<a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="noopener">here</a>.</p>
+</blockquote>
+<h2 id="新的甘特图功能，丰富你的文章"><a href="#新的甘特图功能，丰富你的文章" class="headerlink" title="新的甘特图功能，丰富你的文章"></a>新的甘特图功能，丰富你的文章</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gantt</span><br><span class="line">        dateFormat  YYYY-MM-DD</span><br><span class="line">        title Adding GANTT diagram functionality to mermaid</span><br><span class="line">        section 现有任务</span><br><span class="line">        已完成               :done,    des1, 2014-01-06,2014-01-08</span><br><span class="line">        进行中               :active,  des2, 2014-01-09, 3d</span><br><span class="line">        计划一               :         des3, after des2, 5d</span><br><span class="line">        计划二               :         des4, after des3, 5d</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于 <strong>甘特图</strong> 语法，参考 <a href="https://mermaidjs.github.io/" target="_blank" rel="noopener">这儿</a>,</li>
+</ul>
+<h2 id="UML-图表"><a href="#UML-图表" class="headerlink" title="UML 图表"></a>UML 图表</h2><p>可以使用UML图表进行渲染。 <a href="https://mermaidjs.github.io/" target="_blank" rel="noopener">Mermaid</a>. 例如下面产生的一个序列图：:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">张三 -&gt;&gt; 李四: 你好！李四, 最近怎么样?</span><br><span class="line">李四--&gt;&gt;王五: 你最近怎么样，王五？</span><br><span class="line">李四--x 张三: 我很好，谢谢!</span><br><span class="line">李四-x 王五: 我很好，谢谢!</span><br><span class="line">Note right of 王五: 李四想了很长时间, 文字太长了&lt;br/&gt;不适合放在一行.</span><br><span class="line"></span><br><span class="line">李四--&gt;&gt;张三: 打量着王五...</span><br><span class="line">张三-&gt;&gt;王五: 很好... 王五, 你怎么样?</span><br></pre></td></tr></table></figure>
+<p>这将产生一个流程图。:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[长方形] -- 链接 --&gt; B((圆))</span><br><span class="line">A --&gt; C(圆角长方形)</span><br><span class="line">B --&gt; D&#123;菱形&#125;</span><br><span class="line">C --&gt; D</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于 <strong>Mermaid</strong> 语法，参考 <a href="https://mermaidjs.github.io/" target="_blank" rel="noopener">这儿</a>,</li>
+</ul>
+<h2 id="FLowchart流程图"><a href="#FLowchart流程图" class="headerlink" title="FLowchart流程图"></a>FLowchart流程图</h2><p>我们依旧会支持flowchart的流程图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flowchat</span><br><span class="line">st=&gt;start: 开始</span><br><span class="line">e=&gt;end: 结束</span><br><span class="line">op=&gt;operation: 我的操作</span><br><span class="line">cond=&gt;condition: 确认？</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于 <strong>Flowchart流程图</strong> 语法，参考 <a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="noopener">这儿</a>.</li>
+</ul>
+<h2 id="导出与导入"><a href="#导出与导入" class="headerlink" title="导出与导入"></a>导出与导入</h2><h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>如果你想尝试使用此编辑器, 你可以在此篇文章任意编辑。当你完成了一篇文章的写作, 在上方工具栏找到 <strong>文章导出</strong> ，生成一个.md文件或者.html文件进行本地保存。</p>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><p>如果你想加载一篇你写过的.md文件或者.html文件，在上方工具栏可以选择导入功能进行对应扩展名的文件导入，<br>继续你的创作。</p>
+<ul>
+<li>1 fdsfdsfsdfdsfreg</li>
+<li>2 regtegter</li>
+</ul>
+<ul>
+<li>1</li>
+<li>2</li>
+</ul>
+<ul>
+<li>1</li>
+<li>2</li>
+</ul>
+<ol>
+<li>111</li>
+<li>5454</li>
+<li><p>64546</p>
+</li>
+<li><p>11</p>
+</li>
+<li>11</li>
+<li>55</li>
+</ol>
+<p>4 &lt; 5</p>
+<p><a href="http:://invest.51cjh.top" title="444" target="_blank" rel="noopener">abc</a></p>
+<ul>
+<li><p>这是</p>
+<blockquote>
+<p>dfgdgdffdg</p>
+</blockquote>
+<blockquote>
+<p>dfdsgdsg</p>
+</blockquote>
+</li>
+</ul>
+<p><a href="http://www.com" target="_blank" rel="noopener">http://www.com</a></p>
+<p>\<br><code>dsfdsfg</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top2018/08/21/mysql用户创建和分配权限/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1290,262 +1712,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top2018/03/09/mac安装和使用supervisor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="2018/03/09/mac安装和使用supervisor/" itemprop="url">mac安装和使用supervisor</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T15:02:05+08:00">
-                2018-03-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##</p>
-<p>1.安装和启动supervisor</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install supervisor</span><br><span class="line">brew services start supervisor</span><br></pre></td></tr></table></figure>
-<p>2.修改配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/etc/supervisord.ini</span><br><span class="line"><span class="comment">##找到如下部分： 把前面的注释去掉</span></span><br><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=127.0.0.1:9001        ; ip_address:port specifier, *:port <span class="keyword">for</span> all iface</span><br><span class="line">username=user              ; default is no username (open server)</span><br><span class="line">password=123               ; default is no password (open server)</span><br></pre></td></tr></table></figure>
-<p>3.创建进程任务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir supervisor.d      </span><br><span class="line">vi  queue_mm.ini</span><br></pre></td></tr></table></figure>
-<p>  文件内容格式如下 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[program:queue_mm]    //进程名称</span><br><span class="line">process_name=%(program_name)s_%(process_num)02d</span><br><span class="line">command=php /Users/facevisa/caijihui/laravel/artisan queue:work  beanstalkd –queue=mm   // 命令</span><br><span class="line">autostart=true      //设置开启</span><br><span class="line">autorestart=true   //设置重启</span><br><span class="line">numprocs=1         //进程启动数</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/Users/facevisa/my/laravel//storage/logs/queue_mm.log //日志文件</span><br></pre></td></tr></table></figure></p>
-<p>4.重启服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart supervisor</span><br></pre></td></tr></table></figure></p>
-<p>5.测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在命令行输入   supervisorctl    </span><br><span class="line">如果出现  http://localhost:9001 refused connection   </span><br><span class="line">参考第三步，取消注释；如无提示，就ok</span><br></pre></td></tr></table></figure></p>
-<p>7、至此，就安装成功了</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top2018/03/09/redis基础操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="2018/03/09/redis基础操作/" itemprop="url">redis基础操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T13:48:48+08:00">
-                2018-03-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1、redis key-value<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>-&gt;<span class="built_in">set</span>(<span class="variable">$key</span>,<span class="variable">$value</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;get(<span class="variable">$key</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;exists(<span class="variable">$key</span>);</span><br></pre></td></tr></table></figure></p>
-<p>2、redis订阅发布： —未实现，阻塞<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>=new Redis();</span><br><span class="line"><span class="variable">$redis</span>-&gt;connect(“127.0.0.1”,6379);</span><br><span class="line"><span class="variable">$redis</span>-&gt;auth(“123”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;publish(‘test.22’,”nihao”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;publish(‘<span class="built_in">test</span>’,”nihao”);</span><br><span class="line"><span class="variable">$channelName</span>=”<span class="built_in">test</span>”;</span><br><span class="line"><span class="variable">$redis</span>-&gt;subscribe(array(<span class="variable">$channelName</span>), ‘callback’);</span><br><span class="line"><span class="keyword">function</span> callback(<span class="variable">$redis</span>,<span class="variable">$channelName</span>,<span class="variable">$message</span>)&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$message</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3、redis 先进先出，队列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “3”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “2”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;Rpop(‘<span class="built_in">test</span>’);</span><br><span class="line"><span class="variable">$arrList</span> = <span class="variable">$redis</span>-&gt;lrange(“<span class="built_in">test</span>”, 0 ,2);</span><br><span class="line">print_r(<span class="variable">$arrList</span>);</span><br></pre></td></tr></table></figure></p>
-<p>4、排行操作</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//增加积分,会员名，分数</span><br><span class="line">  public <span class="keyword">function</span> addScores(<span class="variable">$memeber</span>, <span class="variable">$scores</span>)&#123;</span><br><span class="line">      <span class="variable">$redis</span>=new Redis();</span><br><span class="line">      <span class="variable">$redis</span>-&gt;connect(“127.0.0.1”,6379);</span><br><span class="line">      <span class="variable">$redis</span>-&gt;auth(“123”);</span><br><span class="line">      <span class="variable">$key</span> = date(‘Ymd’);</span><br><span class="line">      <span class="built_in">return</span> <span class="variable">$redis</span>-&gt;zIncrBy(<span class="variable">$key</span>, <span class="variable">$scores</span>, <span class="variable">$memeber</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  //获取排名,<span class="variable">$date</span> 作为key</span><br><span class="line">  public <span class="keyword">function</span> getRank(<span class="variable">$date</span>, <span class="variable">$start</span>, <span class="variable">$stop</span>)&#123;</span><br><span class="line">      <span class="variable">$redis</span>=new Redis();</span><br><span class="line">      <span class="variable">$redis</span>-&gt;connect(“127.0.0.1”,6379);</span><br><span class="line">      <span class="variable">$redis</span>-&gt;auth(“123”);</span><br><span class="line">      <span class="variable">$key</span>=<span class="variable">$date</span>;</span><br><span class="line">      <span class="built_in">return</span> <span class="variable">$redis</span>-&gt;zRevRange(<span class="variable">$key</span>, <span class="variable">$start</span>, <span class="variable">$stop</span>, <span class="literal">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  实例：</span><br><span class="line">          //增加积分</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘zs’,5);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘ls’,8);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘ww’,2);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘wl’,2);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘lw’,10);</span><br><span class="line">          //获取排名</span><br><span class="line">         <span class="variable">$this</span>-&gt;getRank(<span class="variable">$key</span>,0,2);</span><br></pre></td></tr></table></figure>
-<p>5、redis判断登录和注册：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  <span class="variable">$mobile</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$hmobile</span>=”user:&#123;<span class="variable">$mobile</span>&#125;”;//此处是设置key</span><br><span class="line">  <span class="variable">$r</span>= <span class="variable">$redis</span>-&gt;exists(<span class="variable">$hmobile</span>);//是否存在</span><br><span class="line">  <span class="variable">$m</span>=<span class="variable">$redis</span>-&gt;hExists(<span class="variable">$hmobile</span>,”mobile”);//也可以判断存在 返回为bool</span><br><span class="line">  <span class="keyword">if</span> (<span class="variable">$r</span>==0)&#123;</span><br><span class="line">  <span class="variable">$mobile</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$name</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$pwd</span>=<span class="variable">$_POST</span>[‘<span class="built_in">pwd</span>’];</span><br><span class="line">  <span class="variable">$age</span>=<span class="variable">$_POST</span>[‘age’];</span><br><span class="line">  //   HSET  key field value   哈希的格式</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”name”,<span class="variable">$name</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”mobile”,<span class="variable">$mobile</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”<span class="built_in">pwd</span>”,<span class="variable">$pwd</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”age”,<span class="variable">$age</span>);</span><br><span class="line">  <span class="built_in">echo</span> “注册成功！”;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">echo</span> “存在，不可注册”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$all</span>= <span class="variable">$redis</span>-&gt;hGetAll(<span class="variable">$key</span>); //当前key的所有字段 结果 ，返回的是数组</span><br><span class="line">    dump(<span class="variable">$all</span>);</span><br><span class="line">    <span class="variable">$s</span>=<span class="variable">$redis</span>-&gt;hGet(<span class="variable">$key</span>,”mobile”);//单个字段的结果</span><br><span class="line">    dump(<span class="variable">$s</span>);</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1596,7 +1762,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1646,7 +1812,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
