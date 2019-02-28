@@ -232,6 +232,147 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/ubuntu搭建lamp开发环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2018/03/09/ubuntu搭建lamp开发环境/" itemprop="url">ubuntu搭建lamp开发环境</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T15:12:00+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.安装apache2  :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  apt-get install  apache2</span><br></pre></td></tr></table></figure></p>
+<p>2.安装php5.6或其他版本：<br>使用ppa增加源:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo add-apt-repository ppa:ondrej/php</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y php7.0 php7.0-mysql php7.0-curl php7.0-json php7.0-cgi</span><br></pre></td></tr></table></figure></p>
+<p>或<br>关于php5.4–php5.6版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo add-apt-repository ppa:ondrej/php</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install php5.6 php5.6-mcrypt php5.6-mbstring php5.6-curl php5.6-cli php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，输入 php -v 查看当前的版本<br>3.安装mysql<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get mysql-server</span><br></pre></td></tr></table></figure></p>
+<p>  至此，lamp 环境已经搭建完成。</p>
+<p>  接下来就是修改apache2目录:</p>
+<ul>
+<li>cd /etc/apache2/sites-enabled</li>
+<li>vi 000-default.conf 默认的最好不用去修改 先到本地添加几个站点。</li>
+<li>vi /etc/hosts 增加就好了。不懂就直接百度了。</li>
+</ul>
+<p>4.我们可以先配置多个站点，方便开发</p>
+<ul>
+<li>cd /etc/apache2/sites-available</li>
+<li>看到有个000-default.conf 文件，</li>
+<li>直接cp 几份到当前目录就好了，逐渐设置根目录和域名。</li>
+<li>然后把这些文件cp 到 /etc/apache2/sites-enabled 这个目录下。</li>
+<li>记住需要到 cd /etc/apache2 vi apache2.conf</li>
+<li>把里面的None全部修改成All</li>
+<li>重启apache2 :service apache2 restart</li>
+</ul>
+<p>5.到了这里，就配置成功了。欢迎分享。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/mac安装和使用supervisor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1178,7 +1319,7 @@
               
                 <a href="../../archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1191,7 +1332,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
