@@ -82,7 +82,7 @@
 <meta name="description" content="技术和分享">
 <meta property="og:type" content="website">
 <meta property="og:title" content="菜园子">
-<meta property="og:url" content="http://hexo.51cjh.top/page/2/index.html">
+<meta property="og:url" content="http://mybolg.51cjh.top/page/2/index.html">
 <meta property="og:site_name" content="菜园子">
 <meta property="og:description" content="技术和分享">
 <meta property="og:locale" content="zh-Hans">
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://hexo.51cjh.top/page/2/"/>
+  <link rel="canonical" href="http://mybolg.51cjh.top/page/2/"/>
 
 
 
@@ -232,7 +232,265 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/16/php异步调用/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/28/PHPcurl操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2018/03/28/PHPcurl操作/" itemprop="url">PHPcurl操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T15:29:00+08:00">
+                2018-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="curl-操作-可异步请求"><a href="#curl-操作-可异步请求" class="headerlink" title="curl 操作 可异步请求"></a>curl 操作 可异步请求</h5><h2 id="curl-POST-方式请求"><a href="#curl-POST-方式请求" class="headerlink" title="curl  POST-方式请求"></a>curl  POST-方式请求</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> httpPost(<span class="variable">$url</span>, <span class="variable">$data</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$ch</span> = curl_init();</span><br><span class="line">    /* 设置验证方式 */</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_HTTPHEADER, array(<span class="string">'Accept:text/plain;charset=utf-8'</span>,</span><br><span class="line">        <span class="string">'Content-Type:application/x-www-form-urlencoded'</span>, <span class="string">'charset=utf-8'</span>));</span><br><span class="line">    /* 设置返回结果为流 */</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="literal">true</span>);</span><br><span class="line">    /* 设置超时时间*/</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_TIMEOUT, 10);</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_URL, <span class="variable">$url</span>); //设置网址</span><br><span class="line">    /* 设置通信方式 */</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_POST, 1);</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_SSL_VERIFYPEER, <span class="literal">false</span>);</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_POSTFIELDS, http_build_query(<span class="variable">$data</span>));</span><br><span class="line"></span><br><span class="line">    <span class="variable">$response</span> = curl_exec(<span class="variable">$ch</span>); //执行</span><br><span class="line">    curl_close(<span class="variable">$ch</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="curl-GET-方式请求"><a href="#curl-GET-方式请求" class="headerlink" title="curl  GET-方式请求"></a>curl  GET-方式请求</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> httpGet(<span class="variable">$url</span>, <span class="variable">$data</span>)</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$data</span>) &#123;</span><br><span class="line">          <span class="variable">$url</span> .= <span class="string">'?'</span> . http_build_query(<span class="variable">$data</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable">$curlObj</span> = curl_init(); //初始化curl，</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_URL, <span class="variable">$url</span>); //设置网址</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_RETURNTRANSFER, 1); //将curl_exec的结果返回</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_SSL_VERIFYPEER, FALSE);</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_SSL_VERIFYHOST, FALSE);</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_HEADER, 0); //是否输出返回头信息</span><br><span class="line">      <span class="variable">$response</span> = curl_exec(<span class="variable">$curlObj</span>); //执行</span><br><span class="line">      curl_close(<span class="variable">$curlObj</span>); //关闭会话</span><br><span class="line">      //<span class="built_in">return</span> <span class="variable">$response</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/23/2018-3编程感悟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2018/03/23/2018-3编程感悟/" itemprop="url">2018.3编程感悟</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T13:49:55+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="编程习惯"><a href="#编程习惯" class="headerlink" title="编程习惯"></a>编程习惯</h4><ol>
+<li>git 上建议 README.md  写清楚本次项目怎么部署跑起来。</li>
+<li>一些php内置函数，sha256,base64,加密算法，在编程中多使用。</li>
+<li>在action 里面减少逻辑代码的编写，建立service层控制具体代码逻辑，model写sql</li>
+<li>其他组件？？ 日志，队列，redis</li>
+</ol>
+<h4 id="编程接受知识来源"><a href="#编程接受知识来源" class="headerlink" title="编程接受知识来源"></a>编程接受知识来源</h4><ol>
+<li>github 搜素</li>
+<li>v2ex</li>
+<li>技术分享</li>
+<li>看视频，幕课网，极客学院</li>
+</ol>
+<h4 id="学习动机"><a href="#学习动机" class="headerlink" title="学习动机"></a>学习动机</h4><ol>
+<li>私人建站博客</li>
+<li>记录数据</li>
+<li>练习技术</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">认识自身不足，缺少实战经验，编程思想感觉没有得到提升。</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/16/php异步调用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -359,7 +617,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/ubuntu搭建lamp开发环境/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/09/ubuntu搭建lamp开发环境/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -500,7 +758,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/mac安装和使用supervisor/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/09/mac安装和使用supervisor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -630,7 +888,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/redis基础操作/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/09/redis基础操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -756,7 +1014,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/网站功能点所需要的技术/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/09/网站功能点所需要的技术/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -828,17 +1086,26 @@
         
           
             <h2 id="所需要功能和技术"><a href="#所需要功能和技术" class="headerlink" title="所需要功能和技术"></a>所需要功能和技术</h2><ol>
-<li>登录注册</li>
-<li>一些查询及展示列表</li>
-<li>权限验证–token</li>
-<li>文件操作及日志</li>
-<li>sql防注入，sql查询及优化</li>
-<li>linux，nginx</li>
-<li>redis 等缓存技术</li>
-<li>服务相关，短信，邮件，消息</li>
-<li>队列服务组件</li>
-<li>docker 环境</li>
-<li>接口文档，管理开发流程</li>
+<li>登录注册 (orm)</li>
+<li>一些查询及展示列表 (bootstrap-table)</li>
+<li>权限验证–token  (jwt)</li>
+<li>文件操作及日志   (oss,elk,filebeat)</li>
+<li>sql防注入，sql查询及优化   (ORM,索引)</li>
+<li>linux，nginx </li>
+<li>redis 等缓存技术   </li>
+<li>服务相关，短信，邮件，消息  </li>
+<li>队列服务组件      (job) </li>
+<li>docker 环境     (docker-compose)</li>
+<li>接口文档，管理开发流程 （gitbook）</li>
+</ol>
+<h2 id="need-todo"><a href="#need-todo" class="headerlink" title="need todo"></a>need todo</h2><ol>
+<li>日常查问题方式转变</li>
+<li>环境配置及优化</li>
+<li>nginx 负载均衡，反向代理</li>
+<li>laravel 队列，其他队列，kafka</li>
+<li>swoole 加速php</li>
+<li>算法，推荐系统</li>
+<li>其他语言</li>
 </ol>
 
           
@@ -888,7 +1155,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/dev-app域名/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/09/dev-app域名/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -1008,7 +1275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/09/24小时制时间交叉判断/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/09/24小时制时间交叉判断/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -1131,7 +1398,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/08/搭建svn服务器/">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top../../2018/03/08/搭建svn服务器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -1275,132 +1542,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hexo.51cjh.top../../2018/03/08/搭建ss/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="../../images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="../../2018/03/08/搭建ss/" itemprop="url">搭建 ShadowSocks （VPS搭建SS）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T16:23:03+08:00">
-                2018-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="下载脚本-别人站点的"><a href="#下载脚本-别人站点的" class="headerlink" title="下载脚本 别人站点的"></a>下载脚本 别人站点的</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O ss.sh http://45.32.195.77/file/ss.sh</span><br></pre></td></tr></table></figure>
-<h1 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash ss.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置端口号并回车，直接回车是设置为1225</span></span><br><span class="line">Please enter PORT(1225 default):</span><br><span class="line"><span class="comment"># 设置密码并回车，直接回车是设置为123456</span></span><br><span class="line">Please enter PASSWORD(123456 default):</span><br><span class="line"><span class="comment"># 等待一会……就完成了（初次执行约2-5min）</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="../../"><i class="fa fa-angle-left"></i></a><a class="page-number" href="../../">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="../../"><i class="fa fa-angle-left"></i></a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="extend next" rel="next" href="../3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1446,7 +1592,7 @@
               
                 <a href="../../archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1459,7 +1605,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

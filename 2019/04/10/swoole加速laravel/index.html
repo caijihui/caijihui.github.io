@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="工具," />
+  <meta name="keywords" content="swoole,laravel," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="## 1.安装和启动supervisor 12brew install supervisorbrew services start supervisor 2.修改配置文件 123456vi /usr/local/etc/supervisord.ini##找到如下部分： 把前面的注释去掉[inet_http_server]         ; inet (TCP) server disabled b">
-<meta name="keywords" content="工具">
+<meta name="description" content="（以laravel 为例）现有轮子：  swooletw/laravel-swoole garveen/laravoole   安装  1composer require swooletw/laravel-swoole  在 config/app.php 的 providers 数组中加上  1SwooleTW\Http\LaravelServiceProvider::class,  配置文件执行">
+<meta name="keywords" content="swoole,laravel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mac安装和使用supervisor">
-<meta property="og:url" content="http://mybolg.51cjh.top/2018/03/09/mac安装和使用supervisor/index.html">
+<meta property="og:title" content="swoole加速laravel">
+<meta property="og:url" content="http://mybolg.51cjh.top/2019/04/10/swoole加速laravel/index.html">
 <meta property="og:site_name" content="菜园子">
-<meta property="og:description" content="## 1.安装和启动supervisor 12brew install supervisorbrew services start supervisor 2.修改配置文件 123456vi /usr/local/etc/supervisord.ini##找到如下部分： 把前面的注释去掉[inet_http_server]         ; inet (TCP) server disabled b">
+<meta property="og:description" content="（以laravel 为例）现有轮子：  swooletw/laravel-swoole garveen/laravoole   安装  1composer require swooletw/laravel-swoole  在 config/app.php 的 providers 数组中加上  1SwooleTW\Http\LaravelServiceProvider::class,  配置文件执行">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-09T07:11:10.000Z">
+<meta property="og:updated_time" content="2019-04-10T08:56:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mac安装和使用supervisor">
-<meta name="twitter:description" content="## 1.安装和启动supervisor 12brew install supervisorbrew services start supervisor 2.修改配置文件 123456vi /usr/local/etc/supervisord.ini##找到如下部分： 把前面的注释去掉[inet_http_server]         ; inet (TCP) server disabled b">
+<meta name="twitter:title" content="swoole加速laravel">
+<meta name="twitter:description" content="（以laravel 为例）现有轮子：  swooletw/laravel-swoole garveen/laravoole   安装  1composer require swooletw/laravel-swoole  在 config/app.php 的 providers 数组中加上  1SwooleTW\Http\LaravelServiceProvider::class,  配置文件执行">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://mybolg.51cjh.top/2018/03/09/mac安装和使用supervisor/"/>
+  <link rel="canonical" href="http://mybolg.51cjh.top/2019/04/10/swoole加速laravel/"/>
 
 
 
 
 
-  <title>mac安装和使用supervisor | 菜园子</title>
+  <title>swoole加速laravel | 菜园子</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mac安装和使用supervisor</h1>
+          <h1 class="post-title" itemprop="name headline">swoole加速laravel</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T15:02:05+08:00">
-                2018-03-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T16:44:41+08:00">
+                2019-04-10
               </time>
             
 
@@ -300,17 +300,33 @@
       
 
       
-        <p>##</p>
-<p>1.安装和启动supervisor</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install supervisor</span><br><span class="line">brew services start supervisor</span><br></pre></td></tr></table></figure>
-<p>2.修改配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/etc/supervisord.ini</span><br><span class="line"><span class="comment">##找到如下部分： 把前面的注释去掉</span></span><br><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=127.0.0.1:9001        ; ip_address:port specifier, *:port <span class="keyword">for</span> all iface</span><br><span class="line">username=user              ; default is no username (open server)</span><br><span class="line">password=123               ; default is no password (open server)</span><br></pre></td></tr></table></figure>
-<p>3.创建进程任务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir supervisor.d      </span><br><span class="line">vi  queue_mm.ini</span><br></pre></td></tr></table></figure>
-<p>  文件内容格式如下 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[program:queue_mm]    //进程名称</span><br><span class="line">process_name=%(program_name)s_%(process_num)02d</span><br><span class="line">command=php /Users/facevisa/caijihui/laravel/artisan queue:work  beanstalkd –queue=mm   // 命令</span><br><span class="line">autostart=true      //设置开启</span><br><span class="line">autorestart=true   //设置重启</span><br><span class="line">numprocs=1         //进程启动数</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/Users/facevisa/my/laravel//storage/logs/queue_mm.log //日志文件</span><br></pre></td></tr></table></figure></p>
-<p>4.重启服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart supervisor</span><br></pre></td></tr></table></figure></p>
-<p>5.测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在命令行输入   supervisorctl    </span><br><span class="line">如果出现  http://localhost:9001 refused connection   </span><br><span class="line">参考第三步，取消注释；如无提示，就ok</span><br></pre></td></tr></table></figure></p>
-<p>7、至此，就安装成功了</p>
+        <p>（以laravel 为例）<br>现有轮子：</p>
+<ul>
+<li>swooletw/laravel-swoole</li>
+<li>garveen/laravoole</li>
+</ul>
+<ol>
+<li><p>安装</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require swooletw/laravel-swoole</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 config/app.php 的 providers 数组中加上</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SwooleTW\Http\LaravelServiceProvider::class,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件执行命令或在config文件夹创建swoole_http.php</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan vendor:publish --provider=<span class="string">"SwooleTW\Http\HttpServiceProvider"</span></span><br></pre></td></tr></table></figure>
+<p> 去 config/swoole_http.php 中配置信息</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'server'</span> =&gt; [</span><br><span class="line">        <span class="string">'host'</span> =&gt; env(<span class="string">'SWOOLE_HTTP_HOST'</span>, <span class="string">'0.0.0.0'</span>),<span class="comment">//监听任意ip</span></span><br><span class="line">        <span class="string">'port'</span> =&gt; env(<span class="string">'SWOOLE_HTTP_PORT'</span>, <span class="string">'1215'</span>),</span><br><span class="line">        <span class="string">'options'</span> =&gt; [</span><br><span class="line">            <span class="string">'pid_file'</span> =&gt; env(<span class="string">'SWOOLE_HTTP_PID_FILE'</span>, base_path(<span class="string">'storage/logs/swoole_http.pid'</span>)),</span><br><span class="line">            <span class="string">'log_file'</span> =&gt; env(<span class="string">'SWOOLE_HTTP_LOG_FILE'</span>, base_path(<span class="string">'storage/logs/swoole_http.log'</span>)),</span><br><span class="line">            <span class="string">'daemonize'</span> =&gt; env(<span class="string">'SWOOLE_HTTP_DAEMONIZE'</span>, <span class="number">1</span>),<span class="comment">//1-程序将转入后台作为守护进程运行</span></span><br><span class="line">        ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动swoole HTTP服务</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 启动</span></span><br><span class="line">php artisan swoole:http start</span><br><span class="line">    </span><br><span class="line"><span class="comment">## 重启    </span></span><br><span class="line">php artisan swoole:http restart</span><br></pre></td></tr></table></figure>
+<p> 打开 <a href="http://127.0.0.1:1215" target="_blank" rel="noopener">http://127.0.0.1:1215</a>，即可访问应用</p>
+<p> <code>不支持热启动</code>，每次需要重启。</p>
+</li>
+<li><p>nginx 配置,支持热启动</p>
+</li>
+</ol>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> stu.com;</span><br><span class="line">    <span class="attribute">root</span> /path/app/ublic;</span><br><span class="line">    <span class="attribute">index</span> index.php;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> = /index.php &#123;</span><br><span class="line">        <span class="comment"># Ensure that there is no such file named "not_exists"</span></span><br><span class="line">        <span class="comment"># in your "public" directory.</span></span><br><span class="line">        <span class="attribute">try_files</span> /not_exists <span class="variable">@swoole</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@swoole</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> <span class="variable">@swoole</span> &#123;</span><br><span class="line">        <span class="attribute">set</span> <span class="variable">$suffix</span> <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">if</span> (<span class="variable">$uri</span> = /index.php) &#123;</span><br><span class="line">            <span class="attribute">set</span> <span class="variable">$suffix</span> <span class="string">"/"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> SERVER_PORT <span class="variable">$server_port</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> REMOTE_ADDR <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># IF https</span></span><br><span class="line">        <span class="comment"># proxy_set_header HTTPS "on";</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:1215<span class="variable">$suffix</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：<a href="https://segmentfault.com/a/1190000017553188" target="_blank" rel="noopener">https://segmentfault.com/a/1190000017553188</a></p>
 
       
     </div>
@@ -328,7 +344,9 @@
       
         <div class="post-tags">
           
-            <a href="../../../../tags/工具/" rel="tag"># 工具</a>
+            <a href="../../../../tags/swoole/" rel="tag"># swoole</a>
+          
+            <a href="../../../../tags/laravel/" rel="tag"># laravel</a>
           
         </div>
       
@@ -341,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="../redis基础操作/" rel="next" title="redis基础操作">
-                <i class="fa fa-chevron-left"></i> redis基础操作
+              <a href="../../08/mysql/" rel="next" title="mysql">
+                <i class="fa fa-chevron-left"></i> mysql
               </a>
             
           </div>
@@ -350,10 +368,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="../ubuntu搭建lamp开发环境/" rel="prev" title="ubuntu搭建lamp开发环境">
-                ubuntu搭建lamp开发环境 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
