@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="innodb和myisam 区别区别 |    Innodb    | Myisam   --- | -------- | -----  事务    |  安全    | 非安全  锁  |  行级    | 表级 效率 |    低 |    高 索引    | 聚集索引 | 非聚集索引 外键    | 支持 |    不支持 使用环境    | 需要事务，大量增，改    | 多查询，不需要事">
+<meta name="description" content="Mysql 创建用户和分配权限  创建用户   1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  username - 你将创建的用户名, host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如">
 <meta name="keywords" content="mysql,索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql">
 <meta property="og:url" content="http://mybolg.51cjh.top/2019/04/08/mysql/index.html">
 <meta property="og:site_name" content="菜园子">
-<meta property="og:description" content="innodb和myisam 区别区别 |    Innodb    | Myisam   --- | -------- | -----  事务    |  安全    | 非安全  锁  |  行级    | 表级 效率 |    低 |    高 索引    | 聚集索引 | 非聚集索引 外键    | 支持 |    不支持 使用环境    | 需要事务，大量增，改    | 多查询，不需要事">
+<meta property="og:description" content="Mysql 创建用户和分配权限  创建用户   1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  username - 你将创建的用户名, host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-08T08:20:32.000Z">
+<meta property="og:updated_time" content="2019-05-06T08:34:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql">
-<meta name="twitter:description" content="innodb和myisam 区别区别 |    Innodb    | Myisam   --- | -------- | -----  事务    |  安全    | 非安全  锁  |  行级    | 表级 效率 |    低 |    高 索引    | 聚集索引 | 非聚集索引 外键    | 支持 |    不支持 使用环境    | 需要事务，大量增，改    | 多查询，不需要事">
+<meta name="twitter:description" content="Mysql 创建用户和分配权限  创建用户   1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  username - 你将创建的用户名, host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如">
 
 
 
@@ -300,14 +300,38 @@
       
 
       
-        <h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>区别 |    Innodb    | Myisam 
- --- | -------- | -----
- 事务    |  安全    | 非安全
- 锁  |  行级    | 表级
-效率 |    低 |    高
-索引    | 聚集索引 | 非聚集索引
-外键    | 支持 |    不支持
-使用环境    | 需要事务，大量增，改    | 多查询，不需要事务
+        <h3 id="Mysql-创建用户和分配权限"><a href="#Mysql-创建用户和分配权限" class="headerlink" title="Mysql 创建用户和分配权限"></a>Mysql 创建用户和分配权限</h3><blockquote>
+<ol>
+<li>创建用户</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;username&apos;@&apos;host&apos; IDENTIFIED BY &apos;password&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>username - 你将创建的用户名,</li>
+<li>host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录;也可以指定某台机器可以远程登录;</li>
+<li>password - 该用户的登陆密码,密码可以为空,如果为空则该用户可以不需要密码登陆服务器。</li>
+</ul>
+<pre><code>如果遇到 ERROR 1819 (HY000): Your password does not satisfy the current policy requirements  ,是由于mysql 密码安全策略，执行下方语句即可
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global validate_password_policy=0;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>分配权限</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT (all,select,insert,update) privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>privileges 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;<br>databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示, 如 </em>.*.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 查看所有用户</span><br><span class="line">select * from mysql.user；</span><br><span class="line">##  创建拥有全部权限的用户</span><br><span class="line">GRANT all privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建拥有查看权限的用户</span><br><span class="line">GRANT select privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建只拥有查看 test 数据库 user 表数据的 权限的用户</span><br><span class="line">GRANT select privileges ON test.user TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line"></span><br><span class="line">## 执行刷新</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>| 区别    |     Innodb    | Myisam |
+| :----: | :------: | :----: |
+| 事务    |  安全    | 非安全 |
+|  锁  |  行级    | 表级 |
+| 效率 |    低 |    高 |
+| 索引    | 聚集索引 | 非聚集索引 |
+| 外键    | 支持 |    不支持 |
+| 使用环境    | 需要事务，大量增，改    | 多查询，不需要事务|
 </code></pre><h4 id="聚集索引："><a href="#聚集索引：" class="headerlink" title="聚集索引："></a>聚集索引：</h4><ol>
 <li>属于Innodb。</li>
 <li>按照主键B+树的排列方式存放，子节点存放的就是数据。（如果没有主键，以第一列为聚集索引）</li>
@@ -440,7 +464,7 @@
               
                 <a href="../../../../archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -453,7 +477,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -486,7 +510,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#innodb和myisam-区别"><span class="nav-number">1.</span> <span class="nav-text">innodb和myisam 区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集索引："><span class="nav-number">2.</span> <span class="nav-text">聚集索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非聚集索引："><span class="nav-number">3.</span> <span class="nav-text">非聚集索引：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql-创建用户和分配权限"><span class="nav-number">1.</span> <span class="nav-text">Mysql 创建用户和分配权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#example"><span class="nav-number">2.</span> <span class="nav-text">example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#innodb和myisam-区别"><span class="nav-number">2.1.</span> <span class="nav-text">innodb和myisam 区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集索引："><span class="nav-number">2.2.</span> <span class="nav-text">聚集索引：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非聚集索引："><span class="nav-number">2.3.</span> <span class="nav-text">非聚集索引：</span></a></li></ol></li></ol></div>
             
 
           </div>

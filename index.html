@@ -449,14 +449,38 @@
       
         
           
-            <h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>区别 |    Innodb    | Myisam 
- --- | -------- | -----
- 事务    |  安全    | 非安全
- 锁  |  行级    | 表级
-效率 |    低 |    高
-索引    | 聚集索引 | 非聚集索引
-外键    | 支持 |    不支持
-使用环境    | 需要事务，大量增，改    | 多查询，不需要事务
+            <h3 id="Mysql-创建用户和分配权限"><a href="#Mysql-创建用户和分配权限" class="headerlink" title="Mysql 创建用户和分配权限"></a>Mysql 创建用户和分配权限</h3><blockquote>
+<ol>
+<li>创建用户</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;username&apos;@&apos;host&apos; IDENTIFIED BY &apos;password&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>username - 你将创建的用户名,</li>
+<li>host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录;也可以指定某台机器可以远程登录;</li>
+<li>password - 该用户的登陆密码,密码可以为空,如果为空则该用户可以不需要密码登陆服务器。</li>
+</ul>
+<pre><code>如果遇到 ERROR 1819 (HY000): Your password does not satisfy the current policy requirements  ,是由于mysql 密码安全策略，执行下方语句即可
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global validate_password_policy=0;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>分配权限</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT (all,select,insert,update) privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>privileges 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;<br>databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示, 如 </em>.*.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 查看所有用户</span><br><span class="line">select * from mysql.user；</span><br><span class="line">##  创建拥有全部权限的用户</span><br><span class="line">GRANT all privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建拥有查看权限的用户</span><br><span class="line">GRANT select privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建只拥有查看 test 数据库 user 表数据的 权限的用户</span><br><span class="line">GRANT select privileges ON test.user TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line"></span><br><span class="line">## 执行刷新</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>| 区别    |     Innodb    | Myisam |
+| :----: | :------: | :----: |
+| 事务    |  安全    | 非安全 |
+|  锁  |  行级    | 表级 |
+| 效率 |    低 |    高 |
+| 索引    | 聚集索引 | 非聚集索引 |
+| 外键    | 支持 |    不支持 |
+| 使用环境    | 需要事务，大量增，改    | 多查询，不需要事务|
 </code></pre><h4 id="聚集索引："><a href="#聚集索引：" class="headerlink" title="聚集索引："></a>聚集索引：</h4><ol>
 <li>属于Innodb。</li>
 <li>按照主键B+树的排列方式存放，子节点存放的就是数据。（如果没有主键，以第一列为聚集索引）</li>
@@ -933,148 +957,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top2018/08/21/mysql用户创建和分配权限/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="2018/08/21/mysql用户创建和分配权限/" itemprop="url">mysql用户创建和分配权限</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-21T16:31:38+08:00">
-                2018-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Mysql-创建用户和分配权限"><a href="#Mysql-创建用户和分配权限" class="headerlink" title="Mysql 创建用户和分配权限"></a>Mysql 创建用户和分配权限</h3><blockquote>
-<ol>
-<li>创建用户</li>
-</ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;username&apos;@&apos;host&apos; IDENTIFIED BY &apos;password&apos;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>username - 你将创建的用户名,</li>
-<li>host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录;也可以指定某台机器可以远程登录;</li>
-<li>password - 该用户的登陆密码,密码可以为空,如果为空则该用户可以不需要密码登陆服务器。</li>
-</ul>
-<pre><code>如果遇到 ERROR 1819 (HY000): Your password does not satisfy the current policy requirements  ,是由于mysql 密码安全策略，执行下方语句即可
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global validate_password_policy=0;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ol>
-<li>分配权限</li>
-</ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT (all,select,insert,update) privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>privileges 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;<br>databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示, 如 </em>.*.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 查看所有用户</span><br><span class="line">select * from mysql.user；</span><br><span class="line">##  创建拥有全部权限的用户</span><br><span class="line">GRANT all privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建拥有查看权限的用户</span><br><span class="line">GRANT select privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建只拥有查看 test 数据库 user 表数据的 权限的用户</span><br><span class="line">GRANT select privileges ON test.user TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line"></span><br><span class="line">## 执行刷新</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top2018/04/28/docker搭建php7 + nginx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1346,143 +1228,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top2018/03/23/2018-3编程感悟/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="2018/03/23/2018-3编程感悟/" itemprop="url">2018.3编程感悟</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T13:49:55+08:00">
-                2018-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="编程习惯"><a href="#编程习惯" class="headerlink" title="编程习惯"></a>编程习惯</h4><ol>
-<li>git 上建议 README.md  写清楚本次项目怎么部署跑起来。</li>
-<li>一些php内置函数，sha256,base64,加密算法，在编程中多使用。</li>
-<li>在action 里面减少逻辑代码的编写，建立service层控制具体代码逻辑，model写sql</li>
-<li>其他组件？？ 日志，队列，redis</li>
-</ol>
-<h4 id="编程接受知识来源"><a href="#编程接受知识来源" class="headerlink" title="编程接受知识来源"></a>编程接受知识来源</h4><ol>
-<li>github 搜素</li>
-<li>v2ex</li>
-<li>技术分享</li>
-<li>看视频，幕课网，极客学院</li>
-</ol>
-<h4 id="学习动机"><a href="#学习动机" class="headerlink" title="学习动机"></a>学习动机</h4><ol>
-<li>私人建站博客</li>
-<li>记录数据</li>
-<li>练习技术</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">认识自身不足，缺少实战经验，编程思想感觉没有得到提升。</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top2018/03/09/ubuntu搭建lamp开发环境/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1611,6 +1356,262 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top2018/03/09/mac安装和使用supervisor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="2018/03/09/mac安装和使用supervisor/" itemprop="url">mac安装和使用supervisor</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T15:02:05+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##</p>
+<p>1.安装和启动supervisor</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install supervisor</span><br><span class="line">brew services start supervisor</span><br></pre></td></tr></table></figure>
+<p>2.修改配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/etc/supervisord.ini</span><br><span class="line"><span class="comment">##找到如下部分： 把前面的注释去掉</span></span><br><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=127.0.0.1:9001        ; ip_address:port specifier, *:port <span class="keyword">for</span> all iface</span><br><span class="line">username=user              ; default is no username (open server)</span><br><span class="line">password=123               ; default is no password (open server)</span><br></pre></td></tr></table></figure>
+<p>3.创建进程任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir supervisor.d      </span><br><span class="line">vi  queue_mm.ini</span><br></pre></td></tr></table></figure>
+<p>  文件内容格式如下 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[program:queue_mm]    //进程名称</span><br><span class="line">process_name=%(program_name)s_%(process_num)02d</span><br><span class="line">command=php /Users/facevisa/caijihui/laravel/artisan queue:work  beanstalkd –queue=mm   // 命令</span><br><span class="line">autostart=true      //设置开启</span><br><span class="line">autorestart=true   //设置重启</span><br><span class="line">numprocs=1         //进程启动数</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/Users/facevisa/my/laravel//storage/logs/queue_mm.log //日志文件</span><br></pre></td></tr></table></figure></p>
+<p>4.重启服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart supervisor</span><br></pre></td></tr></table></figure></p>
+<p>5.测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在命令行输入   supervisorctl    </span><br><span class="line">如果出现  http://localhost:9001 refused connection   </span><br><span class="line">参考第三步，取消注释；如无提示，就ok</span><br></pre></td></tr></table></figure></p>
+<p>7、至此，就安装成功了</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mybolg.51cjh.top2018/03/09/redis基础操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="2018/03/09/redis基础操作/" itemprop="url">redis基础操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T13:48:48+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1、redis key-value<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>-&gt;<span class="built_in">set</span>(<span class="variable">$key</span>,<span class="variable">$value</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;get(<span class="variable">$key</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;exists(<span class="variable">$key</span>);</span><br></pre></td></tr></table></figure></p>
+<p>2、redis订阅发布： —未实现，阻塞<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>=new Redis();</span><br><span class="line"><span class="variable">$redis</span>-&gt;connect(“127.0.0.1”,6379);</span><br><span class="line"><span class="variable">$redis</span>-&gt;auth(“123”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;publish(‘test.22’,”nihao”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;publish(‘<span class="built_in">test</span>’,”nihao”);</span><br><span class="line"><span class="variable">$channelName</span>=”<span class="built_in">test</span>”;</span><br><span class="line"><span class="variable">$redis</span>-&gt;subscribe(array(<span class="variable">$channelName</span>), ‘callback’);</span><br><span class="line"><span class="keyword">function</span> callback(<span class="variable">$redis</span>,<span class="variable">$channelName</span>,<span class="variable">$message</span>)&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$message</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、redis 先进先出，队列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “3”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “2”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;Rpop(‘<span class="built_in">test</span>’);</span><br><span class="line"><span class="variable">$arrList</span> = <span class="variable">$redis</span>-&gt;lrange(“<span class="built_in">test</span>”, 0 ,2);</span><br><span class="line">print_r(<span class="variable">$arrList</span>);</span><br></pre></td></tr></table></figure></p>
+<p>4、排行操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//增加积分,会员名，分数</span><br><span class="line">  public <span class="keyword">function</span> addScores(<span class="variable">$memeber</span>, <span class="variable">$scores</span>)&#123;</span><br><span class="line">      <span class="variable">$redis</span>=new Redis();</span><br><span class="line">      <span class="variable">$redis</span>-&gt;connect(“127.0.0.1”,6379);</span><br><span class="line">      <span class="variable">$redis</span>-&gt;auth(“123”);</span><br><span class="line">      <span class="variable">$key</span> = date(‘Ymd’);</span><br><span class="line">      <span class="built_in">return</span> <span class="variable">$redis</span>-&gt;zIncrBy(<span class="variable">$key</span>, <span class="variable">$scores</span>, <span class="variable">$memeber</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  //获取排名,<span class="variable">$date</span> 作为key</span><br><span class="line">  public <span class="keyword">function</span> getRank(<span class="variable">$date</span>, <span class="variable">$start</span>, <span class="variable">$stop</span>)&#123;</span><br><span class="line">      <span class="variable">$redis</span>=new Redis();</span><br><span class="line">      <span class="variable">$redis</span>-&gt;connect(“127.0.0.1”,6379);</span><br><span class="line">      <span class="variable">$redis</span>-&gt;auth(“123”);</span><br><span class="line">      <span class="variable">$key</span>=<span class="variable">$date</span>;</span><br><span class="line">      <span class="built_in">return</span> <span class="variable">$redis</span>-&gt;zRevRange(<span class="variable">$key</span>, <span class="variable">$start</span>, <span class="variable">$stop</span>, <span class="literal">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  实例：</span><br><span class="line">          //增加积分</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘zs’,5);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘ls’,8);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘ww’,2);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘wl’,2);</span><br><span class="line">          <span class="variable">$this</span>-&gt;addScores(‘lw’,10);</span><br><span class="line">          //获取排名</span><br><span class="line">         <span class="variable">$this</span>-&gt;getRank(<span class="variable">$key</span>,0,2);</span><br></pre></td></tr></table></figure>
+<p>5、redis判断登录和注册：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  <span class="variable">$mobile</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$hmobile</span>=”user:&#123;<span class="variable">$mobile</span>&#125;”;//此处是设置key</span><br><span class="line">  <span class="variable">$r</span>= <span class="variable">$redis</span>-&gt;exists(<span class="variable">$hmobile</span>);//是否存在</span><br><span class="line">  <span class="variable">$m</span>=<span class="variable">$redis</span>-&gt;hExists(<span class="variable">$hmobile</span>,”mobile”);//也可以判断存在 返回为bool</span><br><span class="line">  <span class="keyword">if</span> (<span class="variable">$r</span>==0)&#123;</span><br><span class="line">  <span class="variable">$mobile</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$name</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$pwd</span>=<span class="variable">$_POST</span>[‘<span class="built_in">pwd</span>’];</span><br><span class="line">  <span class="variable">$age</span>=<span class="variable">$_POST</span>[‘age’];</span><br><span class="line">  //   HSET  key field value   哈希的格式</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”name”,<span class="variable">$name</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”mobile”,<span class="variable">$mobile</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”<span class="built_in">pwd</span>”,<span class="variable">$pwd</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;hSet(<span class="variable">$hmobile</span>,”age”,<span class="variable">$age</span>);</span><br><span class="line">  <span class="built_in">echo</span> “注册成功！”;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">echo</span> “存在，不可注册”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$all</span>= <span class="variable">$redis</span>-&gt;hGetAll(<span class="variable">$key</span>); //当前key的所有字段 结果 ，返回的是数组</span><br><span class="line">    dump(<span class="variable">$all</span>);</span><br><span class="line">    <span class="variable">$s</span>=<span class="variable">$redis</span>-&gt;hGet(<span class="variable">$key</span>,”mobile”);//单个字段的结果</span><br><span class="line">    dump(<span class="variable">$s</span>);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1661,7 +1662,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1674,7 +1675,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
