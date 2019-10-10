@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="菜园子">
 <meta property="og:description" content="Mysql 创建用户和分配权限  创建用户   1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  username - 你将创建的用户名, host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-06T08:34:23.000Z">
+<meta property="og:updated_time" content="2019-10-10T01:36:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql">
 <meta name="twitter:description" content="Mysql 创建用户和分配权限  创建用户   1CREATE USER &amp;apos;username&amp;apos;@&amp;apos;host&amp;apos; IDENTIFIED BY &amp;apos;password&amp;apos;;  username - 你将创建的用户名, host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如">
@@ -324,14 +324,14 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
 <h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 查看所有用户</span><br><span class="line">select * from mysql.user；</span><br><span class="line">##  创建拥有全部权限的用户</span><br><span class="line">GRANT all privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建拥有查看权限的用户</span><br><span class="line">GRANT select privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建只拥有查看 test 数据库 user 表数据的 权限的用户</span><br><span class="line">GRANT select privileges ON test.user TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line"></span><br><span class="line">## 执行刷新</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-<h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>| 区别    |     Innodb    | Myisam |
+<h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>| 区别  | Innodb    | Myisam |
 | :----: | :------: | :----: |
 | 事务    |  安全    | 非安全 |
 |  锁  |  行级    | 表级 |
-| 效率 |    低 |    高 |
+| 效率  | 低 |    高 |
 | 索引    | 聚集索引 | 非聚集索引 |
 | 外键    | 支持 |    不支持 |
-| 使用环境    | 需要事务，大量增，改    | 多查询，不需要事务|
+| 使用环境 | 需要事务，大量增，改    | 多查询，不需要事务|
 </code></pre><h4 id="聚集索引："><a href="#聚集索引：" class="headerlink" title="聚集索引："></a>聚集索引：</h4><ol>
 <li>属于Innodb。</li>
 <li>按照主键B+树的排列方式存放，子节点存放的就是数据。（如果没有主键，以第一列为聚集索引）</li>
@@ -464,7 +464,7 @@
               
                 <a href="../../../../archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
