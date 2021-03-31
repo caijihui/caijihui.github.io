@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>基本命令总结 | 菜园子</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="总结部分服务命令 linux 权限赋予123456adduser testpasswd testusermod -g root testvim /etc/sudoers -&amp;gt;添加deployer   ALL=(ALL)    ALL 配置全局命令(如 php)12345678910111213vim /etc/profile## 在最底下添加相应的命令export PATH=$PATH:/u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本命令总结">
+<meta property="og:url" content="https://caijihui.github.io/2019/06/28/2019-06-28基本命令总结/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="总结部分服务命令 linux 权限赋予123456adduser testpasswd testusermod -g root testvim /etc/sudoers -&amp;gt;添加deployer   ALL=(ALL)    ALL 配置全局命令(如 php)12345678910111213vim /etc/profile## 在最底下添加相应的命令export PATH=$PATH:/u">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-16T06:01:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本命令总结">
+<meta name="twitter:description" content="总结部分服务命令 linux 权限赋予123456adduser testpasswd testusermod -g root testvim /etc/sudoers -&amp;gt;添加deployer   ALL=(ALL)    ALL 配置全局命令(如 php)12345678910111213vim /etc/profile## 在最底下添加相应的命令export PATH=$PATH:/u">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="菜园子" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../../../css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">菜园子</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">开发经历</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://caijihui.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2019-06-28基本命令总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2019-06-28T09:38:31.000Z" itemprop="datePublished">2019-06-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基本命令总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>总结部分服务命令</code></p>
+<h3 id="linux-权限赋予"><a href="#linux-权限赋予" class="headerlink" title="linux 权限赋予"></a>linux 权限赋予</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adduser test</span><br><span class="line">passwd test</span><br><span class="line">usermod -g root test</span><br><span class="line">vim /etc/sudoers -&gt;</span><br><span class="line">添加</span><br><span class="line">deployer   ALL=(ALL)    ALL</span><br></pre></td></tr></table></figure>
+<h3 id="配置全局命令-如-php"><a href="#配置全局命令-如-php" class="headerlink" title="配置全局命令(如 php)"></a>配置全局命令(如 php)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 在最底下添加相应的命令</span></span></span><br><span class="line">export PATH=$PATH:/usr/local/php/bin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 保存后</span></span></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">然后就 可以使用相关命令</span><br><span class="line"></span><br><span class="line">php -v</span><br></pre></td></tr></table></figure>
+<h3 id="filebeat-解析日志设置索引"><a href="#filebeat-解析日志设置索引" class="headerlink" title="filebeat 解析日志设置索引"></a>filebeat 解析日志设置索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 配置日志源 ，自定义需要区分的字段</span><br><span class="line">filebeat.prospectors:</span><br><span class="line">    </span><br><span class="line">- type: log</span><br><span class="line">  enabled: true</span><br><span class="line">  paths:</span><br><span class="line">          - /var/logs/*.log</span><br><span class="line">  log_type: caiyuanzi</span><br><span class="line">  json.keys_under_root: true</span><br><span class="line">  json.overwrite_keys: true</span><br><span class="line">  fields:</span><br><span class="line">     from: caiyuanzi</span><br><span class="line">  fields_under_root: true</span><br><span class="line"></span><br><span class="line">## 输出并自定义设置索引</span><br><span class="line">output.elasticsearch:</span><br><span class="line">   hosts: [&quot;localhost:9200&quot;]</span><br><span class="line">   index: &quot;test_web-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">   indices:</span><br><span class="line"></span><br><span class="line">     - index: &quot;tcaiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;caiy&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;caiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          from: &quot;caiyuanzi&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;api-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;api&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;unnormal-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;异常&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><ul>
+<li>配置    /etc</li>
+<li>命令    /usr/bin</li>
+<li>运行服务 /var/run</li>
+</ul>
+<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t          ## 测试配置是否正确</span><br><span class="line">sudo nginx -s stop     ## 关闭</span><br><span class="line">sudo nginx -s reload   ## 重启</span><br></pre></td></tr></table></figure>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><blockquote>
+<ol>
+<li>php.ini 配置</li>
+<li>php-fpm.conf 配置</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo killall  php-fpm</span><br><span class="line">sudo php-fpm</span><br><span class="line"></span><br><span class="line">kill  -USR2    php平滑重启</span><br></pre></td></tr></table></figure>
+<h3 id="supervisor-服务监控者"><a href="#supervisor-服务监控者" class="headerlink" title="supervisor (服务监控者)"></a>supervisor (服务监控者)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo supervisorctl status   </span><br><span class="line">sudo supervisorctl reload   </span><br><span class="line">sudo supervisorctl start name</span><br></pre></td></tr></table></figure>
+<h3 id="gitlab-runner"><a href="#gitlab-runner" class="headerlink" title="gitlab-runner"></a>gitlab-runner</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  ## 安装</span><br><span class="line">  ## 注册 gitlab-runenr 服务</span><br><span class="line">  gitlab-runner register </span><br><span class="line">  </span><br><span class="line">  eg: gitlab-runner register --name my-runner --url http://gitlab.example.com --registration-token my-registration-token</span><br><span class="line"></span><br><span class="line">  ## 设置 run 运行配置  服务 日志 运行日志</span><br><span class="line">gitlab-runner  run --working-directory /home/deployer --config  /etc/gitlab-runner/config.toml --service gitlab-runner --syslog --user deployer</span><br><span class="line"></span><br><span class="line">## 注销的方法</span><br><span class="line">gitlab-runner unregister --name [name]  注销</span><br><span class="line">gitlab-runner unregister --url [url] --token [token]  注销</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gitlab-runner restart </span><br><span class="line">gitlab-runner status</span><br></pre></td></tr></table></figure>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br><span class="line">service mysqld stop</span><br><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mac 本地主从</span><br></pre></td></tr></table></figure>
+<h3 id="docker-基本服务配置"><a href="#docker-基本服务配置" class="headerlink" title="docker 基本服务配置"></a>docker 基本服务配置</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## redis 6380</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> -p -d 6380:6379 --name redis6380  -v /application/system/redis6380/redis.conf:/etc/redis/redis.conf  -v /application/system/redis6380/data:/data   a4fe14ff1981  redis-server /etc/redis/redis.conf --appendonly yes</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">## mysql 3307</span></span></span><br><span class="line"><span class="bash">docker run --name mysql3307  -d -p 3307:3306 -eMYSQL_ROOT_PASSWORD=cjh123456 -v /application/system/mysql3307/data:/var/lib/mysql -v /application/system/mysql3307/my.cnf:/etc/mysql/my.cnf  7faa3c53e6d6</span></span><br></pre></td></tr></table></figure>
+<h3 id="清理磁盘"><a href="#清理磁盘" class="headerlink" title="清理磁盘"></a>清理磁盘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  ## 查看</span><br><span class="line">du -sh *</span><br><span class="line">  ## 列出目录占用空间</span><br><span class="line">ls |grep -v proc |xargs du -sh |sort -h</span><br></pre></td></tr></table></figure>
+<h3 id="phpstorm-常用"><a href="#phpstorm-常用" class="headerlink" title="phpstorm 常用"></a>phpstorm 常用</h3><ul>
+<li>ctrl+shift+n 搜索文件</li>
+<li>ctrl+f       本页面搜索</li>
+<li>ctrl+shift+f    全文件搜索</li>
+<li>Shift + F2      可以快速跳到错误行或无用行</li>
+<li>ctrl + 鼠标选中   批量增减</li>
+<li>alt + l     跳行</li>
+</ul>
+<h3 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h3><ul>
+<li>Alt+Shift+下键（上下左右的下）</li>
+<li>Alt+Shift+上键（上下左右的上)</li>
+<li>ctrl+shift+k  删除当前行</li>
+<li>shift+ 上下键 选中行</li>
+</ul>
+<h3 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h3><p>一般站点的 docs 为 <code>gitbook</code> 生成的。</p>
+<p><code>gitbook</code>  请查看 <a href="https://docs.gitbook.com/" target="_blank" rel="noopener">参考文档</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://caijihui.github.io/2019/06/28/2019-06-28基本命令总结/" data-id="ckmx7k4y9000irmvb0s6q0yp6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../07/30/2019-07-30类self和static区分/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          类 self和static区分
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../04/10/2019-04-10swoole加速laravel/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">swoole加速laravel</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/care/">care</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/composer/">composer</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/docker-compose/">docker-compose</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/laravel/">laravel</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/lnmp/">lnmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pdf/">pdf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/ss/">ss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/swoole/">swoole</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vps/">vps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/索引/">索引</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/PHP/" style="font-size: 10px;">PHP</a> <a href="../../../../tags/care/" style="font-size: 10px;">care</a> <a href="../../../../tags/composer/" style="font-size: 10px;">composer</a> <a href="../../../../tags/docker/" style="font-size: 15px;">docker</a> <a href="../../../../tags/docker-compose/" style="font-size: 10px;">docker-compose</a> <a href="../../../../tags/image/" style="font-size: 10px;">image</a> <a href="../../../../tags/laravel/" style="font-size: 15px;">laravel</a> <a href="../../../../tags/lnmp/" style="font-size: 10px;">lnmp</a> <a href="../../../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../../../tags/nginx/" style="font-size: 10px;">nginx</a> <a href="../../../../tags/pdf/" style="font-size: 10px;">pdf</a> <a href="../../../../tags/redis/" style="font-size: 10px;">redis</a> <a href="../../../../tags/ss/" style="font-size: 10px;">ss</a> <a href="../../../../tags/swoole/" style="font-size: 10px;">swoole</a> <a href="../../../../tags/vps/" style="font-size: 10px;">vps</a> <a href="../../../../tags/学习/" style="font-size: 10px;">学习</a> <a href="../../../../tags/工具/" style="font-size: 20px;">工具</a> <a href="../../../../tags/技术/" style="font-size: 10px;">技术</a> <a href="../../../../tags/索引/" style="font-size: 10px;">索引</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2021/03/31/新机器搭建通用环境/">新机器搭建通用使用环境</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/24/ExportExcel/">ExportExcel</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/17/Linux常用命令/">Linux常用命令</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/11/Laravel特性/">Laravel特性</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/06/PHP7为什么比PHP5快/">PHP执行原理和为什么PHP7比PHP5快</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Cai JiHui<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

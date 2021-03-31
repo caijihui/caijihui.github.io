@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>mac安装和使用supervisor | 菜园子</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="## 命令  sudo supervisorctl status   查看状态 sudo supervisorctl reload   重启  1.安装和启动supervisor 12brew install supervisorbrew services start supervisor 2.修改配置文件 123456vi /usr/local/etc/supervisord.ini##找到如下">
+<meta name="keywords" content="工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac安装和使用supervisor">
+<meta property="og:url" content="https://caijihui.github.io/2018/03/09/2018-03-09mac安装和使用supervisor/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="## 命令  sudo supervisorctl status   查看状态 sudo supervisorctl reload   重启  1.安装和启动supervisor 12brew install supervisorbrew services start supervisor 2.修改配置文件 123456vi /usr/local/etc/supervisord.ini##找到如下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-23T10:18:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mac安装和使用supervisor">
+<meta name="twitter:description" content="## 命令  sudo supervisorctl status   查看状态 sudo supervisorctl reload   重启  1.安装和启动supervisor 12brew install supervisorbrew services start supervisor 2.修改配置文件 123456vi /usr/local/etc/supervisord.ini##找到如下">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="菜园子" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../../../css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">菜园子</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">开发经历</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://caijihui.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-03-09mac安装和使用supervisor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2018-03-09T07:02:05.000Z" itemprop="datePublished">2018-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mac安装和使用supervisor
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##</p>
+<p>命令</p>
+<ul>
+<li>sudo supervisorctl status   查看状态</li>
+<li>sudo supervisorctl reload   重启</li>
+</ul>
+<p>1.安装和启动supervisor</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install supervisor</span><br><span class="line">brew services start supervisor</span><br></pre></td></tr></table></figure>
+<p>2.修改配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/etc/supervisord.ini</span><br><span class="line"><span class="comment">##找到如下部分： 把前面的注释去掉</span></span><br><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=127.0.0.1:9001        ; ip_address:port specifier, *:port <span class="keyword">for</span> all iface</span><br><span class="line">username=user              ; default is no username (open server)</span><br><span class="line">password=123               ; default is no password (open server)</span><br></pre></td></tr></table></figure>
+<p>3.创建进程任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir supervisor.d      </span><br><span class="line">vi  queue_mm.ini</span><br></pre></td></tr></table></figure>
+<p>  文件内容格式如下 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[program:queue_mm]    //进程名称</span><br><span class="line">process_name=%(program_name)s_%(process_num)02d</span><br><span class="line">command=php /Users/facevisa/caijihui/laravel/artisan queue:work  beanstalkd –queue=mm   // 命令</span><br><span class="line">autostart=true      //设置开启</span><br><span class="line">autorestart=true   //设置重启</span><br><span class="line">numprocs=1         //进程启动数</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/Users/facevisa/my/laravel//storage/logs/queue_mm.log //日志文件</span><br></pre></td></tr></table></figure></p>
+<p>4.重启服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart supervisor</span><br></pre></td></tr></table></figure></p>
+<p>5.测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在命令行输入   supervisorctl    </span><br><span class="line">如果出现  http://localhost:9001 refused connection   </span><br><span class="line">参考第三步，取消注释；如无提示，就ok</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>至此，就安装成功了</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://caijihui.github.io/2018/03/09/2018-03-09mac安装和使用supervisor/" data-id="ckmx7k4xv0002rmvbsru0ltpj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/工具/">工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../ubuntu搭建lamp开发环境/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ubuntu搭建lamp开发环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2018-03-09redis基础操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">redis基础操作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/care/">care</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/composer/">composer</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/docker-compose/">docker-compose</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/laravel/">laravel</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/lnmp/">lnmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pdf/">pdf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/ss/">ss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/swoole/">swoole</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vps/">vps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/索引/">索引</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/PHP/" style="font-size: 10px;">PHP</a> <a href="../../../../tags/care/" style="font-size: 10px;">care</a> <a href="../../../../tags/composer/" style="font-size: 10px;">composer</a> <a href="../../../../tags/docker/" style="font-size: 15px;">docker</a> <a href="../../../../tags/docker-compose/" style="font-size: 10px;">docker-compose</a> <a href="../../../../tags/image/" style="font-size: 10px;">image</a> <a href="../../../../tags/laravel/" style="font-size: 15px;">laravel</a> <a href="../../../../tags/lnmp/" style="font-size: 10px;">lnmp</a> <a href="../../../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../../../tags/nginx/" style="font-size: 10px;">nginx</a> <a href="../../../../tags/pdf/" style="font-size: 10px;">pdf</a> <a href="../../../../tags/redis/" style="font-size: 10px;">redis</a> <a href="../../../../tags/ss/" style="font-size: 10px;">ss</a> <a href="../../../../tags/swoole/" style="font-size: 10px;">swoole</a> <a href="../../../../tags/vps/" style="font-size: 10px;">vps</a> <a href="../../../../tags/学习/" style="font-size: 10px;">学习</a> <a href="../../../../tags/工具/" style="font-size: 20px;">工具</a> <a href="../../../../tags/技术/" style="font-size: 10px;">技术</a> <a href="../../../../tags/索引/" style="font-size: 10px;">索引</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2021/03/31/新机器搭建通用环境/">新机器搭建通用使用环境</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/24/ExportExcel/">ExportExcel</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/17/Linux常用命令/">Linux常用命令</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/11/Laravel特性/">Laravel特性</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2021/03/06/PHP7为什么比PHP5快/">PHP执行原理和为什么PHP7比PHP5快</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Cai JiHui<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
