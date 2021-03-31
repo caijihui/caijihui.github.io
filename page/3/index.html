@@ -234,6 +234,144 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2018/03/09/2018-03-09redis基础操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2018/03/09/2018-03-09redis基础操作/" itemprop="url">redis基础操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T13:48:48+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>redis key-value</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$redis-&gt;set($key,$value);</span><br><span class="line">$redis-&gt;get($key);</span><br><span class="line">$redis-&gt;exists($key);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis订阅发布： —未实现，阻塞</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$redis=<span class="keyword">new</span> Redis();</span><br><span class="line">$redis-&gt;connect(“<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>”,<span class="number">6379</span>);</span><br><span class="line">$redis-&gt;auth(“<span class="number">123</span>”);</span><br><span class="line">$redis-&gt;publish(‘test<span class="number">.22</span>’,”nihao”);</span><br><span class="line">$redis-&gt;publish(‘test’,”nihao”);</span><br><span class="line">$channelName=”test”;</span><br><span class="line">$redis-&gt;subscribe(<span class="keyword">array</span>($channelName), ‘callback’);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callback</span><span class="params">($redis,$channelName,$message)</span></span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> $message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis 先进先出，队列</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “3”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “2”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;Rpop(‘<span class="built_in">test</span>’);</span><br><span class="line"><span class="variable">$arrList</span> = <span class="variable">$redis</span>-&gt;lrange(“<span class="built_in">test</span>”, 0 ,2);</span><br><span class="line">print_r(<span class="variable">$arrList</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>排行操作</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增加积分,会员名，分数</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addScores</span><span class="params">($memeber, $scores)</span></span>&#123;</span><br><span class="line">      $redis=<span class="keyword">new</span> Redis();</span><br><span class="line">      $redis-&gt;connect(“<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>”,<span class="number">6379</span>);</span><br><span class="line">      $redis-&gt;auth(“<span class="number">123</span>”);</span><br><span class="line">      $key = date(‘Ymd’);</span><br><span class="line">      <span class="keyword">return</span> $redis-&gt;zIncrBy($key, $scores, $memeber);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//获取排名,$date 作为key</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRank</span><span class="params">($date, $start, $stop)</span></span>&#123;</span><br><span class="line">      $redis=<span class="keyword">new</span> Redis();</span><br><span class="line">      $redis-&gt;connect(“<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>”,<span class="number">6379</span>);</span><br><span class="line">      $redis-&gt;auth(“<span class="number">123</span>”);</span><br><span class="line">      $key=$date;</span><br><span class="line">      <span class="keyword">return</span> $redis-&gt;zRevRange($key, $start, $stop, <span class="keyword">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  实例：</span><br><span class="line">  <span class="comment">//增加积分</span></span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘zs’,<span class="number">5</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘ls’,<span class="number">8</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘ww’,<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘wl’,<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘lw’,<span class="number">10</span>);</span><br><span class="line">  <span class="comment">//获取排名</span></span><br><span class="line">  <span class="keyword">$this</span>-&gt;getRank($key,<span class="number">0</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis判断登录和注册：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  $mobile=$_POST[‘mobile’];</span><br><span class="line">  $hmobile=”user:&#123;$mobile&#125;”;<span class="comment">//此处是设置key</span></span><br><span class="line">  $r= $redis-&gt;exists($hmobile);<span class="comment">//是否存在</span></span><br><span class="line">  $m=$redis-&gt;hExists($hmobile,”mobile”);<span class="comment">//也可以判断存在 返回为bool</span></span><br><span class="line">  <span class="keyword">if</span> ($r==<span class="number">0</span>)&#123;</span><br><span class="line">  $mobile=$_POST[‘mobile’];</span><br><span class="line">  $name=$_POST[‘mobile’];</span><br><span class="line">  $pwd=$_POST[‘pwd’];</span><br><span class="line">  $age=$_POST[‘age’];</span><br><span class="line">  <span class="comment">//   HSET  key field value   哈希的格式</span></span><br><span class="line">  $redis-&gt;hSet($hmobile,”name”,$name);</span><br><span class="line">  $redis-&gt;hSet($hmobile,”mobile”,$mobile);</span><br><span class="line">  $redis-&gt;hSet($hmobile,”pwd”,$pwd);</span><br><span class="line">  $redis-&gt;hSet($hmobile,”age”,$age);</span><br><span class="line">  <span class="keyword">echo</span> “注册成功！”;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> “存在，不可注册”;</span><br><span class="line">&#125;</span><br><span class="line">$all= $redis-&gt;hGetAll($key); <span class="comment">//当前key的所有字段 结果 ，返回的是数组</span></span><br><span class="line">    dump($all);</span><br><span class="line">    $s=$redis-&gt;hGet($key,”mobile”);<span class="comment">//单个字段的结果</span></span><br><span class="line">    dump($s);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>集合使用验证</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 发送</span></span><br><span class="line">$codeKey = <span class="string">"code_cell1_type1"</span>;</span><br><span class="line">$redis-&gt;sadd($codeKey, $code);</span><br><span class="line">$redis-&gt;expire($codeKey, <span class="number">1800</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">## 验证</span></span><br><span class="line">$validateCode = $redis-&gt;smembers($codeKey);</span><br><span class="line">$res = in_array($code, $validateCode);</span><br><span class="line"><span class="keyword">if</span>($res)&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"验证通过"</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"验证失败"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2018/03/09/2018-03-09学习大纲-感想/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -887,7 +1025,7 @@
               
                 <a href="../../archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -900,7 +1038,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
