@@ -234,288 +234,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2019/07/30/2019-07-30类self和static区分/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="../../images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="../../2019/07/30/2019-07-30类self和static区分/" itemprop="url">类 self和static区分</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T09:48:14+08:00">
-                2019-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>类的静态延迟绑定<br>在 PHP 类中，self指向的是当前方法存在的这个类，也就是父类。static指向的是最终那个子类。</p>
-<h3 id="self"><a href="#self" class="headerlink" title="self"></a>self</h3><p>取决于定义当前方法所在的类,调用当前所在层的方法。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">self</span>::who();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">B::test();<span class="comment">//A</span></span><br></pre></td></tr></table></figure>
-<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>后期静态绑定,取初始调用类</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">static</span>::who(); <span class="comment">// 后期静态绑定从这里开始</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B::test();<span class="comment">// 输出  B</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2019/06/28/2019-06-28基本命令总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="../../images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="../../2019/06/28/2019-06-28基本命令总结/" itemprop="url">基本命令总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-28T17:38:31+08:00">
-                2019-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>总结部分服务命令</code></p>
-<h3 id="linux-权限赋予"><a href="#linux-权限赋予" class="headerlink" title="linux 权限赋予"></a>linux 权限赋予</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adduser test</span><br><span class="line">passwd test</span><br><span class="line">usermod -g root test</span><br><span class="line">vim /etc/sudoers -&gt;</span><br><span class="line">添加</span><br><span class="line">deployer   ALL=(ALL)    ALL</span><br></pre></td></tr></table></figure>
-<h3 id="配置全局命令-如-php"><a href="#配置全局命令-如-php" class="headerlink" title="配置全局命令(如 php)"></a>配置全局命令(如 php)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 在最底下添加相应的命令</span></span></span><br><span class="line">export PATH=$PATH:/usr/local/php/bin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 保存后</span></span></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">然后就 可以使用相关命令</span><br><span class="line"></span><br><span class="line">php -v</span><br></pre></td></tr></table></figure>
-<h3 id="filebeat-解析日志设置索引"><a href="#filebeat-解析日志设置索引" class="headerlink" title="filebeat 解析日志设置索引"></a>filebeat 解析日志设置索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 配置日志源 ，自定义需要区分的字段</span><br><span class="line">filebeat.prospectors:</span><br><span class="line">    </span><br><span class="line">- type: log</span><br><span class="line">  enabled: true</span><br><span class="line">  paths:</span><br><span class="line">          - /var/logs/*.log</span><br><span class="line">  log_type: caiyuanzi</span><br><span class="line">  json.keys_under_root: true</span><br><span class="line">  json.overwrite_keys: true</span><br><span class="line">  fields:</span><br><span class="line">     from: caiyuanzi</span><br><span class="line">  fields_under_root: true</span><br><span class="line"></span><br><span class="line">## 输出并自定义设置索引</span><br><span class="line">output.elasticsearch:</span><br><span class="line">   hosts: [&quot;localhost:9200&quot;]</span><br><span class="line">   index: &quot;test_web-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">   indices:</span><br><span class="line"></span><br><span class="line">     - index: &quot;tcaiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;caiy&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;caiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          from: &quot;caiyuanzi&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;api-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;api&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;unnormal-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;异常&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><ul>
-<li>配置    /etc</li>
-<li>命令    /usr/bin</li>
-<li>运行服务 /var/run</li>
-</ul>
-<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t          ## 测试配置是否正确</span><br><span class="line">sudo nginx -s stop     ## 关闭</span><br><span class="line">sudo nginx -s reload   ## 重启</span><br></pre></td></tr></table></figure>
-<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><blockquote>
-<ol>
-<li>php.ini 配置</li>
-<li>php-fpm.conf 配置</li>
-</ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo killall  php-fpm</span><br><span class="line">sudo php-fpm</span><br><span class="line"></span><br><span class="line">kill  -USR2    php平滑重启</span><br></pre></td></tr></table></figure>
-<h3 id="supervisor-服务监控者"><a href="#supervisor-服务监控者" class="headerlink" title="supervisor (服务监控者)"></a>supervisor (服务监控者)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo supervisorctl status   </span><br><span class="line">sudo supervisorctl reload   </span><br><span class="line">sudo supervisorctl start name</span><br></pre></td></tr></table></figure>
-<h3 id="gitlab-runner"><a href="#gitlab-runner" class="headerlink" title="gitlab-runner"></a>gitlab-runner</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  ## 安装</span><br><span class="line">  ## 注册 gitlab-runenr 服务</span><br><span class="line">  gitlab-runner register </span><br><span class="line">  </span><br><span class="line">  eg: gitlab-runner register --name my-runner --url http://gitlab.example.com --registration-token my-registration-token</span><br><span class="line"></span><br><span class="line">  ## 设置 run 运行配置  服务 日志 运行日志</span><br><span class="line">gitlab-runner  run --working-directory /home/deployer --config  /etc/gitlab-runner/config.toml --service gitlab-runner --syslog --user deployer</span><br><span class="line"></span><br><span class="line">## 注销的方法</span><br><span class="line">gitlab-runner unregister --name [name]  注销</span><br><span class="line">gitlab-runner unregister --url [url] --token [token]  注销</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gitlab-runner restart </span><br><span class="line">gitlab-runner status</span><br></pre></td></tr></table></figure>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br><span class="line">service mysqld stop</span><br><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mac 本地主从</span><br></pre></td></tr></table></figure>
-<h3 id="docker-基本服务配置"><a href="#docker-基本服务配置" class="headerlink" title="docker 基本服务配置"></a>docker 基本服务配置</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## redis 6380</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> -p -d 6380:6379 --name redis6380  -v /application/system/redis6380/redis.conf:/etc/redis/redis.conf  -v /application/system/redis6380/data:/data   a4fe14ff1981  redis-server /etc/redis/redis.conf --appendonly yes</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">## mysql 3307</span></span></span><br><span class="line"><span class="bash">docker run --name mysql3307  -d -p 3307:3306 -eMYSQL_ROOT_PASSWORD=cjh123456 -v /application/system/mysql3307/data:/var/lib/mysql -v /application/system/mysql3307/my.cnf:/etc/mysql/my.cnf  7faa3c53e6d6</span></span><br></pre></td></tr></table></figure>
-<h3 id="清理磁盘"><a href="#清理磁盘" class="headerlink" title="清理磁盘"></a>清理磁盘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  ## 查看</span><br><span class="line">du -sh *</span><br><span class="line">  ## 列出目录占用空间</span><br><span class="line">ls |grep -v proc |xargs du -sh |sort -h</span><br></pre></td></tr></table></figure>
-<h3 id="phpstorm-常用"><a href="#phpstorm-常用" class="headerlink" title="phpstorm 常用"></a>phpstorm 常用</h3><ul>
-<li>ctrl+shift+n 搜索文件</li>
-<li>ctrl+f       本页面搜索</li>
-<li>ctrl+shift+f    全文件搜索</li>
-<li>Shift + F2      可以快速跳到错误行或无用行</li>
-<li>ctrl + 鼠标选中   批量增减</li>
-<li>alt + l     跳行</li>
-</ul>
-<h3 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h3><ul>
-<li>Alt+Shift+下键（上下左右的下）</li>
-<li>Alt+Shift+上键（上下左右的上)</li>
-<li>ctrl+shift+k  删除当前行</li>
-<li>shift+ 上下键 选中行</li>
-</ul>
-<h3 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h3><p>一般站点的 docs 为 <code>gitbook</code> 生成的。</p>
-<p><code>gitbook</code>  请查看 <a href="https://docs.gitbook.com/" target="_blank" rel="noopener">参考文档</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2019/04/10/2019-04-10swoole加速laravel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -662,7 +380,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2019/04/08/2019-04-08mysql操作/">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2019/04/08/2021-03-08Mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -681,7 +399,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="../../2019/04/08/2019-04-08mysql操作/" itemprop="url">mysql操作</a></h1>
+                <a class="post-title-link" href="../../2019/04/08/2021-03-08Mysql/" itemprop="url">mysql</a></h1>
         
 
         <div class="post-meta">
@@ -786,7 +504,37 @@
 <li>普通索引指向主键索引, 普通索引-&gt;主键-&gt;数据行</li>
 <li>非主键索引的查询需要多扫描一颗索引树, 效率相对更低</li>
 </ul>
-
+<h3 id="假如-Mysql-忘记了密码"><a href="#假如-Mysql-忘记了密码" class="headerlink" title="假如 Mysql 忘记了密码"></a>假如 Mysql 忘记了密码</h3><p>vim /etc/my.cnf   在【mysqld】的段中，加上skip-grant-tables<br>查看user表，修改即可，参考其他数据库user</p>
+<p>设置查询缓存大小<br>SET GLOBAL innodb_buffer_pool_size=33554432;</p>
+<h2 id="mysql-锁"><a href="#mysql-锁" class="headerlink" title="mysql 锁"></a>mysql 锁</h2><ul>
+<li>乐观锁 （加版本）</li>
+<li>悲观锁 （锁数据，行锁，事务） select xx for update</li>
+</ul>
+<h2 id="mysql-事务4特性-ACID"><a href="#mysql-事务4特性-ACID" class="headerlink" title="mysql 事务4特性 ACID"></a>mysql 事务4特性 ACID</h2><p>数据库管理系统中事务(transaction)的四个特性（分析时根据首字母缩写依次解释）：</p>
+<ul>
+<li>原子性（Atomicity）、</li>
+<li>一致性（Consistency）、</li>
+<li>隔离性（Isolation）、</li>
+<li>持久性（Durability）</li>
+</ul>
+<p>所谓事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。（执行单个逻辑功能的一组指令或操作称为事务）</p>
+<h2 id="Mysql-三种日志"><a href="#Mysql-三种日志" class="headerlink" title="Mysql 三种日志"></a>Mysql 三种日志</h2><h3 id="redo-log-（重做日志）"><a href="#redo-log-（重做日志）" class="headerlink" title="redo log （重做日志）"></a>redo log （重做日志）</h3><ul>
+<li>先写 内存 ，提交后再写入到磁盘中</li>
+<li>存储在引擎innodb </li>
+<li>InnoDB引擎会把更新记录先写在redo log中，</li>
+<li>在修改Buffer Pool中的数据， 当提交事务时，调用fsync把redo log刷入磁盘</li>
+</ul>
+<h3 id="undo-log-（回滚日志）"><a href="#undo-log-（回滚日志）" class="headerlink" title="undo log （回滚日志）"></a>undo log （回滚日志）</h3><ul>
+<li>实现事务的原子性，也是存储在磁盘中</li>
+<li>记录的是数据修改前的状态，在数据修改的流程中，同时会记录一条与当前操作相反的逻辑日志到undo log中。</li>
+<li>如果遇到事务回滚，就借助 undo log 回滚到以前的状态</li>
+<li>undo log只负责记录事务开始前要修改数据的原始版本，当我们再次对这行数据进行修改，所产生的修改记录会写入到redo log，undo log负责完成回滚，redo log负责完成前滚</li>
+</ul>
+<h3 id="bin-log-（归档日志）"><a href="#bin-log-（归档日志）" class="headerlink" title="bin log （归档日志）"></a>bin log （归档日志）</h3><ul>
+<li>Server层 ，二进制形式存储在磁盘中</li>
+<li>记录了数据库所有DDL和DML操作</li>
+</ul>
+<h3 id="mysql-执行计划"><a href="#mysql-执行计划" class="headerlink" title="mysql 执行计划"></a>mysql 执行计划</h3>
           
         
       
@@ -1127,7 +875,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2019/01/23/知识细节及遇到的问题/">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2019/01/23/2019-01-23知识细节及遇到的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -1146,7 +894,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="../../2019/01/23/知识细节及遇到的问题/" itemprop="url">项目中遇到的问题</a></h1>
+                <a class="post-title-link" href="../../2019/01/23/2019-01-23知识细节及遇到的问题/" itemprop="url">项目中遇到的问题</a></h1>
         
 
         <div class="post-meta">
@@ -1352,7 +1100,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /docker/www</span><br><span class="line">mkdir -p /docker/nginx/conf.d</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>nginx 配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /docker/nginx/conf.d/default.conf</span><br><span class="line"><span class="comment">## 例子</span></span><br><span class="line">server &#123;</span><br><span class="line">listen  80 default_server;</span><br><span class="line">server_name _;</span><br><span class="line">root   /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">  index index.html index.htm index.php;</span><br><span class="line">  autoindex off;</span><br><span class="line">&#125;</span><br><span class="line">location ~ \.php(.*)$ &#123;</span><br><span class="line">  root   /var/www/html/;</span><br><span class="line">  fastcgi_pass 172.17.0.2:9000;</span><br><span class="line">  fastcgi_index index.php;</span><br><span class="line">  fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;</span><br><span class="line">  fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">  fastcgi_param PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  fastcgi_param PATH_TRANSLATED <span class="variable">$document_root</span><span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  include  fastcgi_params;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /docker/nginx/conf.d/default.conf</span><br><span class="line"><span class="comment">## 例子</span></span><br><span class="line">server &#123;</span><br><span class="line">listen  80 default_server;</span><br><span class="line">server_name _;</span><br><span class="line">root   /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">  index index.html index.htm index.php;</span><br><span class="line">  autoindex off;</span><br><span class="line">&#125;</span><br><span class="line">location ~ \.php(.*)$ &#123;</span><br><span class="line">  root   /var/www/html/;</span><br><span class="line">  fastcgi_pass myphp:9000;</span><br><span class="line">  fastcgi_index index.php;</span><br><span class="line">  fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;</span><br><span class="line">  fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">  fastcgi_param PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  fastcgi_param PATH_TRANSLATED <span class="variable">$document_root</span><span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  include  fastcgi_params;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动php镜像,nginx 镜像</p>
 <ol>
@@ -1542,7 +1290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2018/03/09/ubuntu搭建lamp开发环境/">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2018/03/09/2018-03-09ubuntu搭建lamp开发环境/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cai JiHui">
@@ -1561,7 +1309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="../../2018/03/09/ubuntu搭建lamp开发环境/" itemprop="url">ubuntu搭建lamp开发环境</a></h1>
+                <a class="post-title-link" href="../../2018/03/09/2018-03-09ubuntu搭建lamp开发环境/" itemprop="url">ubuntu搭建lamp开发环境</a></h1>
         
 
         <div class="post-meta">
@@ -1670,6 +1418,281 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2018/03/09/2018-03-09mac安装和使用supervisor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2018/03/09/2018-03-09mac安装和使用supervisor/" itemprop="url">mac安装和使用supervisor</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T15:02:05+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##</p>
+<p>命令</p>
+<ul>
+<li>sudo supervisorctl status   查看状态</li>
+<li>sudo supervisorctl reload   重启</li>
+</ul>
+<p>1.安装和启动supervisor</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install supervisor</span><br><span class="line">brew services start supervisor</span><br></pre></td></tr></table></figure>
+<p>2.修改配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/etc/supervisord.ini</span><br><span class="line"><span class="comment">##找到如下部分： 把前面的注释去掉</span></span><br><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=127.0.0.1:9001        ; ip_address:port specifier, *:port <span class="keyword">for</span> all iface</span><br><span class="line">username=user              ; default is no username (open server)</span><br><span class="line">password=123               ; default is no password (open server)</span><br></pre></td></tr></table></figure>
+<p>3.创建进程任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir supervisor.d      </span><br><span class="line">vi  queue_mm.ini</span><br></pre></td></tr></table></figure>
+<p>  文件内容格式如下 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[program:queue_mm]    //进程名称</span><br><span class="line">process_name=%(program_name)s_%(process_num)02d</span><br><span class="line">command=php /Users/facevisa/caijihui/laravel/artisan queue:work  beanstalkd –queue=mm   // 命令</span><br><span class="line">autostart=true      //设置开启</span><br><span class="line">autorestart=true   //设置重启</span><br><span class="line">numprocs=1         //进程启动数</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/Users/facevisa/my/laravel//storage/logs/queue_mm.log //日志文件</span><br></pre></td></tr></table></figure></p>
+<p>4.重启服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart supervisor</span><br></pre></td></tr></table></figure></p>
+<p>5.测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在命令行输入   supervisorctl    </span><br><span class="line">如果出现  http://localhost:9001 refused connection   </span><br><span class="line">参考第三步，取消注释；如无提示，就ok</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>至此，就安装成功了</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io../../2018/03/09/2018-03-09redis基础操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="../../2018/03/09/2018-03-09redis基础操作/" itemprop="url">redis基础操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T13:48:48+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>redis key-value</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$redis-&gt;set($key,$value);</span><br><span class="line">$redis-&gt;get($key);</span><br><span class="line">$redis-&gt;exists($key);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis订阅发布： —未实现，阻塞</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$redis=<span class="keyword">new</span> Redis();</span><br><span class="line">$redis-&gt;connect(“<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>”,<span class="number">6379</span>);</span><br><span class="line">$redis-&gt;auth(“<span class="number">123</span>”);</span><br><span class="line">$redis-&gt;publish(‘test<span class="number">.22</span>’,”nihao”);</span><br><span class="line">$redis-&gt;publish(‘test’,”nihao”);</span><br><span class="line">$channelName=”test”;</span><br><span class="line">$redis-&gt;subscribe(<span class="keyword">array</span>($channelName), ‘callback’);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callback</span><span class="params">($redis,$channelName,$message)</span></span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> $message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis 先进先出，队列</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “3”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;lpush(“<span class="built_in">test</span>”, “2”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;Rpop(‘<span class="built_in">test</span>’);</span><br><span class="line"><span class="variable">$arrList</span> = <span class="variable">$redis</span>-&gt;lrange(“<span class="built_in">test</span>”, 0 ,2);</span><br><span class="line">print_r(<span class="variable">$arrList</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>排行操作</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增加积分,会员名，分数</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addScores</span><span class="params">($memeber, $scores)</span></span>&#123;</span><br><span class="line">      $redis=<span class="keyword">new</span> Redis();</span><br><span class="line">      $redis-&gt;connect(“<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>”,<span class="number">6379</span>);</span><br><span class="line">      $redis-&gt;auth(“<span class="number">123</span>”);</span><br><span class="line">      $key = date(‘Ymd’);</span><br><span class="line">      <span class="keyword">return</span> $redis-&gt;zIncrBy($key, $scores, $memeber);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//获取排名,$date 作为key</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRank</span><span class="params">($date, $start, $stop)</span></span>&#123;</span><br><span class="line">      $redis=<span class="keyword">new</span> Redis();</span><br><span class="line">      $redis-&gt;connect(“<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>”,<span class="number">6379</span>);</span><br><span class="line">      $redis-&gt;auth(“<span class="number">123</span>”);</span><br><span class="line">      $key=$date;</span><br><span class="line">      <span class="keyword">return</span> $redis-&gt;zRevRange($key, $start, $stop, <span class="keyword">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  实例：</span><br><span class="line">  <span class="comment">//增加积分</span></span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘zs’,<span class="number">5</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘ls’,<span class="number">8</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘ww’,<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘wl’,<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">$this</span>-&gt;addScores(‘lw’,<span class="number">10</span>);</span><br><span class="line">  <span class="comment">//获取排名</span></span><br><span class="line">  <span class="keyword">$this</span>-&gt;getRank($key,<span class="number">0</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>redis判断登录和注册：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  $mobile=$_POST[‘mobile’];</span><br><span class="line">  $hmobile=”user:&#123;$mobile&#125;”;<span class="comment">//此处是设置key</span></span><br><span class="line">  $r= $redis-&gt;exists($hmobile);<span class="comment">//是否存在</span></span><br><span class="line">  $m=$redis-&gt;hExists($hmobile,”mobile”);<span class="comment">//也可以判断存在 返回为bool</span></span><br><span class="line">  <span class="keyword">if</span> ($r==<span class="number">0</span>)&#123;</span><br><span class="line">  $mobile=$_POST[‘mobile’];</span><br><span class="line">  $name=$_POST[‘mobile’];</span><br><span class="line">  $pwd=$_POST[‘pwd’];</span><br><span class="line">  $age=$_POST[‘age’];</span><br><span class="line">  <span class="comment">//   HSET  key field value   哈希的格式</span></span><br><span class="line">  $redis-&gt;hSet($hmobile,”name”,$name);</span><br><span class="line">  $redis-&gt;hSet($hmobile,”mobile”,$mobile);</span><br><span class="line">  $redis-&gt;hSet($hmobile,”pwd”,$pwd);</span><br><span class="line">  $redis-&gt;hSet($hmobile,”age”,$age);</span><br><span class="line">  <span class="keyword">echo</span> “注册成功！”;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> “存在，不可注册”;</span><br><span class="line">&#125;</span><br><span class="line">$all= $redis-&gt;hGetAll($key); <span class="comment">//当前key的所有字段 结果 ，返回的是数组</span></span><br><span class="line">    dump($all);</span><br><span class="line">    $s=$redis-&gt;hGet($key,”mobile”);<span class="comment">//单个字段的结果</span></span><br><span class="line">    dump($s);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>集合使用验证</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 发送</span></span><br><span class="line">$codeKey = <span class="string">"code_cell1_type1"</span>;</span><br><span class="line">$redis-&gt;sadd($codeKey, $code);</span><br><span class="line">$redis-&gt;expire($codeKey, <span class="number">1800</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">## 验证</span></span><br><span class="line">$validateCode = $redis-&gt;smembers($codeKey);</span><br><span class="line">$res = in_array($code, $validateCode);</span><br><span class="line"><span class="keyword">if</span>($res)&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"验证通过"</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"验证失败"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1720,7 +1743,7 @@
               
                 <a href="../../archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1733,7 +1756,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

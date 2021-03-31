@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="菜园子">
 <meta property="og:description" content="安装docker  下载相关镜像 12docker pull nginxdocker pull php:7.1.0-fpm  建立相关挂载目录 12mkdir -p /docker/wwwmkdir -p /docker/nginx/conf.d  nginx 配置 12345678910111213141516171819202122vim /docker/nginx/conf.d/defau">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-28T09:53:04.000Z">
+<meta property="og:updated_time" content="2021-03-31T09:47:03.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker搭建php7 + nginx">
 <meta name="twitter:description" content="安装docker  下载相关镜像 12docker pull nginxdocker pull php:7.1.0-fpm  建立相关挂载目录 12mkdir -p /docker/wwwmkdir -p /docker/nginx/conf.d  nginx 配置 12345678910111213141516171819202122vim /docker/nginx/conf.d/defau">
@@ -312,7 +312,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /docker/www</span><br><span class="line">mkdir -p /docker/nginx/conf.d</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>nginx 配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /docker/nginx/conf.d/default.conf</span><br><span class="line"><span class="comment">## 例子</span></span><br><span class="line">server &#123;</span><br><span class="line">listen  80 default_server;</span><br><span class="line">server_name _;</span><br><span class="line">root   /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">  index index.html index.htm index.php;</span><br><span class="line">  autoindex off;</span><br><span class="line">&#125;</span><br><span class="line">location ~ \.php(.*)$ &#123;</span><br><span class="line">  root   /var/www/html/;</span><br><span class="line">  fastcgi_pass 172.17.0.2:9000;</span><br><span class="line">  fastcgi_index index.php;</span><br><span class="line">  fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;</span><br><span class="line">  fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">  fastcgi_param PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  fastcgi_param PATH_TRANSLATED <span class="variable">$document_root</span><span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  include  fastcgi_params;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /docker/nginx/conf.d/default.conf</span><br><span class="line"><span class="comment">## 例子</span></span><br><span class="line">server &#123;</span><br><span class="line">listen  80 default_server;</span><br><span class="line">server_name _;</span><br><span class="line">root   /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">  index index.html index.htm index.php;</span><br><span class="line">  autoindex off;</span><br><span class="line">&#125;</span><br><span class="line">location ~ \.php(.*)$ &#123;</span><br><span class="line">  root   /var/www/html/;</span><br><span class="line">  fastcgi_pass myphp:9000;</span><br><span class="line">  fastcgi_index index.php;</span><br><span class="line">  fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;</span><br><span class="line">  fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">  fastcgi_param PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  fastcgi_param PATH_TRANSLATED <span class="variable">$document_root</span><span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">  include  fastcgi_params;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动php镜像,nginx 镜像</p>
 <ol>
@@ -375,7 +375,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="../../../../2019/01/23/知识细节及遇到的问题/" rel="prev" title="项目中遇到的问题">
+              <a href="../../../../2019/01/23/2019-01-23知识细节及遇到的问题/" rel="prev" title="项目中遇到的问题">
                 项目中遇到的问题 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -445,7 +445,7 @@
               
                 <a href="../../../../archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -458,7 +458,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
