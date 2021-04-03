@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://caijihui.github.io/home/index.html</loc>
+    
+    <lastmod>2021-04-03</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://caijihui.github.io/2019/10/10/2019-10-10%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/</loc>
     
     <lastmod>2021-04-03</lastmod>
@@ -221,6 +228,13 @@
   </url>
   
   <url>
+    <loc>https://caijihui.github.io/tags/%E6%A2%AF%E5%AD%90/</loc>
+    <lastmod>2021-04-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://caijihui.github.io/tags/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2021-04-03</lastmod>
     <changefreq>daily</changefreq>
@@ -229,6 +243,13 @@
   
   <url>
     <loc>https://caijihui.github.io/tags/redis/</loc>
+    <lastmod>2021-04-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/tags/lamp/</loc>
     <lastmod>2021-04-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -263,13 +284,6 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/tags/lamp/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://caijihui.github.io/tags/docker/</loc>
     <lastmod>2021-04-03</lastmod>
     <changefreq>daily</changefreq>
@@ -277,21 +291,14 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/tags/lnmp/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/docker-compose/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://caijihui.github.io/tags/nginx/</loc>
+    <lastmod>2021-04-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/tags/%E6%88%90%E9%95%BF/</loc>
     <lastmod>2021-04-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -312,70 +319,7 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/tags/care/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/pdf/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/image/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/mysql/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/%E7%B4%A2%E5%BC%95/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/Mac/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/%E6%A2%AF%E5%AD%90/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/%E6%88%90%E9%95%BF/</loc>
-    <lastmod>2021-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/tags/Class/</loc>
+    <loc>https://caijihui.github.io/tags/lnmp/</loc>
     <lastmod>2021-04-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -389,7 +333,35 @@
   </url>
   
   <url>
+    <loc>https://caijihui.github.io/tags/Class/</loc>
+    <lastmod>2021-04-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/</loc>
+    <lastmod>2021-04-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://caijihui.github.io/tags/Mysql/</loc>
+    <lastmod>2021-04-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/tags/%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2021-04-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/tags/Linux/</loc>
     <lastmod>2021-04-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -403,7 +375,7 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/tags/Linux/</loc>
+    <loc>https://caijihui.github.io/tags/Mac/</loc>
     <lastmod>2021-04-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
