@@ -6,7 +6,7 @@
   <link href="https://caijihui.github.io/atom.xml" rel="self"/>
   
   <link href="https://caijihui.github.io/"/>
-  <updated>2021-04-01T02:11:27.111Z</updated>
+  <updated>2021-04-03T13:23:20.306Z</updated>
   <id>https://caijihui.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>新机器搭建通用使用环境</title>
-    <link href="https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0%E6%9C%BA%E5%99%A8%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/"/>
-    <id>https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0%E6%9C%BA%E5%99%A8%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/</id>
+    <title>新Mac搭建通用使用环境</title>
+    <link href="https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/"/>
+    <id>https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/</id>
     <published>2021-03-31T05:47:02.000Z</published>
-    <updated>2021-04-01T02:11:27.111Z</updated>
+    <updated>2021-04-03T13:23:20.306Z</updated>
     
     <content type="html"><![CDATA[<h2 id="终端工具及命令"><a href="#终端工具及命令" class="headerlink" title="终端工具及命令"></a>终端工具及命令</h2><ul><li>iTerm</li><li>oh-my-zsh</li><li>vim</li><li>supervisor</li></ul><h2 id="lnmp"><a href="#lnmp" class="headerlink" title="lnmp"></a>lnmp</h2><p>   配置环境变量</p><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><ul><li>redis</li><li>mq</li><li>mysql</li><li>php</li></ul><h2 id="mac-app"><a href="#mac-app" class="headerlink" title="mac app"></a>mac app</h2><p>app 地址： <a href="https://xclient.info/" target="_blank" rel="noopener">https://xclient.info/</a></p><ul><li>AIfred</li><li>phpstorm / goland</li><li>google chrome</li><li>sequel Ace或Pro</li><li>sublime</li><li>charles</li><li>WX/QQ</li><li>mail</li><li>ClashX</li></ul><h2 id="chrome-extension"><a href="#chrome-extension" class="headerlink" title="chrome extension"></a>chrome extension</h2><ul><li>FeHelper(前端助手)</li><li>Github 加速器</li><li>skyZIP™ Proxy</li><li>掘金 0.3.9</li><li>Xdebug helper 1.6.1</li><li>Print Friendly &amp; PDF</li></ul><h2 id="微信多开，防撤回"><a href="#微信多开，防撤回" class="headerlink" title="微信多开，防撤回"></a>微信多开，防撤回</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Sunnyyoung/WeChatTweak-macOS.git</span><br><span class="line"><span class="built_in">cd</span> WeChatTweak-macOS</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure><h2 id="工具类网站"><a href="#工具类网站" class="headerlink" title="工具类网站"></a>工具类网站</h2><ul><li><a href="https://www.toolnb.com/" target="_blank" rel="noopener">https://www.toolnb.com/</a></li><li><a href="http://tool.chinaz.com/Tools/Unicode.aspx" target="_blank" rel="noopener">http://tool.chinaz.com/Tools/Unicode.aspx</a></li></ul>]]></content>
     
@@ -38,14 +38,16 @@
     
     
     
+    <category term="Mac" scheme="https://caijihui.github.io/tags/Mac/"/>
+    
   </entry>
   
   <entry>
     <title>ExportExcel 内存对比</title>
-    <link href="https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel/"/>
-    <id>https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel/</id>
+    <link href="https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/"/>
+    <id>https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/</id>
     <published>2021-03-24T02:14:34.000Z</published>
-    <updated>2021-03-31T09:20:52.866Z</updated>
+    <updated>2021-04-03T13:22:38.067Z</updated>
     
     <content type="html"><![CDATA[<h3 id="php使用excel组件"><a href="#php使用excel组件" class="headerlink" title="php使用excel组件"></a>php使用excel组件</h3><ul><li>Maatwebsite\Excel</li><li>todo</li></ul><h3 id="大文件导出需设置内存"><a href="#大文件导出需设置内存" class="headerlink" title="大文件导出需设置内存"></a>大文件导出需设置内存</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置不限制内存</span></span><br><span class="line">ini_set(<span class="string">'memory_limit'</span>, <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"本次程序占用内存:"</span> . <span class="keyword">$this</span>-&gt;memory_usage();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memory_usage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       $memory  = ( ! function_exists(<span class="string">'memory_get_usage'</span>)) ? <span class="string">'0'</span> : round(memory_get_usage()/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>).<span class="string">'MB'</span>;</span><br><span class="line">       <span class="keyword">return</span> $memory;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><h3 id="excel导出两种格式导出占用内存使用分布情况"><a href="#excel导出两种格式导出占用内存使用分布情况" class="headerlink" title="excel导出两种格式导出占用内存使用分布情况"></a>excel导出两种格式导出占用内存使用分布情况</h3><pre><code>| 数量    |  xlsx    |  csv |  预计提升 || ---- | ---- | ----- | ---- || 1000   | 27.34MB  | 25.12MB  | ~~8.1%|| 10000  | 54.23MB  | 47.98MB  | ~~13%|| 100000 | 309.1MB  | 256.88MB | ~~16.9%|</code></pre>]]></content>
     
@@ -60,6 +62,8 @@
     
     
     
+    <category term="PHP" scheme="https://caijihui.github.io/tags/PHP/"/>
+    
   </entry>
   
   <entry>
@@ -67,7 +71,7 @@
     <link href="https://caijihui.github.io/2021/03/17/2021-03-17Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <id>https://caijihui.github.io/2021/03/17/2021-03-17Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</id>
     <published>2021-03-17T05:35:16.000Z</published>
-    <updated>2021-03-31T09:16:46.679Z</updated>
+    <updated>2021-04-03T13:22:27.725Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Centos-linux-服务器时区切换"><a href="#Centos-linux-服务器时区切换" class="headerlink" title="Centos.linux 服务器时区切换"></a>Centos.linux 服务器时区切换</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">tzselect-&gt;</span><span class="bash">  cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime</span></span><br></pre></td></tr></table></figure><h3 id="Vim-操作"><a href="#Vim-操作" class="headerlink" title="Vim 操作"></a>Vim 操作</h3><ul><li>格式化： <code>gg=G</code></li><li>格式化n行： <code>n==</code></li><li>复制：  <code>2yy</code>  </li><li>粘贴：  <code>p</code></li><li><p>删除列的方法</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 Ctrl + v(j/k 上下选择。左右选择多列)</span><br><span class="line">2 G 全选所有行</span><br><span class="line">3 按下x 即可删除对应列</span><br></pre></td></tr></table></figure></li></ul><h3 id="获取某些进程并kill掉"><a href="#获取某些进程并kill掉" class="headerlink" title="获取某些进程并kill掉"></a>获取某些进程并kill掉</h3><ul><li><code>ps aux | grep &quot;play&quot; | cut -c 17-22 | xargs kill -9</code></li></ul><h3 id="重启supervisor"><a href="#重启supervisor" class="headerlink" title="重启supervisor"></a>重启supervisor</h3><ul><li><code>sudo supervisorctl reload</code></li></ul><h3 id="Linux-统计："><a href="#Linux-统计：" class="headerlink" title="Linux 统计："></a>Linux 统计：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rep -o include  sms.com| wc -l</span><br><span class="line">cat sms.com | grep -o fastcgi | wc -l</span><br><span class="line">cat api.access.log | awk &apos;&#123;print $1&#125;&apos; | sort|uniq &gt; a.txt</span><br><span class="line">分割：</span><br><span class="line">awk -F200 &apos;&#123;print $5&#125;&apos; app.access.log  ##指定200分割</span><br><span class="line">awk &apos;&#123;print $7&#125;&apos; app.access.log |sort|uniq &gt; a.txt ##分割默认空格,统计</span><br><span class="line">Find  / -name &apos;ss*&apos;</span><br></pre></td></tr></table></figure><h3 id="软连接命令"><a href="#软连接命令" class="headerlink" title="软连接命令"></a>软连接命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    ln -s /application/system/php7/bin/php /usr/<span class="built_in">local</span>/bin/php7</span><br><span class="line">`</span><br></pre></td></tr></table></figure><h3 id="mac-使用Chrome生成pdf"><a href="#mac-使用Chrome生成pdf" class="headerlink" title="mac 使用Chrome生成pdf"></a>mac 使用Chrome生成pdf</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --<span class="built_in">disable</span>-gpu --<span class="built_in">print</span>-to-pdf=220.pdf https://mo.fish/main/home/hot</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -80,6 +84,8 @@
     
     
     
+    <category term="Linux" scheme="https://caijihui.github.io/tags/Linux/"/>
+    
   </entry>
   
   <entry>
@@ -87,7 +93,7 @@
     <link href="https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/"/>
     <id>https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/</id>
     <published>2021-03-11T03:34:13.000Z</published>
-    <updated>2021-03-11T03:40:53.957Z</updated>
+    <updated>2021-04-03T13:22:20.709Z</updated>
     
     <content type="html"><![CDATA[<h2 id="IoC和DI"><a href="#IoC和DI" class="headerlink" title="IoC和DI"></a>IoC和DI</h2><ul><li>解耦和减少依赖关系</li><li>延迟加载，用时创建对象</li><li></li></ul>]]></content>
     
@@ -104,6 +110,8 @@
     
     
     
+    <category term="Laravel" scheme="https://caijihui.github.io/tags/Laravel/"/>
+    
   </entry>
   
   <entry>
@@ -111,7 +119,7 @@
     <link href="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/"/>
     <id>https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/</id>
     <published>2021-03-06T08:10:22.000Z</published>
-    <updated>2021-04-02T02:40:12.403Z</updated>
+    <updated>2021-04-03T13:22:00.537Z</updated>
     
     <content type="html"><![CDATA[<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><ol><li>php初始化执行，启动zend引擎，加载已注册的扩展模块</li><li>读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树</li><li>zend引擎编译语法树，生成opcode中间代码</li><li>zend引擎执行opcode，返回执行结果</li></ol><p>总结:<br>一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。</p><h2 id="性能提升的原因"><a href="#性能提升的原因" class="headerlink" title="性能提升的原因"></a>性能提升的原因</h2><ol><li>存储变量的结构体变小，尽量使结构体里成员共用内存空间，减少引用，这样内存占用降低，变量的操作速度得到提升。</li><li>字符串结构体的改变，字符串信息和数据本身原来是分成两个独立内存块存放，php7尽量将它们存入同一块内存，提升了cpu缓存命中率。</li><li>数组结构的改变，数组元素和hash映射表在php5中会存入多个内存块，php7尽量将它们分配在同一块内存里，降低了内存占用、提升了cpu缓存命中率。</li><li>改进了函数的调用机制，通过对参数传递环节的优化，减少一些指令操作，提高了执行效率。</li></ol><h2 id="为什么PHP7的性能可以提高这么多？"><a href="#为什么PHP7的性能可以提高这么多？" class="headerlink" title="为什么PHP7的性能可以提高这么多？"></a>为什么PHP7的性能可以提高这么多？</h2><ol><li>JIT</li><li>Zval的改变</li><li>内部类型zend_string</li><li>PHP数组的变化（HashTable和Zend Array）</li><li>函数调用机制（Function Calling Convention）</li><li>通过宏定义和内联函数（inline），让编译器提前完成部分工作</li></ol><h2 id="为什么PHP7的在实际的业务性能提高才30-左右？"><a href="#为什么PHP7的在实际的业务性能提高才30-左右？" class="headerlink" title="为什么PHP7的在实际的业务性能提高才30%左右？"></a>为什么PHP7的在实际的业务性能提高才30%左右？</h2><ol><li>实际的业务不一定有很复杂的计算逻辑</li><li>实际的业务会用到Redis 和MYSQL，网络和IO的瓶颈 影响了PHP7的整体性能</li><li>HTTPS的性能问题 限制了PHP7的能力</li></ol><h2 id="php-fpm"><a href="#php-fpm" class="headerlink" title="php-fpm"></a>php-fpm</h2><ul><li>FastCGI<ul><li>一种协议，FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口</li><li>监听 事先启动，等待server 请求发起连接，并使用php-cgi 解析程序并返回结果</li><li>一 master 多 worker 模式</li><li>平滑启动</li></ul></li></ul><ul><li>php-fpm进程管理器<br>  php-fpm是对fastcgi协议的实现<br>  php-fpm是进程管理器，启动时包括master和worker进程俩部分，<br>  master进程负责管理worker进程，worker进程一般具有多个，用来监听端口，接收来自webserver请求，且每个worker进程都有一个cgi进程解释器，用来执行php代码</li></ul><h2 id="php概念"><a href="#php概念" class="headerlink" title="php概念"></a>php概念</h2><p>zval： 变量内存存储结构</p><p>hashTable： 数据结构</p><p>HashTable </p><ul><li>bucket <ul><li>zval[0] , zval[1]</li></ul></li></ul><h3 id="ZVAL-结构体（保存内存变量的结构）"><a href="#ZVAL-结构体（保存内存变量的结构）" class="headerlink" title="ZVAL 结构体（保存内存变量的结构）"></a>ZVAL 结构体（保存内存变量的结构）</h3><p>hashtable </p><ol><li>PHP5 </li></ol><ul><li>_zval_struct总的字节 = value（16）+ refcount__gc（4）+ type（1）+ is_ref__gc（1） + 内存对齐2 = 占用22字节。</li><li>HashTable 占用72字节</li><li>burst IO  2次，64为一次</li><li>bucket  72 字节 存放zval</li></ul><ol><li>PHP7</li></ol><ul><li>zval_struct 占用16字节</li><li>HashTable/ zend_array  占用 57字节 （向内存索取空间，默认每次是64字节，不够再向内存索取）</li><li>burst IO  一次</li><li>bucket  32 字节</li></ul><h3 id="PHP-5-到-PHP-7-HashTable-主要做了如下修改"><a href="#PHP-5-到-PHP-7-HashTable-主要做了如下修改" class="headerlink" title="PHP 5 到 PHP 7 HashTable 主要做了如下修改"></a>PHP 5 到 PHP 7 HashTable 主要做了如下修改</h3><p>优化 HashTable 的数据结构：</p><ul><li>PHP数组zend_array 的内存占用从PHP5点72个字节，降低到了56个字节</li><li>使用内存缓存局部性的特点，优化PHP数组效率</li><li>PHP5的 Bucket ，包括 zval 都是独立分配（在内存中是离散的）</li><li>PHP7使用一块连续的空间存储 Bucket， Bucket 和 zval 在内存中都是连续存储的</li></ul>]]></content>
     
@@ -125,6 +133,8 @@
     
     
     
+    
+    <category term="PHP" scheme="https://caijihui.github.io/tags/PHP/"/>
     
   </entry>
   
@@ -177,7 +187,7 @@
     <link href="https://caijihui.github.io/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/"/>
     <id>https://caijihui.github.io/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/</id>
     <published>2020-04-01T06:56:48.000Z</published>
-    <updated>2021-03-31T09:55:56.222Z</updated>
+    <updated>2021-04-03T13:21:30.594Z</updated>
     
     <content type="html"><![CDATA[<h3 id="wkhtmltopdf-扩展"><a href="#wkhtmltopdf-扩展" class="headerlink" title="wkhtmltopdf 扩展"></a>wkhtmltopdf 扩展</h3><p> 支持 Linux，mac ，windows</p><p> 官网地址：<br> <a href="https://wkhtmltopdf.org/" target="_blank" rel="noopener">https://wkhtmltopdf.org/</a></p><p> <a href="https://wkhtmltopdf.org/downloads.html" target="_blank" rel="noopener">https://wkhtmltopdf.org/downloads.html</a></p><p> 官方文档：<br> <a href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt" target="_blank" rel="noopener">https://wkhtmltopdf.org/usage/wkhtmltopdf.txt</a></p><h3 id="安装相关插件"><a href="#安装相关插件" class="headerlink" title="安装相关插件"></a>安装相关插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 插件</span><br><span class="line">composer require barryvdh/laravel-snappy</span><br><span class="line"></span><br><span class="line">## 生成命令</span><br><span class="line">composer require h4cc/wkhtmltopdf-amd64</span><br><span class="line">composer require h4cc/wkhtmltoimage-amd64</span><br></pre></td></tr></table></figure><h3 id="安装支持环境的扩展和中文字体"><a href="#安装支持环境的扩展和中文字体" class="headerlink" title="安装支持环境的扩展和中文字体"></a>安装支持环境的扩展和中文字体</h3><p>生成会出现乱码和环境问题，则需要配置环境和按需加载字体</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install libXrender libXext fontconfig</span><br><span class="line"></span><br><span class="line">yum install -y fontconfig mkfontscale</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> /usr/share/fonts/msyh</span><br><span class="line"><span class="comment">##  此处需要增加字体库文件，再进行编译和查看</span></span><br><span class="line"></span><br><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line"><span class="built_in">fc</span>-cache -fv</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"> </span><br><span class="line">执行 <span class="built_in">fc</span>-list :lang=zh 可看到字体已经安装</span><br></pre></td></tr></table></figure><p>或者 拷贝字体文件到/usr/share/fonts目录下</p><h3 id="生成图片"><a href="#生成图片" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">PDF</span>;</span><br><span class="line">$data = [<span class="string">'name'</span>=&gt;<span class="string">'测试'</span>];</span><br><span class="line">$fileName = <span class="string">'a.pdf'</span>;</span><br><span class="line">$type = <span class="string">'a4'</span>;</span><br><span class="line"><span class="comment">// 生成并保存- 保存时放绝对路径</span></span><br><span class="line">PDF::loadView(<span class="string">'view'</span>, $data)-&gt;setPaper($type)-&gt;setOrientation(<span class="string">'landscape'</span>)</span><br><span class="line">-&gt;save($fileName);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line">$pdf = PDF::loadView(<span class="string">'view'</span>, $data)-&gt;setPaper($type)-&gt;setOrientation(<span class="string">'landscape'</span>);</span><br><span class="line">$pdf-&gt;stream();</span><br></pre></td></tr></table></figure><h3 id="生成图片-1"><a href="#生成图片-1" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">SnappyImage</span>;</span><br><span class="line">$data = [<span class="string">'name'</span>=&gt;<span class="string">'测试'</span>];</span><br><span class="line">$fileName = <span class="string">'a.png'</span>;</span><br><span class="line"><span class="comment">// 生成并保存 保存时放绝对路径</span></span><br><span class="line">SnappyImage::loadView(<span class="string">'view'</span>, $data)-&gt;save($fileName);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line">SnappyImage::loadView(<span class="string">'view'</span>, $data)-&gt;stream();</span><br></pre></td></tr></table></figure><p>详情安装查看:<br><a href="https://packagist.org/packages/barryvdh/laravel-snappy" target="_blank" rel="noopener">https://packagist.org/packages/barryvdh/laravel-snappy</a></p>]]></content>
     
@@ -190,11 +200,7 @@
     
     
     
-    <category term="laravel" scheme="https://caijihui.github.io/tags/laravel/"/>
-    
-    <category term="pdf" scheme="https://caijihui.github.io/tags/pdf/"/>
-    
-    <category term="image" scheme="https://caijihui.github.io/tags/image/"/>
+    <category term="工具" scheme="https://caijihui.github.io/tags/工具/"/>
     
   </entry>
   
@@ -203,7 +209,7 @@
     <link href="https://caijihui.github.io/2019/10/10/2019-10-10%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/"/>
     <id>https://caijihui.github.io/2019/10/10/2019-10-10%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/</id>
     <published>2019-10-10T01:24:45.000Z</published>
-    <updated>2019-10-10T01:39:04.000Z</updated>
+    <updated>2021-04-03T13:25:56.539Z</updated>
     
     <content type="html"><![CDATA[<h3 id="laravel-excel"><a href="#laravel-excel" class="headerlink" title="laravel-excel"></a>laravel-excel</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require maatwebsite/excel</span><br></pre></td></tr></table></figure><p>参考： <a href="https://blog.csdn.net/beyond__devil/article/details/83008782" target="_blank" rel="noopener">https://blog.csdn.net/beyond__devil/article/details/83008782</a></p><h3 id="laravel-admin-后台"><a href="#laravel-admin-后台" class="headerlink" title="laravel-admin 后台"></a>laravel-admin 后台</h3><p>参考： <a href="https://laravel-admin.org/docs/zh" target="_blank" rel="noopener">https://laravel-admin.org/docs/zh</a></p><h3 id="crontab-生成表达式"><a href="#crontab-生成表达式" class="headerlink" title="crontab 生成表达式"></a>crontab 生成表达式</h3><p>参考：<a href="http://cron.qqe2.com/" target="_blank" rel="noopener">http://cron.qqe2.com/</a></p><h3 id="Linux-deployer用户-创建及设置"><a href="#Linux-deployer用户-创建及设置" class="headerlink" title="Linux  deployer用户 创建及设置"></a>Linux  deployer用户 创建及设置</h3><p>参考：<a href="https://www.codercto.com/a/20403.html" target="_blank" rel="noopener">https://www.codercto.com/a/20403.html</a></p><h3 id="phpstorm-webstorm-activation-code"><a href="#phpstorm-webstorm-activation-code" class="headerlink" title="phpstorm/webstorm  activation code"></a>phpstorm/webstorm  activation code</h3><p>参考：<a href="https://blog.csdn.net/qq_33733970" target="_blank" rel="noopener">https://blog.csdn.net/qq_33733970</a></p>]]></content>
     
@@ -216,6 +222,8 @@
     
     
     
+    <category term="资源" scheme="https://caijihui.github.io/tags/资源/"/>
+    
   </entry>
   
   <entry>
@@ -223,7 +231,7 @@
     <link href="https://caijihui.github.io/2019/07/30/2019-07-30%E7%B1%BBself%E5%92%8Cstatic%E5%8C%BA%E5%88%86/"/>
     <id>https://caijihui.github.io/2019/07/30/2019-07-30%E7%B1%BBself%E5%92%8Cstatic%E5%8C%BA%E5%88%86/</id>
     <published>2019-07-30T01:48:14.000Z</published>
-    <updated>2021-03-31T06:46:25.885Z</updated>
+    <updated>2021-04-03T13:25:46.079Z</updated>
     
     <content type="html"><![CDATA[<p>类的静态延迟绑定<br>在 PHP 类中，self指向的是当前方法存在的这个类，也就是父类。static指向的是最终那个子类。</p><h3 id="self"><a href="#self" class="headerlink" title="self"></a>self</h3><p>取决于定义当前方法所在的类,调用当前所在层的方法。</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">self</span>::who();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">B::test();<span class="comment">//A</span></span><br></pre></td></tr></table></figure><h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>后期静态绑定,取初始调用类</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">static</span>::who(); <span class="comment">// 后期静态绑定从这里开始</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B::test();<span class="comment">// 输出  B</span></span><br></pre></td></tr></table></figure>]]></content>
     
@@ -236,6 +244,8 @@
     
     
     
+    
+    <category term="Class" scheme="https://caijihui.github.io/tags/Class/"/>
     
   </entry>
   
@@ -296,7 +306,7 @@
     <link href="https://caijihui.github.io/2019/04/08/2021-03-08Mysql/"/>
     <id>https://caijihui.github.io/2019/04/08/2021-03-08Mysql/</id>
     <published>2019-04-08T03:02:32.000Z</published>
-    <updated>2021-03-31T09:45:39.626Z</updated>
+    <updated>2021-04-03T13:22:11.426Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Mysql-创建用户和分配权限"><a href="#Mysql-创建用户和分配权限" class="headerlink" title="Mysql 创建用户和分配权限"></a>Mysql 创建用户和分配权限</h3><blockquote><ol><li>创建用户</li></ol></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;username&apos;@&apos;host&apos; IDENTIFIED BY &apos;password&apos;;</span><br></pre></td></tr></table></figure><ul><li>username - 你将创建的用户名,</li><li>host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录;也可以指定某台机器可以远程登录;</li><li>password - 该用户的登陆密码,密码可以为空,如果为空则该用户可以不需要密码登陆服务器。</li></ul><pre><code>如果遇到 ERROR 1819 (HY000): Your password does not satisfy the current policy requirements  ,是由于mysql 密码安全策略，执行下方语句即可</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global validate_password_policy=0;</span><br></pre></td></tr></table></figure><blockquote><ol><li>分配权限</li></ol></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT (all,select,insert,update) privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos; identified by &apos;password&apos;;</span><br></pre></td></tr></table></figure><ul><li>privileges 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;<br>databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示, 如 </em>.*.</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure><h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 查看所有用户</span><br><span class="line">select * from mysql.user；</span><br><span class="line">##  创建拥有全部权限的用户</span><br><span class="line">GRANT all privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建拥有查看权限的用户</span><br><span class="line">GRANT select privileges ON *.* TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line">##  创建只拥有查看 test 数据库 user 表数据的 权限的用户</span><br><span class="line">GRANT select privileges ON test.user TO &apos;test&apos;@&apos;%&apos; identified by &apos;pwd&apos;;</span><br><span class="line"></span><br><span class="line">## 执行刷新</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure><h3 id="show-processlist-神器"><a href="#show-processlist-神器" class="headerlink" title="show processlist 神器"></a>show processlist 神器</h3><p> 查看mysql线程</p><ul><li>show full processlist;</li></ul><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询执行时间超过3分钟的线程，然后拼接成 kill 语句</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span>(<span class="string">'kill '</span>, <span class="keyword">id</span>, <span class="string">';'</span>)</span><br><span class="line"><span class="keyword">from</span> information_schema.processlist</span><br><span class="line"><span class="keyword">where</span> command != <span class="string">'Sleep'</span></span><br><span class="line"><span class="keyword">and</span> <span class="keyword">time</span> &gt; <span class="number">3</span>*<span class="number">60</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">time</span> <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure><h2 id="mysql索引"><a href="#mysql索引" class="headerlink" title="mysql索引"></a>mysql索引</h2><h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>| 区别  | Innodb    | Myisam || :----: | :------: | :----: || 事务    |  安全        | 非安全 ||  锁   |  行级        | 表级 || 效率  | 低        |  高 || 索引    | 聚集索引   | 非聚集索引 || 外键    | 支持 |    不支持 || 使用环境 | 支持事务，大量增，改    | 多查询，不支持事务|</code></pre><h2 id="Btree"><a href="#Btree" class="headerlink" title="Btree"></a>Btree</h2><p>存储信息： 主键-指针(子节点所在磁盘块的地址)-data</p><h2 id="B-tree"><a href="#B-tree" class="headerlink" title="B+tree"></a>B+tree</h2><p>所有数据记录节点都是<br>按照键值大小顺序存放在同一层的叶子节点上，<br>而非叶子节点上只存储key值信息,不存储data。<br>存储数据比btree多。</p><h3 id="主键索引和非主键索引的区别是："><a href="#主键索引和非主键索引的区别是：" class="headerlink" title="主键索引和非主键索引的区别是："></a>主键索引和非主键索引的区别是：</h3><p>非主键索引的叶子节点存放的是主键的值，<br>而主键索引的叶子节点存放的是整行数据，<br>其中非主键索引也被称为二级索引，而主键索引也被称为聚簇索引。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/gsQM61GSzIPclD4o4fib8iavdJChXslcoDFWm1OF64Pgktj8K3gyVHdxS12EQOMtB5On8keMicpSwngLlBvibdfr5A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="主键索引和非主键索引的示意图如下"></p><h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><ul><li>属于Innodb, 大部分是主键,只有一个聚集索引,并顺序存放</li><li>InnoDB表中聚簇索引首选主键，其次选择不含null值的唯一索引，如果两者都无，则会内置rowid作为隐含的聚集索引。</li><li>子节点存放的就是数据</li></ul><h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><ul><li>就是普通索引，二级索引</li><li>需要大量的硬盘空间和内存</li><li>叶子节点存放的是主键的值</li><li>普通索引指向主键索引, 普通索引-&gt;主键-&gt;数据行</li><li>非主键索引的查询需要多扫描一颗索引树, 效率相对更低</li></ul><h3 id="假如-Mysql-忘记了密码"><a href="#假如-Mysql-忘记了密码" class="headerlink" title="假如 Mysql 忘记了密码"></a>假如 Mysql 忘记了密码</h3><p>vim /etc/my.cnf   在【mysqld】的段中，加上skip-grant-tables<br>查看user表，修改即可，参考其他数据库user</p><p>设置查询缓存大小<br>SET GLOBAL innodb_buffer_pool_size=33554432;</p><h2 id="mysql-锁"><a href="#mysql-锁" class="headerlink" title="mysql 锁"></a>mysql 锁</h2><ul><li>乐观锁 （加版本）</li><li>悲观锁 （锁数据，行锁，事务） select xx for update</li></ul><h2 id="mysql-事务4特性-ACID"><a href="#mysql-事务4特性-ACID" class="headerlink" title="mysql 事务4特性 ACID"></a>mysql 事务4特性 ACID</h2><p>数据库管理系统中事务(transaction)的四个特性（分析时根据首字母缩写依次解释）：</p><ul><li>原子性（Atomicity）、</li><li>一致性（Consistency）、</li><li>隔离性（Isolation）、</li><li>持久性（Durability）</li></ul><p>所谓事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。（执行单个逻辑功能的一组指令或操作称为事务）</p><h2 id="Mysql-三种日志"><a href="#Mysql-三种日志" class="headerlink" title="Mysql 三种日志"></a>Mysql 三种日志</h2><h3 id="redo-log-（重做日志）"><a href="#redo-log-（重做日志）" class="headerlink" title="redo log （重做日志）"></a>redo log （重做日志）</h3><ul><li>先写 内存 ，提交后再写入到磁盘中</li><li>存储在引擎innodb </li><li>InnoDB引擎会把更新记录先写在redo log中，</li><li>在修改Buffer Pool中的数据， 当提交事务时，调用fsync把redo log刷入磁盘</li></ul><h3 id="undo-log-（回滚日志）"><a href="#undo-log-（回滚日志）" class="headerlink" title="undo log （回滚日志）"></a>undo log （回滚日志）</h3><ul><li>实现事务的原子性，也是存储在磁盘中</li><li>记录的是数据修改前的状态，在数据修改的流程中，同时会记录一条与当前操作相反的逻辑日志到undo log中。</li><li>如果遇到事务回滚，就借助 undo log 回滚到以前的状态</li><li>undo log只负责记录事务开始前要修改数据的原始版本，当我们再次对这行数据进行修改，所产生的修改记录会写入到redo log，undo log负责完成回滚，redo log负责完成前滚</li></ul><h3 id="bin-log-（归档日志）"><a href="#bin-log-（归档日志）" class="headerlink" title="bin log （归档日志）"></a>bin log （归档日志）</h3><ul><li>Server层 ，二进制形式存储在磁盘中</li><li>记录了数据库所有DDL和DML操作</li></ul><h3 id="mysql-执行计划"><a href="#mysql-执行计划" class="headerlink" title="mysql 执行计划"></a>mysql 执行计划</h3>]]></content>
     
@@ -311,9 +321,9 @@
     
     
     
-    <category term="mysql" scheme="https://caijihui.github.io/tags/mysql/"/>
-    
     <category term="索引" scheme="https://caijihui.github.io/tags/索引/"/>
+    
+    <category term="Mysql" scheme="https://caijihui.github.io/tags/Mysql/"/>
     
   </entry>
   
@@ -322,7 +332,7 @@
     <link href="https://caijihui.github.io/2019/03/22/2019-03-22docker-compose%E6%90%AD%E5%BB%BAlnmp/"/>
     <id>https://caijihui.github.io/2019/03/22/2019-03-22docker-compose%E6%90%AD%E5%BB%BAlnmp/</id>
     <published>2019-03-22T07:22:48.000Z</published>
-    <updated>2019-03-22T07:27:53.000Z</updated>
+    <updated>2021-04-03T13:19:49.950Z</updated>
     
     <content type="html"><![CDATA[<h2 id="docker-file-learn"><a href="#docker-file-learn" class="headerlink" title="docker file learn"></a>docker file learn</h2><h3 id="docker-compose-和Dockerfile-区别"><a href="#docker-compose-和Dockerfile-区别" class="headerlink" title="docker-compose 和Dockerfile 区别"></a><code>docker-compose</code> 和<code>Dockerfile</code> 区别</h3><blockquote><ul><li>Dockerfile  构建镜像</li><li>docker-compose 编排容器并启动服务</li></ul></blockquote><p>常用命令：</p><blockquote><ul><li><strong>构建镜像</strong>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t <span class="built_in">test</span>-docker:tag .</span><br></pre></td></tr></table></figure></li></ul></blockquote><blockquote><ul><li><strong>启动容器服务</strong> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure></li></ul></blockquote><blockquote><ul><li><strong>查看所有容器</strong> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure></li></ul></blockquote><blockquote><ul><li><strong>删除容器</strong>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm  id</span><br></pre></td></tr></table></figure></li></ul></blockquote><blockquote><ul><li><strong>删除镜像</strong>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi  id</span><br></pre></td></tr></table></figure></li></ul></blockquote><p>参考github： <a href="https://github.com/caijihui/Docker-file" target="_blank" rel="noopener">https://github.com/caijihui/Docker-file</a></p>]]></content>
     
@@ -338,8 +348,6 @@
     <category term="docker" scheme="https://caijihui.github.io/tags/docker/"/>
     
     <category term="lnmp" scheme="https://caijihui.github.io/tags/lnmp/"/>
-    
-    <category term="docker-compose" scheme="https://caijihui.github.io/tags/docker-compose/"/>
     
   </entry>
   
@@ -371,7 +379,7 @@
     <link href="https://caijihui.github.io/2019/01/23/2019-01-23%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82%E5%8F%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>https://caijihui.github.io/2019/01/23/2019-01-23%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82%E5%8F%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</id>
     <published>2019-01-23T10:59:57.000Z</published>
-    <updated>2021-03-10T09:13:36.521Z</updated>
+    <updated>2021-04-03T13:20:21.720Z</updated>
     
     <content type="html"><![CDATA[<p>本条用于总结项目遇到的难点问题，不同成长阶段所遇到的</p><ol><li>常用正则</li></ol><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">preg_match(<span class="string">"/([\w\-]+\@[\w\-]+\.[\w\-]+)/"</span>,$email);</span><br><span class="line">preg_match(<span class="string">"/^1\d&#123;10&#125;/"</span>,$phone);</span><br><span class="line">preg_match(<span class="string">"/(\w+):\/\/([^/:]+)(:\d*)?([^# ]*)/"</span>,$url);</span><br></pre></td></tr></table></figure><ol><li><p>laravel <code>get()</code></p>  <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ORM  操作 get  判断空</span><br><span class="line">example: (get()) </span><br><span class="line">  <span class="keyword">if</span> ($users-&gt;first())&#123;&#125; </span><br><span class="line">  <span class="keyword">if</span> (!$users-&gt;isEmpty())&#123;&#125; </span><br><span class="line">  <span class="keyword">if</span> ($users-&gt;count())&#123;&#125;</span><br></pre></td></tr></table></figure></li></ol><ol><li><p>数据查询时</p><p>  多表查询只取出使用到的字段，同名字段记得取别名。</p>  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.name <span class="keyword">as</span> <span class="keyword">name</span>,b.name <span class="keyword">as</span> bname <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> user_extend <span class="keyword">as</span> b <span class="keyword">on</span> b.user_id = a.id;</span><br></pre></td></tr></table></figure></li></ol><ol><li><p>验证是否在数组中</p> <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$foo = <span class="number">0</span>;</span><br><span class="line">$arr = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">if</span>(in_array($foo,$arr))&#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">"true"</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">"false"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">如果 把 $foo = <span class="string">"0"</span> , 则返回<span class="keyword">false</span></span><br></pre></td></tr></table></figure><p>  原因就在于，比较时的PHP做了类型转换。<br>  PHP官网上的说明：<a href="http://php.net/manual/en/language.types.string.php#language.types.string.conversion" target="_blank" rel="noopener">http://php.net/manual/en/language.types.string.php#language.types.string.conversion</a><br>  也就是在比较前，string类型的数据会转换成int型，然后再比较。<br>  而如果string类型数据第一个字符不是数字，就会转换成0。<br>  可参考：<a href="https://www.cnblogs.com/isykw/p/6703484.html" target="_blank" rel="noopener">https://www.cnblogs.com/isykw/p/6703484.html</a></p><ol><li>todo</li></ol></li></ol>]]></content>
     
@@ -388,7 +396,7 @@
     
     
     
-    <category term="care" scheme="https://caijihui.github.io/tags/care/"/>
+    <category term="成长" scheme="https://caijihui.github.io/tags/成长/"/>
     
   </entry>
   
