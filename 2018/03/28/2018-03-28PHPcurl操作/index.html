@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caijihui.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="curl 操作 可异步请求curl  POST-方式请求1234567891011121314151617181920function httpPost($url, $data)&amp;#123;    $ch &#x3D; curl_init();    &#x2F;* 设置验证方式 *&#x2F;    curl_setopt($ch, CURLOPT_HTTPHEADER, array(&amp;#x27;Accept:text&#x2F;pl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHPcurl操作">
+<meta property="og:url" content="https://caijihui.github.io/2018/03/28/2018-03-28PHPcurl%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="curl 操作 可异步请求curl  POST-方式请求1234567891011121314151617181920function httpPost($url, $data)&amp;#123;    $ch &#x3D; curl_init();    &#x2F;* 设置验证方式 *&#x2F;    curl_setopt($ch, CURLOPT_HTTPHEADER, array(&amp;#x27;Accept:text&#x2F;pl">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-28T07:29:00.000Z">
+<meta property="article:modified_time" content="2021-06-23T03:33:47.610Z">
+<meta property="article:author" content="Cai JiHui">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://caijihui.github.io/2018/03/28/2018-03-28PHPcurl%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PHPcurl操作 | 菜园子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="菜园子" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">开发经历</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/28/2018-03-28PHPcurl%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PHPcurl操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-28 15:29:00" itemprop="dateCreated datePublished" datetime="2018-03-28T15:29:00+08:00">2018-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-23 11:33:47" itemprop="dateModified" datetime="2021-06-23T11:33:47+08:00">2021-06-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="curl-操作-可异步请求"><a href="#curl-操作-可异步请求" class="headerlink" title="curl 操作 可异步请求"></a>curl 操作 可异步请求</h5><h2 id="curl-POST-方式请求"><a href="#curl-POST-方式请求" class="headerlink" title="curl  POST-方式请求"></a>curl  POST-方式请求</h2><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> httpPost(<span class="variable">$url</span>, <span class="variable">$data</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$ch</span> = curl_init();</span><br><span class="line">    /* 设置验证方式 */</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_HTTPHEADER, array(<span class="string">&#x27;Accept:text/plain;charset=utf-8&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Content-Type:application/x-www-form-urlencoded&#x27;</span>, <span class="string">&#x27;charset=utf-8&#x27;</span>));</span><br><span class="line">    /* 设置返回结果为流 */</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="literal">true</span>);</span><br><span class="line">    /* 设置超时时间*/</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_TIMEOUT, 10);</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_URL, <span class="variable">$url</span>); //设置网址</span><br><span class="line">    /* 设置通信方式 */</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_POST, 1);</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_SSL_VERIFYPEER, <span class="literal">false</span>);</span><br><span class="line">    curl_setopt(<span class="variable">$ch</span>, CURLOPT_POSTFIELDS, http_build_query(<span class="variable">$data</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="variable">$response</span> = curl_exec(<span class="variable">$ch</span>); //执行</span><br><span class="line">    curl_close(<span class="variable">$ch</span>);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="curl-GET-方式请求"><a href="#curl-GET-方式请求" class="headerlink" title="curl  GET-方式请求"></a>curl  GET-方式请求</h2><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> httpGet(<span class="variable">$url</span>, <span class="variable">$data</span>)</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$data</span>) &#123;</span><br><span class="line">          <span class="variable">$url</span> .= <span class="string">&#x27;?&#x27;</span> . http_build_query(<span class="variable">$data</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable">$curlObj</span> = curl_init(); //初始化curl，</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_URL, <span class="variable">$url</span>); //设置网址</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_RETURNTRANSFER, 1); //将curl_exec的结果返回</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_SSL_VERIFYPEER, FALSE);</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_SSL_VERIFYHOST, FALSE);</span><br><span class="line">      curl_setopt(<span class="variable">$curlObj</span>, CURLOPT_HEADER, 0); //是否输出返回头信息</span><br><span class="line">      <span class="variable">$response</span> = curl_exec(<span class="variable">$curlObj</span>); //执行</span><br><span class="line">      curl_close(<span class="variable">$curlObj</span>); //关闭会话</span><br><span class="line">      //return <span class="variable">$response</span>;</span><br><span class="line">  &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+</code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PHP/" rel="tag"># PHP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/09/2018-03-09ubuntu%E6%90%AD%E5%BB%BAlamp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="prev" title="ubuntu搭建lamp开发环境">
+      <i class="fa fa-chevron-left"></i> ubuntu搭建lamp开发环境
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/04/28/2018-04-28docker%E6%90%AD%E5%BB%BAphp7%20+%20nginx/" rel="next" title="docker搭建php7 + nginx">
+      docker搭建php7 + nginx <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#curl-%E6%93%8D%E4%BD%9C-%E5%8F%AF%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">curl 操作 可异步请求</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-POST-%E6%96%B9%E5%BC%8F%E8%AF%B7%E6%B1%82"><span class="nav-number"></span> <span class="nav-text">curl  POST-方式请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-GET-%E6%96%B9%E5%BC%8F%E8%AF%B7%E6%B1%82"><span class="nav-number"></span> <span class="nav-text">curl  GET-方式请求</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cai JiHui</p>
+  <div class="site-description" itemprop="description">技术和分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caijihui" title="GitHub → https://github.com/caijihui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai JiHui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
