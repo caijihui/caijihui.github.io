@@ -6,7 +6,7 @@
   <link href="https://caijihui.github.io/atom.xml" rel="self"/>
   
   <link href="https://caijihui.github.io/"/>
-  <updated>2022-09-07T12:30:57.506Z</updated>
+  <updated>2022-09-09T06:55:16.066Z</updated>
   <id>https://caijihui.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://caijihui.github.io/2022/09/07/2022-09-07-java%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <id>https://caijihui.github.io/2022/09/07/2022-09-07-java%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
     <published>2022-09-07T04:50:27.000Z</published>
-    <updated>2022-09-07T12:30:57.506Z</updated>
+    <updated>2022-09-09T06:55:16.066Z</updated>
     
     <content type="html"><![CDATA[<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><h2 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h2>]]></content>
     
@@ -33,6 +33,8 @@
     
     
     
+    <category term="设计模式" scheme="https://caijihui.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
     
   </entry>
   
@@ -41,7 +43,7 @@
     <link href="https://caijihui.github.io/2022/09/07/2022-09-07-java-web/"/>
     <id>https://caijihui.github.io/2022/09/07/2022-09-07-java-web/</id>
     <published>2022-09-07T04:49:35.000Z</published>
-    <updated>2022-09-07T12:27:18.183Z</updated>
+    <updated>2022-09-09T06:55:22.547Z</updated>
     
     <content type="html"><![CDATA[<h2 id="java-web-怎么获取参数"><a href="#java-web-怎么获取参数" class="headerlink" title="java-web 怎么获取参数 ?"></a>java-web 怎么获取参数 ?</h2><h3 id="url请求参数"><a href="#url请求参数" class="headerlink" title="url请求参数"></a>url请求参数</h3><ol><li><p><code>get</code></p>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestParam(&quot;id&quot;)</span> <span class="type">int</span> id,</span><br><span class="line"><span class="meta">@RequestParam(&quot;name&quot;)</span> String name,</span><br><span class="line"><span class="meta">@RequestParam(&quot;goodsList&quot;)</span> String goodsList,</span><br></pre></td></tr></table></figure><p>特别注意, 如果是list 类型,需要用string 接收, 在处理数据的时候，转化成list</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Long&gt; goodsLists = JSONObject.parseArray(goodsList, goods.class);</span><br></pre></td></tr></table></figure></li><li><code>post</code>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestBody</span> CreateRequest createRequest</span><br></pre></td></tr></table></figure></li></ol><h3 id="header头信息"><a href="#header头信息" class="headerlink" title="header头信息"></a>header头信息</h3><h2 id="java-math-数据精度处理"><a href="#java-math-数据精度处理" class="headerlink" title="java math 数据精度处理"></a>java math 数据精度处理</h2><ul><li>setScale<br>获取几位数位</li><li>stripTrailingZeros<br>去除 尾号为0的</li><li>toPlainString<br>排除科学技术法返回格式<br>不使用这个的话, 100/10 会返回了 1E + 1</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span>  <span class="variable">bigPrice</span> <span class="operator">=</span> <span class="number">2110</span>;    </span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> (<span class="keyword">new</span> <span class="title class_">BigDecimal</span>(bigPrice)).divide(BigDecimal.valueOf(<span class="number">100d</span>))</span><br><span class="line">               .setScale(<span class="number">2</span>, BigDecimal.ROUND_HALF_UP)</span><br><span class="line">               .stripTrailingZeros()</span><br><span class="line">               .toPlainString();</span><br></pre></td></tr></table></figure><h2 id="java开发流"><a href="#java开发流" class="headerlink" title="java开发流"></a>java开发流</h2><h3 id="pom-and-maven"><a href="#pom-and-maven" class="headerlink" title="pom and maven"></a>pom and maven</h3><p>  pom.xml 文件 添加依赖， maven 进行刷新拉取<br>  pom.xml 文件中 dependencies 添加依赖<br>  dependencyManagement 控制依赖版本.</p><h3 id="参数定义和接参定义"><a href="#参数定义和接参定义" class="headerlink" title="参数定义和接参定义"></a>参数定义和接参定义</h3><p>   对于个性化的 传参 和 结构返回 都必须 新增 参数Dto</p><p>   通常放到项目中 使用其它Dto对应到文件夹中，如model， request， response </p><h3 id="三方服务对接"><a href="#三方服务对接" class="headerlink" title="三方服务对接"></a>三方服务对接</h3><p>   引入参数 和 结构对象，进行参数赋值，记录log ，再判断状态码。</p><h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>  spring boot， 写test 用例进行代码调试。 </p>]]></content>
     
@@ -52,6 +54,8 @@
       
     
     
+    
+    <category term="java" scheme="https://caijihui.github.io/categories/java/"/>
     
     
     <category term="java" scheme="https://caijihui.github.io/tags/java/"/>
@@ -65,7 +69,7 @@
     <link href="https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/"/>
     <id>https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/</id>
     <published>2021-03-31T05:47:02.000Z</published>
-    <updated>2021-06-23T03:33:47.612Z</updated>
+    <updated>2022-09-09T06:55:29.137Z</updated>
     
     <content type="html"><![CDATA[<h2 id="终端工具及命令"><a href="#终端工具及命令" class="headerlink" title="终端工具及命令"></a>终端工具及命令</h2><ul><li>iTerm</li><li>oh-my-zsh</li><li>vim</li><li>supervisor</li></ul><h2 id="lnmp"><a href="#lnmp" class="headerlink" title="lnmp"></a>lnmp</h2><p>   配置环境变量</p><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><ul><li>redis</li><li>mq</li><li>mysql</li><li>php</li></ul><h2 id="mac-app"><a href="#mac-app" class="headerlink" title="mac app"></a>mac app</h2><p>app 地址： <a href="https://xclient.info/">https://xclient.info/</a></p><ul><li>AIfred</li><li>phpstorm / goland</li><li>google chrome</li><li>sequel Ace或Pro</li><li>sublime</li><li>charles</li><li>WX/QQ</li><li>mail</li><li>ClashX</li></ul><h2 id="chrome-extension"><a href="#chrome-extension" class="headerlink" title="chrome extension"></a>chrome extension</h2><ul><li>FeHelper(前端助手)</li><li>Github 加速器</li><li>skyZIP™ Proxy</li><li>掘金 0.3.9</li><li>Xdebug helper 1.6.1</li><li>Print Friendly &amp; PDF</li></ul><h2 id="微信多开，防撤回"><a href="#微信多开，防撤回" class="headerlink" title="微信多开，防撤回"></a>微信多开，防撤回</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Sunnyyoung/WeChatTweak-macOS.git</span><br><span class="line"><span class="built_in">cd</span> WeChatTweak-macOS</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure><h2 id="工具类网站"><a href="#工具类网站" class="headerlink" title="工具类网站"></a>工具类网站</h2><ul><li><a href="https://www.toolnb.com/">https://www.toolnb.com/</a></li><li><a href="http://tool.chinaz.com/Tools/Unicode.aspx">http://tool.chinaz.com/Tools/Unicode.aspx</a></li></ul>]]></content>
     
@@ -80,6 +84,8 @@
       
     
     
+    
+    <category term="mac" scheme="https://caijihui.github.io/categories/mac/"/>
     
     
     <category term="Mac" scheme="https://caijihui.github.io/tags/Mac/"/>
@@ -133,37 +139,11 @@
   </entry>
   
   <entry>
-    <title>Laravel特性</title>
-    <link href="https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/"/>
-    <id>https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/</id>
-    <published>2021-03-11T03:34:13.000Z</published>
-    <updated>2021-06-23T03:33:47.612Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="IoC和DI"><a href="#IoC和DI" class="headerlink" title="IoC和DI"></a>IoC和DI</h2><ul><li>解耦和减少依赖关系</li><li>延迟加载，用时创建对象</li><li></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;IoC和DI&quot;&gt;&lt;a href=&quot;#IoC和DI&quot; class=&quot;headerlink&quot; title=&quot;IoC和DI&quot;&gt;&lt;/a&gt;IoC和DI&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;解耦和减少依赖关系&lt;/li&gt;
-&lt;li&gt;延迟加载，用时创建对象&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/</summary>
-      
-    
-    
-    
-    
-    <category term="Laravel" scheme="https://caijihui.github.io/tags/Laravel/"/>
-    
-  </entry>
-  
-  <entry>
     <title>PHP执行原理和PHP7比PHP5快的原因</title>
     <link href="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/"/>
     <id>https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/</id>
     <published>2021-03-06T08:10:22.000Z</published>
-    <updated>2022-09-07T12:25:10.196Z</updated>
+    <updated>2022-09-09T06:55:55.328Z</updated>
     
     <content type="html"><![CDATA[<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><ol><li>php初始化执行，启动zend引擎，加载已注册的扩展模块</li><li>读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树</li><li>zend引擎编译语法树，生成opcode中间代码</li><li>zend引擎执行opcode，返回执行结果</li></ol><p>总结:<br>一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。</p><h2 id="性能提升的原因"><a href="#性能提升的原因" class="headerlink" title="性能提升的原因"></a>性能提升的原因</h2><ol><li>存储变量的结构体变小，尽量使结构体里成员共用内存空间，减少引用，这样内存占用降低，变量的操作速度得到提升。</li><li>字符串结构体的改变，字符串信息和数据本身原来是分成两个独立内存块存放，php7尽量将它们存入同一块内存，提升了cpu缓存命中率。</li><li>数组结构的改变，数组元素和hash映射表在php5中会存入多个内存块，php7尽量将它们分配在同一块内存里，降低了内存占用、提升了cpu缓存命中率。</li><li>改进了函数的调用机制，通过对参数传递环节的优化，减少一些指令操作，提高了执行效率。</li></ol><h2 id="为什么PHP7的性能可以提高这么多？"><a href="#为什么PHP7的性能可以提高这么多？" class="headerlink" title="为什么PHP7的性能可以提高这么多？"></a>为什么PHP7的性能可以提高这么多？</h2><ol><li>JIT</li><li>Zval的改变</li><li>内部类型zend_string</li><li>PHP数组的变化（HashTable和Zend Array）</li><li>函数调用机制（Function Calling Convention）</li><li>通过宏定义和内联函数（inline），让编译器提前完成部分工作</li></ol><h2 id="为什么PHP7的在实际的业务性能提高才30-左右？"><a href="#为什么PHP7的在实际的业务性能提高才30-左右？" class="headerlink" title="为什么PHP7的在实际的业务性能提高才30%左右？"></a>为什么PHP7的在实际的业务性能提高才30%左右？</h2><ol><li>实际的业务不一定有很复杂的计算逻辑</li><li>实际的业务会用到Redis 和MYSQL，网络和IO的瓶颈 影响了PHP7的整体性能</li><li>HTTPS的性能问题 限制了PHP7的能力</li></ol><h2 id="php-fpm"><a href="#php-fpm" class="headerlink" title="php-fpm"></a>php-fpm</h2><ul><li>FastCGI<ul><li>一种协议，FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口</li><li>监听 事先启动，等待server 请求发起连接，并使用php-cgi 解析程序并返回结果</li><li>一 master 多 worker 模式</li><li>平滑启动</li></ul></li></ul><ul><li>php-fpm进程管理器<br>  php-fpm是对fastcgi协议的实现<br>  php-fpm是进程管理器，启动时包括master和worker进程俩部分，<br>  master进程负责管理worker进程，worker进程一般具有多个，用来监听端口，接收来自webserver请求，且每个worker进程都有一个cgi进程解释器，用来执行php代码</li></ul><h2 id="php概念"><a href="#php概念" class="headerlink" title="php概念"></a>php概念</h2><p>zval： 变量内存存储结构</p><p>hashTable： 数据结构</p><p>HashTable </p><ul><li>bucket <ul><li>zval[0] , zval[1]</li></ul></li></ul><h2 id="ZVAL-结构体（保存内存变量的结构）"><a href="#ZVAL-结构体（保存内存变量的结构）" class="headerlink" title="ZVAL 结构体（保存内存变量的结构）"></a>ZVAL 结构体（保存内存变量的结构）</h2><p>hashtable </p><ol><li>PHP5 </li></ol><ul><li>_zval_struct总的字节 = value（16）+ refcount__gc（4）+ type（1）+ is_ref__gc（1） + 内存对齐2 = 占用22字节。</li><li>HashTable 占用72字节</li><li>burst IO  2次，64为一次</li><li>bucket  72 字节 存放zval</li></ul><ol><li>PHP7</li></ol><ul><li>zval_struct 占用16字节</li><li>HashTable/ zend_array  占用 57字节 （向内存索取空间，默认每次是64字节，不够再向内存索取）</li><li>burst IO  一次</li><li>bucket  32 字节</li></ul><h2 id="PHP-5-到-PHP-7-HashTable-主要做了如下修改"><a href="#PHP-5-到-PHP-7-HashTable-主要做了如下修改" class="headerlink" title="PHP 5 到 PHP 7 HashTable 主要做了如下修改"></a>PHP 5 到 PHP 7 HashTable 主要做了如下修改</h2><p>优化 HashTable 的数据结构：</p><ul><li>PHP数组zend_array 的内存占用从PHP5点72个字节，降低到了56个字节</li><li>使用内存缓存局部性的特点，优化PHP数组效率</li><li>PHP5的 Bucket ，包括 zval 都是独立分配（在内存中是离散的）</li><li>PHP7使用一块连续的空间存储 Bucket， Bucket 和 zval 在内存中都是连续存储的</li></ul>]]></content>
     
@@ -177,6 +157,8 @@
     
     
     
+    <category term="php" scheme="https://caijihui.github.io/categories/php/"/>
+    
     
     <category term="PHP" scheme="https://caijihui.github.io/tags/PHP/"/>
     
@@ -187,7 +169,7 @@
     <link href="https://caijihui.github.io/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/"/>
     <id>https://caijihui.github.io/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/</id>
     <published>2021-01-12T06:48:25.000Z</published>
-    <updated>2022-09-07T12:24:18.171Z</updated>
+    <updated>2022-09-09T06:56:03.024Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Redis相比memcached有哪些优势"><a href="#Redis相比memcached有哪些优势" class="headerlink" title="Redis相比memcached有哪些优势"></a>Redis相比memcached有哪些优势</h3><ul><li>都是基于内存(memory)键-值(key-value)数据库</li><li>支持数据类型比较多</li><li>redis可以持久化其数据 主从和哨兵</li></ul><h3 id="Redis是单线程的，但Redis为什么这么快？"><a href="#Redis是单线程的，但Redis为什么这么快？" class="headerlink" title="Redis是单线程的，但Redis为什么这么快？"></a>Redis是单线程的，但Redis为什么这么快？</h3><ul><li>完全基于内存，</li><li>采用单线程，没有线程切换的消耗</li><li>数据结构比较简单</li><li>Redis的瓶颈最有可能是机器内存的大小或者网络带宽</li></ul><h2 id="持久化方式"><a href="#持久化方式" class="headerlink" title="持久化方式"></a>持久化方式</h2><h3 id="RDB-（redis-database）"><a href="#RDB-（redis-database）" class="headerlink" title="RDB （redis database）"></a>RDB （redis database）</h3><ul><li>二进制文件dump.rdb</li><li>save方式 save 300 10  （300s 内有10次改动 就save ）</li><li>bgsave </li></ul><h3 id="AOF-（append-only-file）"><a href="#AOF-（append-only-file）" class="headerlink" title="AOF （append only file）"></a>AOF （append only file）</h3><ul><li>文件追加</li><li>appendonly yes</li><li>AOF可以解决数据持久化的实时性问题</li></ul><p>默认方式：</p><ul><li>Redis服务器默认开启RDB，关闭AOF</li></ul><p>启动优先级：<br>假设Redis 同时打开了RDB和AOF持久化功能，当Redis重启的时候会优先加载AOF，因为AOF数据更新的频率更高，会保存更新的数据。</p><p>rdb 更快，实时性。</p><h2 id="redis-主从集群和哨兵机制"><a href="#redis-主从集群和哨兵机制" class="headerlink" title="redis 主从集群和哨兵机制"></a>redis 主从集群和哨兵机制</h2><p>【Redis专题：深入解读哨兵模式】</p>]]></content>
     
@@ -198,6 +180,8 @@
       
     
     
+    
+    <category term="redis" scheme="https://caijihui.github.io/categories/redis/"/>
     
     
     <category term="redis" scheme="https://caijihui.github.io/tags/redis/"/>
@@ -350,7 +334,7 @@
     <link href="https://caijihui.github.io/2019/04/08/2021-03-08Mysql/"/>
     <id>https://caijihui.github.io/2019/04/08/2021-03-08Mysql/</id>
     <published>2019-04-08T03:02:32.000Z</published>
-    <updated>2022-09-07T04:44:46.577Z</updated>
+    <updated>2022-09-09T06:55:48.726Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Mysql-创建用户和分配权限"><a href="#Mysql-创建用户和分配权限" class="headerlink" title="Mysql 创建用户和分配权限"></a>Mysql 创建用户和分配权限</h2><blockquote><ol><li>创建用户</li></ol></blockquote><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &#x27;username&#x27;@&#x27;host&#x27; IDENTIFIED BY &#x27;password&#x27;;</span><br></pre></td></tr></table></figure><ul><li>username - 你将创建的用户名,</li><li>host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录;也可以指定某台机器可以远程登录;</li><li>password - 该用户的登陆密码,密码可以为空,如果为空则该用户可以不需要密码登陆服务器。</li></ul><pre><code>如果遇到 ERROR 1819 (HY000): Your password does not satisfy the current policy requirements  ,是由于mysql 密码安全策略，执行下方语句即可</code></pre><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global validate_password_policy=0;</span><br></pre></td></tr></table></figure><blockquote><ol><li>分配权限</li></ol></blockquote><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT (all,select,insert,update) privileges ON databasename.tablename TO &#x27;username&#x27;@&#x27;host&#x27; identified by &#x27;password&#x27;;</span><br></pre></td></tr></table></figure><ul><li>privileges 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;<br>databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示, 如 </em>.*.</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure><h2 id="example"><a href="#example" class="headerlink" title="example"></a>example</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 查看所有用户</span><br><span class="line">select * from mysql.user;</span><br><span class="line">##  创建拥有全部权限的用户</span><br><span class="line">GRANT all privileges ON *.* TO &#x27;test&#x27;@&#x27;%&#x27; identified by &#x27;pwd&#x27;;</span><br><span class="line">##  创建拥有查看权限的用户</span><br><span class="line">GRANT select privileges ON *.* TO &#x27;test&#x27;@&#x27;%&#x27; identified by &#x27;pwd&#x27;;</span><br><span class="line">##  创建只拥有查看 test 数据库 user 表数据的 权限的用户</span><br><span class="line">GRANT select privileges ON test.user TO &#x27;test&#x27;@&#x27;%&#x27; identified by &#x27;pwd&#x27;;</span><br><span class="line"></span><br><span class="line">## 执行刷新</span><br><span class="line">flush privileges;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="show-processlist-神器"><a href="#show-processlist-神器" class="headerlink" title="show processlist 神器"></a>show processlist 神器</h2><p> 查看mysql线程</p><ul><li>show full processlist;</li></ul><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询执行时间超过3分钟的线程，然后拼接成 kill 语句</span></span><br><span class="line"><span class="keyword">select</span> concat(<span class="string">&#x27;kill &#x27;</span>, id, <span class="string">&#x27;;&#x27;</span>)</span><br><span class="line"><span class="keyword">from</span> information_schema.processlist</span><br><span class="line"><span class="keyword">where</span> command <span class="operator">!=</span> <span class="string">&#x27;Sleep&#x27;</span></span><br><span class="line"><span class="keyword">and</span> <span class="type">time</span> <span class="operator">&gt;</span> <span class="number">3</span><span class="operator">*</span><span class="number">60</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="type">time</span> <span class="keyword">desc</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="mysql索引"><a href="#mysql索引" class="headerlink" title="mysql索引"></a>mysql索引</h2><h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code>| 区别  | Innodb    | Myisam || :----: | :------: | :----: || 事务    |  安全        | 非安全 ||  锁   |  行级        | 表级 || 效率  | 低        |  高 || 索引    | 聚集索引   | 非聚集索引 || 外键    | 支持 |    不支持 || 使用环境 | 支持事务，大量增，改    | 多查询，不支持事务|</code></pre><h3 id="Btree"><a href="#Btree" class="headerlink" title="Btree"></a>Btree</h3><p>存储信息： 主键-指针(子节点所在磁盘块的地址)-data</p><h3 id="B-tree"><a href="#B-tree" class="headerlink" title="B+tree"></a>B+tree</h3><p>所有数据记录节点都是<br>按照键值大小顺序存放在同一层的叶子节点上，<br>而非叶子节点上只存储key值信息,不存储data。<br>存储数据比btree多。</p><h3 id="主键索引和非主键索引的区别是："><a href="#主键索引和非主键索引的区别是：" class="headerlink" title="主键索引和非主键索引的区别是："></a>主键索引和非主键索引的区别是：</h3><p>非主键索引的叶子节点存放的是主键的值，<br>而主键索引的叶子节点存放的是整行数据，<br>其中非主键索引也被称为二级索引，而主键索引也被称为聚簇索引。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/gsQM61GSzIPclD4o4fib8iavdJChXslcoDFWm1OF64Pgktj8K3gyVHdxS12EQOMtB5On8keMicpSwngLlBvibdfr5A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="主键索引和非主键索引的示意图如下"></p><h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><ul><li>属于Innodb, 大部分是主键,只有一个聚集索引,并顺序存放</li><li>InnoDB表中聚簇索引首选主键，其次选择不含null值的唯一索引，如果两者都无，则会内置rowid作为隐含的聚集索引。</li><li>子节点存放的就是数据</li></ul><h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><ul><li>就是普通索引，二级索引</li><li>需要大量的硬盘空间和内存</li><li>叶子节点存放的是主键的值</li><li>普通索引指向主键索引, 普通索引-&gt;主键-&gt;数据行</li><li>非主键索引的查询需要多扫描一颗索引树, 效率相对更低</li></ul><h3 id="假如-Mysql-忘记了密码"><a href="#假如-Mysql-忘记了密码" class="headerlink" title="假如 Mysql 忘记了密码"></a>假如 Mysql 忘记了密码</h3><p>vim /etc/my.cnf   在【mysqld】的段中，加上skip-grant-tables<br>查看user表，修改即可，参考其他数据库user</p><p>设置查询缓存大小<br>SET GLOBAL innodb_buffer_pool_size=33554432;</p><h2 id="mysql-锁"><a href="#mysql-锁" class="headerlink" title="mysql 锁"></a>mysql 锁</h2><ul><li>乐观锁 （加版本）</li><li>悲观锁 （锁数据，行锁，事务） select xx for update</li></ul><h2 id="mysql-事务4特性-ACID"><a href="#mysql-事务4特性-ACID" class="headerlink" title="mysql 事务4特性 ACID"></a>mysql 事务4特性 ACID</h2><p>数据库管理系统中事务(transaction)的四个特性（分析时根据首字母缩写依次解释）：</p><ul><li>原子性（Atomicity）、</li><li>一致性（Consistency）、</li><li>隔离性（Isolation）、</li><li>持久性（Durability）</li></ul><p>所谓事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。（执行单个逻辑功能的一组指令或操作称为事务）</p><h2 id="Mysql-三种日志"><a href="#Mysql-三种日志" class="headerlink" title="Mysql 三种日志"></a>Mysql 三种日志</h2><h3 id="redo-log-（重做日志）"><a href="#redo-log-（重做日志）" class="headerlink" title="redo log （重做日志）"></a>redo log （重做日志）</h3><ul><li>先写 内存 ，提交后再写入到磁盘中</li><li>存储在引擎innodb </li><li>InnoDB引擎会把更新记录先写在redo log中，</li><li>在修改Buffer Pool中的数据， 当提交事务时，调用fsync把redo log刷入磁盘</li></ul><h3 id="undo-log-（回滚日志）"><a href="#undo-log-（回滚日志）" class="headerlink" title="undo log （回滚日志）"></a>undo log （回滚日志）</h3><ul><li>实现事务的原子性，也是存储在磁盘中</li><li>记录的是数据修改前的状态，在数据修改的流程中，同时会记录一条与当前操作相反的逻辑日志到undo log中。</li><li>如果遇到事务回滚，就借助 undo log 回滚到以前的状态</li><li>undo log只负责记录事务开始前要修改数据的原始版本，当我们再次对这行数据进行修改，所产生的修改记录会写入到redo log，undo log负责完成回滚，redo log负责完成前滚</li></ul><h3 id="bin-log-（归档日志）"><a href="#bin-log-（归档日志）" class="headerlink" title="bin log （归档日志）"></a>bin log （归档日志）</h3><ul><li>Server层 ，二进制形式存储在磁盘中</li><li>记录了数据库所有DDL和DML操作</li></ul><h3 id="mysql-执行计划"><a href="#mysql-执行计划" class="headerlink" title="mysql 执行计划"></a>mysql 执行计划</h3>]]></content>
     
@@ -363,6 +347,8 @@
       
     
     
+    
+    <category term="mysql" scheme="https://caijihui.github.io/categories/mysql/"/>
     
     
     <category term="Mysql" scheme="https://caijihui.github.io/tags/Mysql/"/>
@@ -400,7 +386,7 @@
     <link href="https://caijihui.github.io/2019/02/28/2019-02-28%E5%BB%BA%E7%AB%8Bcomposer%E5%8C%85%E7%9A%84%E8%BF%87%E7%A8%8B/"/>
     <id>https://caijihui.github.io/2019/02/28/2019-02-28%E5%BB%BA%E7%AB%8Bcomposer%E5%8C%85%E7%9A%84%E8%BF%87%E7%A8%8B/</id>
     <published>2019-02-28T09:04:52.000Z</published>
-    <updated>2021-06-23T03:33:47.611Z</updated>
+    <updated>2022-09-09T06:54:39.119Z</updated>
     
     <content type="html"><![CDATA[<ol><li><p>在github 创建文件仓库 如：<a href="https://github.com/caijihui/computeman.git">https://github.com/caijihui/computeman.git</a></p></li><li><p>下载到本地，进行基础构建</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/caijihui/computeman.git</span><br><span class="line">composer init </span><br><span class="line"><span class="comment">## 建立好composer.json 后运行，下载依赖 </span></span><br><span class="line">composer install</span><br></pre></td></tr></table></figure><p><strong>composer.json 参考文件</strong></p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;xxx/xxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;xx&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;laravel&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;compute&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;age&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;require&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;php&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&gt;=7&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;autoload&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;psr-4&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;aaa\\&quot;</span><span class="punctuation">:</span> <span class="string">&quot;src/&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;MIT&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;authors&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;aaaaa&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;email&quot;</span><span class="punctuation">:</span> <span class="string">&quot;aaaaaa@163.com&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;minimum-stability&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dev&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>3.目录结构如下,readme.md 补充使用流程</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.git/  </span><br><span class="line">.gitignore  </span><br><span class="line">composer.json  </span><br><span class="line">README.md  </span><br><span class="line">src/</span><br><span class="line">    compute.php  </span><br></pre></td></tr></table></figure></li></ol><p>4.编写代码进行本地测试</p><p>5.在根目录下建立个demo.php<br>   <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require_once</span> <span class="string">&#x27;./vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Computeman</span>\<span class="title">Compute</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title class_">Compute</span>::<span class="title function_ invoke__">getAge</span>(<span class="string">&#x27;1990-02-15&#x27;</span>);</span><br></pre></td></tr></table></figure></p><p>6.测试通过之后，提交到github打上tag</p><p><strong>这里的tag 为composer包的版本</strong></p><p>命令参考：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0</span><br><span class="line">git push origin v1.0</span><br><span class="line"><span class="comment">## 删除tag命令  </span></span><br><span class="line">git tag -d v1.0</span><br><span class="line"><span class="comment">## 删除远程tag</span></span><br><span class="line">git push origin --delete tag v1.0</span><br></pre></td></tr></table></figure><br>7.到<a href="https://packagist.org/packages/submit">https://packagist.org/packages/submit</a> 输入url 提交发布</p><p>8.正式使用,ok<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require caiyuanzi/computeman v1.0  </span><br></pre></td></tr></table></figure></p>]]></content>
     
@@ -493,6 +479,30 @@
     
     
     <category term="PHP" scheme="https://caijihui.github.io/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu搭建lamp开发环境</title>
+    <link href="https://caijihui.github.io/2018/03/09/2018-03-09ubuntu%E6%90%AD%E5%BB%BAlamp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>https://caijihui.github.io/2018/03/09/2018-03-09ubuntu%E6%90%AD%E5%BB%BAlamp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</id>
+    <published>2018-03-09T07:12:00.000Z</published>
+    <updated>2021-06-23T03:33:47.610Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.安装apache2  :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  apt-get install  apache2</span><br></pre></td></tr></table></figure><br>2.安装php5.6或其他版本：<br>使用ppa增加源:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo add-apt-repository ppa:ondrej/php</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y php7.0 php7.0-mysql php7.0-curl php7.0-json php7.0-cgi</span><br></pre></td></tr></table></figure><br>或<br>关于php5.4–php5.6版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo add-apt-repository ppa:ondrej/php</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install php5.6 php5.6-mcrypt php5.6-mbstring php5.6-curl php5.6-cli php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip</span><br></pre></td></tr></table></figure><br>安装完成后，输入 php -v 查看当前的版本<br>3.安装mysql<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get mysql-server</span><br></pre></td></tr></table></figure></p><p>  至此，lamp 环境已经搭建完成。</p><p>  接下来就是修改apache2目录:</p><ul><li>cd /etc/apache2/sites-enabled</li><li>vi 000-default.conf 默认的最好不用去修改 先到本地添加几个站点。</li><li>vi /etc/hosts 增加就好了。不懂就直接百度了。</li></ul><p>4.我们可以先配置多个站点，方便开发</p><ul><li>cd /etc/apache2/sites-available</li><li>看到有个000-default.conf 文件，</li><li>直接cp 几份到当前目录就好了，逐渐设置根目录和域名。</li><li>然后把这些文件cp 到 /etc/apache2/sites-enabled 这个目录下。</li><li>记住需要到 cd /etc/apache2 vi apache2.conf</li><li>把里面的None全部修改成All</li><li>重启apache2 :service apache2 restart</li></ul><p>5.到了这里，就配置成功了。欢迎分享。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;1.安装apache2  :&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;</summary>
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://caijihui.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="lamp" scheme="https://caijihui.github.io/tags/lamp/"/>
     
   </entry>
   

@@ -2,16 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://caijihui.github.io/about/index.html</loc>
+    <loc>https://caijihui.github.io/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/</loc>
     
-    <lastmod>2022-09-08</lastmod>
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/2019/04/08/2021-03-08Mysql/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/2022/09/07/2022-09-07-java-web/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
     
   </url>
   
   <url>
     <loc>https://caijihui.github.io/2022/09/07/2022-09-07-java%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     
-    <lastmod>2022-09-07</lastmod>
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/2019/02/28/2019-02-28%E5%BB%BA%E7%AB%8Bcomposer%E5%8C%85%E7%9A%84%E8%BF%87%E7%A8%8B/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/2018/03/09/2018-03-09mac%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8supervisor/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/2018/01/14/2018-01-14base%E7%BB%86%E8%8A%82/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/about/index.html</loc>
+    
+    <lastmod>2022-09-08</lastmod>
     
   </url>
   
@@ -37,34 +93,6 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/2022/09/07/2022-09-07-java-web/</loc>
-    
-    <lastmod>2022-09-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/</loc>
-    
-    <lastmod>2022-09-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/</loc>
-    
-    <lastmod>2022-09-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/2019/04/08/2021-03-08Mysql/</loc>
-    
-    <lastmod>2022-09-07</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://caijihui.github.io/2018/03/09/2018-03-09redis%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</loc>
     
     <lastmod>2022-09-07</lastmod>
@@ -72,21 +100,7 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/2018/03/09/2018-03-09mac%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8supervisor/</loc>
-    
-    <lastmod>2022-09-07</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://caijihui.github.io/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/</loc>
-    
-    <lastmod>2022-09-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/2018/01/14/2018-01-14base%E7%BB%86%E8%8A%82/</loc>
     
     <lastmod>2022-09-07</lastmod>
     
@@ -114,28 +128,7 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/</loc>
-    
-    <lastmod>2021-06-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/</loc>
-    
-    <lastmod>2021-06-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/2021/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/</loc>
-    
-    <lastmod>2021-06-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://caijihui.github.io/2019/02/28/2019-02-28%E5%BB%BA%E7%AB%8Bcomposer%E5%8C%85%E7%9A%84%E8%BF%87%E7%A8%8B/</loc>
     
     <lastmod>2021-06-23</lastmod>
     
@@ -368,13 +361,6 @@
   </url>
   
   <url>
-    <loc>https://caijihui.github.io/tags/Laravel/</loc>
-    <lastmod>2022-09-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://caijihui.github.io/tags/Linux/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>daily</changefreq>
@@ -403,5 +389,61 @@
   </url>
   
 
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/orm/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/mac%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/redis/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/php/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/mysql/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/mac/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/java/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://caijihui.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>
