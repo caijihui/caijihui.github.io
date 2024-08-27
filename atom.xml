@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>菜园子</title>
+  
+  <subtitle>开发经历</subtitle>
+  <link href="https://caijihui.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://caijihui.github.io/"/>
+  <updated>2024-08-27T14:47:32.425Z</updated>
+  <id>https://caijihui.github.io/</id>
+  
+  <author>
+    <name>Cai JiHui</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2024-08-27.面试反思 todo</title>
+    <link href="https://caijihui.github.io/2024/08/27/2024-08-27-%E9%9D%A2%E8%AF%95%E5%8F%8D%E6%80%9D-todo/"/>
+    <id>https://caijihui.github.io/2024/08/27/2024-08-27-%E9%9D%A2%E8%AF%95%E5%8F%8D%E6%80%9D-todo/</id>
+    <published>2024-08-27T14:47:03.000Z</published>
+    <updated>2024-08-27T14:47:32.425Z</updated>
+    
+    
+    
+    
+    
+    <category term="todo" scheme="https://caijihui.github.io/tags/todo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2024-08-27.配置虚拟域名dev app 结尾</title>
+    <link href="https://caijihui.github.io/2024/08/27/2024-08-27-%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E5%9F%9F%E5%90%8Ddev-app-%E7%BB%93%E5%B0%BE/"/>
+    <id>https://caijihui.github.io/2024/08/27/2024-08-27-%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E5%9F%9F%E5%90%8Ddev-app-%E7%BB%93%E5%B0%BE/</id>
+    <published>2024-08-27T14:32:38.000Z</published>
+    <updated>2024-08-27T14:33:14.348Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="配置虚拟主机不以-dev-app-结尾"><a href="#配置虚拟主机不以-dev-app-结尾" class="headerlink" title="配置虚拟主机不以 .dev  .app 结尾"></a>配置虚拟主机不以 .dev  .app 结尾</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">由于 Chrome 升级了浏览器版本到 63，</span><br><span class="line">现在所有的 .dev 和 .app 都将会自动将 HTTP 到 HTTPS 上，</span><br><span class="line">原因是谷歌已经拿下了 .dev 的顶级域名；</span><br><span class="line">目前唯一的方法就是修改你的 .dev 或者 .app 域名了，或者换成火狐或者其他浏览器开发；</span><br><span class="line">建议将你的域名改成 .test 或者 .localhost</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;配置虚拟主机不以-dev-app-结尾&quot;&gt;&lt;a href=&quot;#配置虚拟主机不以-dev-app-结尾&quot; class=&quot;headerlink&quot; title=&quot;配置虚拟主机不以 .dev  .app 结尾&quot;&gt;&lt;/a&gt;配置虚拟主机不以 .dev  .app 结尾&lt;/h2</summary>
+      
+    
+    
+    
+    
+    <category term=".dev" scheme="https://caijihui.github.io/tags/dev/"/>
+    
+    <category term=".app" scheme="https://caijihui.github.io/tags/app/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java相关知识</title>
+    <link href="https://caijihui.github.io/2023/10/29/2023-10-29java%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/"/>
+    <id>https://caijihui.github.io/2023/10/29/2023-10-29java%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/</id>
+    <published>2023-10-29T14:16:09.000Z</published>
+    <updated>2024-08-27T14:33:54.825Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>面向切面编程，原理是 动态代理</p><p>动态代理有两种方式 jdk自带的，cglib<br>动态代理是基于拦截器和反射来实现的，代理对象实现 InvocationHandler 方法</p><p>有代理对象就使用jdk动态代理，否则使用cglib<br>aop中的五种通知：<br>前置<br>后置<br>异常通知<br>返回通知<br>环绕通知 - 上述4个封装和集成</p><h3 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h3><p>主要是 # 和 $ 区别:</p><ul><li><p><code>#&#123;&#125;</code> : 对读取到的参数先使用?来占位，然后去预编译SQL，最后再将?替换为形参值。</p></li><li><p><code>$&#123;&#125;</code> : 直接替换读取到的形参值，没有预编译的过程。</p></li></ul><h3 id="生产环境怎么定位问题"><a href="#生产环境怎么定位问题" class="headerlink" title="生产环境怎么定位问题"></a>生产环境怎么定位问题</h3><p>目前只能想到通过log</p><ol><li>elk 查询业务log</li><li>全链路日历追踪系统 - traceId</li><li>监控告警设置如 monitor</li></ol><h3 id="线上cup-飙升排查"><a href="#线上cup-飙升排查" class="headerlink" title="线上cup 飙升排查"></a>线上cup 飙升排查</h3><ol><li>top 查出进程</li><li>top -Hp 进程号 查出最大线程</li><li>printf “%x\n 10”  查出线程对应的线程号</li><li>jstack  进程 | grep 线程  查出对应的代码</li></ol><p>jmap -dump:format&#x3D;b,file&#x3D;filename 进程ID  mat 分析工具</p><p>jmap -heap 17038</p><p>jstack -gcutil 17038 5000   每5s输出一次</p><p>原因和分析</p><ol><li>死循环和频繁的GC</li><li>大对象使用</li><li>循环和死锁</li></ol><h3 id="OOM产生的原因"><a href="#OOM产生的原因" class="headerlink" title="OOM产生的原因"></a>OOM产生的原因</h3><ol><li>内存泄漏，资源未及时回收</li><li>加载大对象，可用内存资源不足</li><li>死循环，循环引用</li></ol><p>解决方案：</p><ol><li>重启服务或者服务回滚</li><li>查询最大占用内存线程的日志</li><li>增大对应服务的内存</li></ol><h3 id="内存溢出-和内存泄漏"><a href="#内存溢出-和内存泄漏" class="headerlink" title="内存溢出 和内存泄漏"></a>内存溢出 和内存泄漏</h3><ol><li>内存溢出，<br>就是说，你向系统申请了装10个橘子的篮子（内存）并拿到了，但你却用它来装10个苹果，从而超出其最大能够容纳的范围，于是产生溢出；</li><li>内存泄漏，<br>就是说系统的篮子（内存）是有限的，而你申请了一个篮子，拿到之后没有归还（忘记还了或是丢了），于是造成一次内存泄漏。在你需要用篮子的时候，又去申请，如此反复，最终系统的篮子无法满足你的需求，最终会由内存泄漏造成内存溢出。</li></ol><h3 id="多线程和mq的区别"><a href="#多线程和mq的区别" class="headerlink" title="多线程和mq的区别"></a>多线程和mq的区别</h3><ol><li>都可以做异步任务，多线程适合本地的简单业务，mq更适合大项目跨业务服务的场景。</li><li>多线程会创建大量线程，单机运行，如果机器宕机任务丢失，占用cup资源</li><li>消费mq，集群模式可以扩容并</li></ol><h3 id="mq如何保证消息不被重复消费"><a href="#mq如何保证消息不被重复消费" class="headerlink" title="mq如何保证消息不被重复消费"></a>mq如何保证消息不被重复消费</h3><p>主要是保证消费幂等性</p><ol><li>redis 缓存控制</li><li>数据库唯一索引等</li></ol><h3 id="线程池-参数-优点-风险点"><a href="#线程池-参数-优点-风险点" class="headerlink" title="线程池 参数 优点  风险点"></a>线程池 参数 优点  风险点</h3><p>int corePoolSize,  核心线程数<br>int maximumPoolSize, 最大线程数<br>long keepAliveTime, 空闲线程存活时间<br>TimeUnit unit, 单位<br>BlockingQueue<Runnable> workQueue,  工作队列<br>ThreadFactory threadFactory, 线程工程，执行方法<br>RejectedExecutionHandler handler  拒绝策略</p><ol><li>丢弃任务并抛异常</li><li>丢弃任务不抛异常</li><li>丢弃最早入队的任务</li><li>调用队列重新提交并执行</li></ol><p>优点：减少线程创建的开销，统一管理线程</p><p>风险点： 死锁，资源不足，请求过载，线程泄漏（error 导致 线程减少，没有返回线程池）</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;AOP&quot;&gt;&lt;a href=&quot;#AOP&quot; class=&quot;headerlink&quot; title=&quot;AOP&quot;&gt;&lt;/a&gt;AOP&lt;/h3&gt;&lt;p&gt;面向切面编程，原理是 动态代理&lt;/p&gt;
+&lt;p&gt;动态代理有两种方式 jdk自带的，cglib&lt;br&gt;动态代理是基于拦截器和反射来实现的</summary>
+      
+    
+    
+    
+    
+    <category term="面试" scheme="https://caijihui.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+    <category term="java" scheme="https://caijihui.github.io/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>规则引擎</title>
+    <link href="https://caijihui.github.io/2023/10/18/2023-10-18%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/"/>
+    <id>https://caijihui.github.io/2023/10/18/2023-10-18%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/</id>
+    <published>2023-10-18T15:12:27.000Z</published>
+    <updated>2023-10-29T14:27:50.603Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="规则引擎介绍"><a href="#规则引擎介绍" class="headerlink" title="规则引擎介绍"></a>规则引擎介绍</h3><p>规则引擎由推理引擎发展而来，是一种嵌入在应用程序中的组件，实现了将业务决策从应用程序代码中分离出来并使用预定义的语义模块编写业务决策。<br>当前市面上开源的规则引擎主要有 Drools,easyRules.Aviator等。</p><h3 id="为什么使用规则引擎"><a href="#为什么使用规则引擎" class="headerlink" title="为什么使用规则引擎"></a>为什么使用规则引擎</h3><p>规则表达:</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">when</span><br><span class="line">&lt;conditions&gt;</span><br><span class="line">then</span><br><span class="line">&lt;actions&gt;</span><br></pre></td></tr></table></figure><p>优点:</p><ul><li>声明式编程</li><li>逻辑和数据分离</li><li>扩展性</li><li>可读性</li></ul><p>规则引擎主要完成的就是将业务规则从代码中分离出来。<br>在规则引擎中，利用规则语言将规则定义为 if-then 的形式，if 中定义了规则的条件then 中定义了规则的结果。<br>规则引擎会基于数据对这些规则进行计算，找出匹配的规则。这样，<br>当规则需要修改时，无需进行代码级的修改只需要修改对应的规则，可以有效减少代码的开发量和维护量。</p><h3 id="Easy-Rules"><a href="#Easy-Rules" class="headerlink" title="Easy Rules"></a>Easy Rules</h3><p>官网: <a href="https://github.com/j-easy/easy-rules">https://github.com/j-easy/easy-rules</a><br>maven依赖</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.jeasy&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;easy-rules-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.1.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.jeasy&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;easy-rules-mvel&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.1.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><h4 id="常规rule定义方式"><a href="#常规rule定义方式" class="headerlink" title="常规rule定义方式"></a>常规rule定义方式</h4><p>方式一: 注解</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Rule(name = &quot;weather rule&quot;, description = &quot;if it rains then take an umbrella&quot;)</span><br><span class="line">public class WeatherRule &#123;</span><br><span class="line"></span><br><span class="line">    @Condition</span><br><span class="line">    public boolean itRains(@Fact(&quot;rain&quot;) boolean rain) &#123;</span><br><span class="line">        return rain;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Action</span><br><span class="line">    public void takeAnUmbrella() &#123;</span><br><span class="line">        System.out.println(&quot;It rains, take an umbrella!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure><p>方式二: 链式编程</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Rule weatherRule = new RuleBuilder()</span><br><span class="line">        .name(&quot;weather rule&quot;)</span><br><span class="line">        .description(&quot;if it rains then take an umbrella&quot;)</span><br><span class="line">        .when(facts -&gt; facts.get(&quot;rain&quot;).equals(true))</span><br><span class="line">        .then(facts -&gt; System.out.println(&quot;It rains, take an umbrella!&quot;))</span><br><span class="line">        .build();         </span><br></pre></td></tr></table></figure><p>方式三: 表达式</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Rule weatherRule = new MVELRule()</span><br><span class="line">        .name(&quot;weather rule&quot;)</span><br><span class="line">        .description(&quot;if it rains then take an umbrella&quot;)</span><br><span class="line">        .when(&quot;rain == true&quot;)</span><br><span class="line">        .then(&quot;System.out.println(\&quot;It rains, take an umbrella!\&quot;);&quot;); </span><br></pre></td></tr></table></figure><p>方式四: 使用yml配置文件 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">name: &quot;weather rule&quot;</span><br><span class="line">description: &quot;if it rains then take an umbrella&quot;</span><br><span class="line">condition: &quot;rain == true&quot;</span><br><span class="line">actions:</span><br><span class="line">  - &quot;System.out.println(\&quot;It rains, take an umbrella!\&quot;);&quot; </span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MVELRuleFactory ruleFactory = new MVELRuleFactory(new YamlRuleDefinitionReader());</span><br><span class="line">Rule weatherRule = ruleFactory.createRule(new FileReader(&quot;weather-rule.yml&quot;)); </span><br></pre></td></tr></table></figure><h4 id="规则组合"><a href="#规则组合" class="headerlink" title="规则组合"></a>规则组合</h4><p>提供了三种逻辑关系</p><ul><li>UnitRuleGroup: 规则之间是 AND 的关系，所有规则是一个整体，要么应用所有规则，要么不应用任何规则</li><li>ActivationRuleGroup: 规则之间是 XOR 的关系，只会执行第一个命中的规则，其它规则均忽略</li><li>ConditionalRuleGroup:具有最高优先级的规则作为触发条件 ，如果满足触发条件，则会继续执行其它规则</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">String condition1 = &quot;age &gt; 30&quot;;</span><br><span class="line">String condition2 = &quot;age &gt; 100&quot;;</span><br><span class="line">Rules rules = new Rules();</span><br><span class="line">// 方式1 表达式</span><br><span class="line">Rule rule1 = new MVELRule()</span><br><span class="line">        .name(&quot;rule1&quot;).when(condition1)</span><br><span class="line">        .then(&quot;System.out.println(\&quot;年龄大于30了\&quot;)&quot;)</span><br><span class="line">        .priority(1);</span><br><span class="line">Rule rule2 = new MVELRule()</span><br><span class="line">        .name(&quot;rule2&quot;)</span><br><span class="line">        .when(condition2)</span><br><span class="line">        .then(&quot;System.out.println(\&quot;年龄大于100了\&quot;)&quot;)</span><br><span class="line">        .priority(2);</span><br><span class="line">// 使用组合规则组</span><br><span class="line">UnitRuleGroup unitRuleGroup = new UnitRuleGroup();</span><br><span class="line">unitRuleGroup.addRule(rule1);</span><br><span class="line">unitRuleGroup.addRule(rule2);</span><br><span class="line">rules.register(unitRuleGroup);</span><br><span class="line"></span><br><span class="line">// facts 事实数据</span><br><span class="line">Facts facts = new Facts();</span><br><span class="line">facts.put(&quot;age&quot;,101);</span><br><span class="line">// 点火执行</span><br><span class="line">DefaultRulesEngine rulesEngine = new DefaultRulesEngine();</span><br><span class="line">rulesEngine.fire(rules, facts);</span><br></pre></td></tr></table></figure><h3 id="Aviator"><a href="#Aviator" class="headerlink" title="Aviator"></a>Aviator</h3><p>Aviator是一个高性能、轻量级的 语言实现的表达式求值引擎,<br>主要用于各种表达式的动态求值。</p><p>使用方式：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String condition = &quot;age &gt; 30&quot;;</span><br><span class="line">// aviator execute执行方式，需传递Map格式</span><br><span class="line">Map&lt;String,Object&gt; map = new HashMap&lt;&gt;(10);</span><br><span class="line">map.put(&quot;age&quot;, 99);</span><br><span class="line">Object execute = AviatorEvaluator.execute(&quot;1+2&quot;);</span><br><span class="line">Object execute1= AviatorEvaluator.execute(condition, map);</span><br><span class="line">System.out.println(&quot;执行结果:&quot;+ execute);</span><br><span class="line">System.out.println(&quot;执行结果:&quot;+ execute1);</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;规则引擎介绍&quot;&gt;&lt;a href=&quot;#规则引擎介绍&quot; class=&quot;headerlink&quot; title=&quot;规则引擎介绍&quot;&gt;&lt;/a&gt;规则引擎介绍&lt;/h3&gt;&lt;p&gt;规则引擎由推理引擎发展而来，是一种嵌入在应用程序中的组件，实现了将业务决策从应用程序代码中分离出来并使用预定</summary>
+      
+    
+    
+    
+    
+    <category term="规则引擎" scheme="https://caijihui.github.io/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis分布式锁</title>
+    <link href="https://caijihui.github.io/2023/10/18/2023-10-18redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
+    <id>https://caijihui.github.io/2023/10/18/2023-10-18redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</id>
+    <published>2023-10-18T15:05:40.000Z</published>
+    <updated>2023-10-29T13:55:32.080Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="锁的概念"><a href="#锁的概念" class="headerlink" title="锁的概念"></a>锁的概念</h3><p>在多线程、分布式系统中，锁的目的是确保对共享资源的互斥访问。</p><p><code>分布式锁</code>: 当多个进程不在同一个系统中，用分布式锁控制多个进程对资源的访问。<br>比如 库存扣减，线程资源竞争，都能用到锁，可以保证业务的原子性，要么都成功，要么都失败。</p><h3 id="Redisson-分布式锁"><a href="#Redisson-分布式锁" class="headerlink" title="Redisson 分布式锁"></a>Redisson 分布式锁</h3><p>以 为例</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.redisson&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;redisson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.19.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">String lockKey = &quot;lock&quot;;</span><br><span class="line">//加锁，获取锁失败重试</span><br><span class="line">RLock lock = this.redissonClient.getLock(lockKey);</span><br><span class="line">lock.lock():</span><br><span class="line">// 做业务处理，最后需要释放锁</span><br><span class="line">lock.unlock();</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="redis原子性命令"><a href="#redis原子性命令" class="headerlink" title="redis原子性命令"></a>redis原子性命令</h3><ul><li>setnx 不存在就设置值，存在就不执行。</li><li>getset 存在，返回旧值。</li><li>incr, decr 递增，递减，通常用于计数。</li><li>lpush,rpush 队列插入元素</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;锁的概念&quot;&gt;&lt;a href=&quot;#锁的概念&quot; class=&quot;headerlink&quot; title=&quot;锁的概念&quot;&gt;&lt;/a&gt;锁的概念&lt;/h3&gt;&lt;p&gt;在多线程、分布式系统中，锁的目的是确保对共享资源的互斥访问。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;分布式锁&lt;/code&gt;: 当多个进程</summary>
+      
+    
+    
+    
+    
+    <category term="redis" scheme="https://caijihui.github.io/tags/redis/"/>
+    
+    <category term="分布式锁" scheme="https://caijihui.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>失物招领-公共平台</title>
+    <link href="https://caijihui.github.io/2023/10/18/2023-10-18%E5%A4%B1%E7%89%A9%E6%8B%9B%E9%A2%86-%E5%85%AC%E5%85%B1%E5%B9%B3%E5%8F%B0/"/>
+    <id>https://caijihui.github.io/2023/10/18/2023-10-18%E5%A4%B1%E7%89%A9%E6%8B%9B%E9%A2%86-%E5%85%AC%E5%85%B1%E5%B9%B3%E5%8F%B0/</id>
+    <published>2023-10-18T14:55:16.000Z</published>
+    <updated>2023-10-29T13:54:09.560Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>随处都会发生物品丢失的情况，造成财产损失，资源的不合理利用。<br>失主无处找丢失的物品拾到者也无处上交物品上交物业 不合理 存在私自侵<br>占情况<br>上交交易场所店主,也怕等不到失主，物品也得不到利用。</p><ul><li>地铁站-丢失雨伞</li><li>火车站-遗忘书包行李箱</li><li>小区-丢失小米手环</li><li>餐馆-丢失airpod</li><li>…</li></ul><p>丢失避免不了，那么我们应该尽快建立公共服务平台，<br>构建全国全网络的事务招领平台。</p><h3 id="平台模式"><a href="#平台模式" class="headerlink" title="平台模式"></a>平台模式</h3><p>平台: 可由全国铁路体系承接<br>可以嵌入12306，医保平台独立h5，指定小程序<br>费用: 实现去中心化失物招领平台，仅日常维护，数据存储。</p><h4 id="平台运营方"><a href="#平台运营方" class="headerlink" title="平台运营方"></a>平台运营方</h4><p>只做一件事，构建公共平台，发布和领取登记。 对附近人，展示附近出现丢失物品，实现领取登记。</p><h4 id="拾物者"><a href="#拾物者" class="headerlink" title="拾物者"></a>拾物者</h4><p>在平台发布拾到物品的简易描述，<br>比如 xx日期 在上海市浦东新区 xx小区 拾到一步iphone13手机。</p><h4 id="失主"><a href="#失主" class="headerlink" title="失主"></a>失主</h4><p>查看附近或输入地点 搜索附近出现丢失的物品。<br>失主承担物品找回的费用通常指运费，固定平台通用手续费1元，打赏。</p><h4 id="招领者"><a href="#招领者" class="headerlink" title="招领者"></a>招领者</h4><p>当失主和拾物者已经沟通好后，由拾物者充当招领者。</p><h3 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h3><ul><li>电子化网络的普及</li><li>全国医保平台的普及可以作为全国性公益平台平台试点，未来普及全国一体化的规则和公益</li><li>无利益关联方，方便去中心化试点</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;随处都会发生物品丢失的情况，造成财产损失，资源的不合理利用。&lt;br&gt;失主无处找丢失的物品拾到者也无处上交物品上交物业 不合理 存在私自侵&lt;b</summary>
+      
+    
+    
+    
+    
+    <category term="随想" scheme="https://caijihui.github.io/tags/%E9%9A%8F%E6%83%B3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>平台底层信任和契约精神</title>
+    <link href="https://caijihui.github.io/2023/10/18/2023-10-18%E5%B9%B3%E5%8F%B0%E5%BA%95%E5%B1%82%E4%BF%A1%E4%BB%BB%E5%92%8C%E5%A5%91%E7%BA%A6%E7%B2%BE%E7%A5%9E/"/>
+    <id>https://caijihui.github.io/2023/10/18/2023-10-18%E5%B9%B3%E5%8F%B0%E5%BA%95%E5%B1%82%E4%BF%A1%E4%BB%BB%E5%92%8C%E5%A5%91%E7%BA%A6%E7%B2%BE%E7%A5%9E/</id>
+    <published>2023-10-18T14:42:37.000Z</published>
+    <updated>2023-10-29T13:54:14.359Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="闲鱼购买经历"><a href="#闲鱼购买经历" class="headerlink" title="闲鱼购买经历"></a>闲鱼购买经历</h3><p>  由于使用需要.我于2023年8月底在闲鱼上购买了一台二手的iphone6s 手机，<br>一直是正常的电商交易流程，快递到了，外包装完好，我签收了，但是没有拍照签收视频。<br>拿到住处我开始验机，首先是显示屏幕顶部有一个裂痕，我也涂省事，以为<br>只是一个小小的裂痕，不影响手机正常使用。这个我就没放在心上。连接爱思助手检测全绿，<br>美国地区销售的iphone6s，显示手机正常，正常下载软件正常，随便打开几个应用也正常，<br>然后我就去闲鱼找卖家，说明了屏幕的瑕疵，卖家说，我没有签收拍照，让我找顺丰公司，<br>说屏幕裂痕是运输导致损坏的，可以找顺丰理赔50-150元，当时我是心里是，反正不影响<br>使用，到时候买个贴膜效果也是一样的，就按照卖家的思路，卖家提供了授权码，我去找了顺丰<br>公司申请了理赔50元，当天晚上顺丰来电 表示可以理赔50，处理案件完成。</p><p>   隔了几天，我才去重度使用了一下软件，下载了农业银行，京东，支付宝等app，<br>正常使用后发现了一下问题：</p><pre><code>    - 屏幕顶部划痕    - 进入支付宝个人余额页面，发现了屏幕有划线    - 登录农业银行，登录之后，设置手势密码 无反应 </code></pre><p>   刚好这里失灵了，为了验证是否屏幕失灵，我到存储空问指定位置，点击指定软件，也是无反应<br> 基于以上故障，我去找卖家说，屏幕失灵，显示花线，想申请退货退款，让卖家去找顺丰理赔，<br> 申请了闲鱼小二介入，结果是我失败了。我严重怀疑卖家故意发的有问题的手机，但是全面是没有证据的。<br> 闲鱼维权失败，我反省了有一下原因：</p><pre><code>- 卖家实在太狡猾了，申诉的时候一直说他是受害者，说我要两头通吃，- 当天白天我在上班，没有提交过多的凭证和语言描述记录- 我已经找顺丰理赔了，理论是认了 顺丰的责任</code></pre><p>卖家故意发瑕疵商品的情况，买家有两种处理方式：<br>    买家拒收，卖家找顺丰理赔。<br>    买家签收，后期发现问题，找卖家售后，是不管的，也是找顺丰理赔。</p><p>最后出现了卖家不管怎么样，都可以白嫖以依机器换正常机器的价格。这个时候，才发现拼多多的仅退款，<br>赢得了消费者的口碑。当然也存在了恶意退款情况，消费者白嫖，如近期小学老师网购十几套演出服,用完<br>就退货，严重损書了卖家的权益。这是不道德的表现，假装聪明。买卖双方都应该遵守契约，有问题反馈<br>问题，该售后就售后，是平台责任就是平台责任。<br>    经过几天的清化，吃一蜇长一智。我用顺丰理赔的50到拼多多买了一个6s屏幕，安装亮成，屏幕也就正常僕用了。<br>经历过这个事情之后。我有以下感想：对于快達平台，加强奇件的验视，留存证据。买家签收。千万要仔细检查，出<br>现问题，一定姜拒收!！！减少接入这种纠纷。避免后续各种解决售后的问題影响心情。买家经历太少，有损失的事情<br>凡是留个心眼。</p><h3 id="底层平台信任"><a href="#底层平台信任" class="headerlink" title="底层平台信任"></a>底层平台信任</h3><p>   平台方，一定要保证交易双方的利益，不仅仅是只提供一个交易平台。<br>建立平台不良机制。如果不能保证买卖方的权益，平台就会烂。<br>闲鱼，转转，58同城，招聘软件，这种平台如果不控制消费者权益，以后的路会越来越窄，口碑越来越差。<br>尽可能提供一个权威的维权审判。</p><h3 id="契约精褲"><a href="#契约精褲" class="headerlink" title="契约精褲"></a>契约精褲</h3><p> 契约精神是指存在手商品经济社会，由此派生的契约关系与内在的原则，是一种自由、平等、守信、教济的精神。<br>从上诉经历，我们交易买卖双方，都应该遵守契约精神。商品市场定价，什么价格卖什么商品。</p><ul><li>例子1<br>如百果园，有9.9阳光政瑰，也有30的阳光玫瑰。<br>如果有门店，以次充好，损害的就是 门店的未来口碑和百果园的品牌商誉。</li><li>理想<br>都尊重和遵守契约精神，世界上很多劳资纠纷，电商纠纷，就不存在了。<br>引导大家都减少额外的消耗，专注自己的事情。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;闲鱼购买经历&quot;&gt;&lt;a href=&quot;#闲鱼购买经历&quot; class=&quot;headerlink&quot; title=&quot;闲鱼购买经历&quot;&gt;&lt;/a&gt;闲鱼购买经历&lt;/h3&gt;&lt;p&gt;  由于使用需要.我于2023年8月底在闲鱼上购买了一台二手的iphone6s 手机，&lt;br&gt;一直是正常的电</summary>
+      
+    
+    
+    
+    
+    <category term="契约" scheme="https://caijihui.github.io/tags/%E5%A5%91%E7%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java-pdf表格转json</title>
+    <link href="https://caijihui.github.io/2023/10/18/2023-10-18java-pdf%E8%A1%A8%E6%A0%BC%E8%BD%ACison/"/>
+    <id>https://caijihui.github.io/2023/10/18/2023-10-18java-pdf%E8%A1%A8%E6%A0%BC%E8%BD%ACison/</id>
+    <published>2023-10-18T14:25:48.000Z</published>
+    <updated>2023-10-29T14:28:02.290Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="技术-Tabula"><a href="#技术-Tabula" class="headerlink" title="技术-Tabula"></a>技术-Tabula</h3><p>Tabula 是什么?<br>Tabula是一个开源工具，用于从PDF文档中提取表格数据。<br>它的主要技术包括:</p><ul><li><strong>PDF解析</strong>:Tabula 使用  的 PDFBox 库来解析PDF 文档的内容和布局。它可以定位到每个页的文本块和图像的坐标;</li><li>表格识别:Tabula 通过分析页面上的线条和文本块的布局来识别表格的结构。它会查找垂直和水平的线条作为列和行的分隔符;</li><li>单元格提取:在确定了表格的结构后，Tabula 会分析每个单元格对应的文本块，并提取出单元格中的文本内容;</li><li>数据整理: Tabula 会尝试自动整理从表格中提取的数据例如:纵向和横向合并单元格外理跨页的表格等。它也会执行一定的文本清理;</li><li>导出格式: Tabula 支持将提取出来的数据导出为 CSV 和JSON 格式。用户可以导入到Excel 等其他工具中进行后续分析。</li><li>优化算法: Tabula 在表格分析和数据提取方面使用了一些优化的算法和启发式规则,以提高正确率。同时它也提供了交互式的编辑接口供用户校正结果。</li></ul><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>maven依赖</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;technology.tabula&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;tabula&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.0.5&lt;/version&gt;</span><br><span class="line">      &lt;exclusions&gt;</span><br><span class="line">          &lt;exclusion&gt;</span><br><span class="line">              &lt;artifactId&gt;slf4j-simple&lt;/artifactId&gt;</span><br><span class="line">              &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">          &lt;/exclusion&gt;</span><br><span class="line">      &lt;/exclusions&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure><p>实现通用的获取文件内容的方案,由于各种表格字段不尽相同,使用jsonArray 来接收。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    String path = &quot;&quot;;</span><br><span class="line">    // 参考下面方法</span><br><span class="line">    JSONArray jsonArray = getListByFilePath(path);</span><br><span class="line">    List&lt;UserPO&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">    for (int i = 0; i &lt; jsonArray.size(); i++) &#123;</span><br><span class="line">        JSONArray jsonPage = jsonArray.getJSONArray(i);</span><br><span class="line">        for (int i1 = 0; i1 &lt; jsonPage.size(); i1++) &#123;</span><br><span class="line">            //获取实际数据节点</span><br><span class="line">            JSONArray data = jsonPage.getJSONObject(i).getJSONArray(&quot;data&quot;);</span><br><span class="line">            // 遍历获取所以的data</span><br><span class="line">            for (int i2 = 0; i2 &lt; data.size(); i2++) &#123;</span><br><span class="line">                JSONArray dataD = data.getJSONArray(i2);</span><br><span class="line">                String xuhao = dataD.getJSONObject(0).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;);</span><br><span class="line">                if (xuhao.contains(&quot;序号&quot;)) &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                UserPO userPO = new UserPO();</span><br><span class="line">                // 正常取节点的数据</span><br><span class="line">                String name = dataD.getJSONObject(1).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;);</span><br><span class="line">                Integer age = Integer.parseInt(dataD.getJSONObject(2).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;));</span><br><span class="line">                userPO.setName(name);</span><br><span class="line">                userPO.setAge(age);</span><br><span class="line">                res.add(userPO);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 读取pdf,转化成 json</span><br><span class="line"> *</span><br><span class="line"> * @param pathName 文件名称</span><br><span class="line"> * @return JSONArray</span><br><span class="line"> */</span><br><span class="line">public static JSONArray getListByFilePath(String pathName) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        String[] args = new String[]&#123;&quot;-f=JSON&quot;, &quot;-p=all&quot;, pathName, &quot;-I&quot;&#125;;</span><br><span class="line">        CommandLineParser parser = new DefaultParser();</span><br><span class="line">        CommandLine cmd = parser.parse(CommandLineApp.buildOptions(), args);</span><br><span class="line">        StringBuilder stringBuilder = new StringBuilder();</span><br><span class="line">        new CommandLineApp(stringBuilder, cmd).extractTables(cmd);</span><br><span class="line">        return JSONArray.parseArray(stringBuilder.toString());</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>参考博客: <a href="https://blog.csdn.net/u014539731/article/details/118549366">https://blog.csdn.net/u014539731/article/details/118549366</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;技术-Tabula&quot;&gt;&lt;a href=&quot;#技术-Tabula&quot; class=&quot;headerlink&quot; title=&quot;技术-Tabula&quot;&gt;&lt;/a&gt;技术-Tabula&lt;/h3&gt;&lt;p&gt;Tabula 是什么?&lt;br&gt;Tabula是一个开源工具，用于从PDF文档中提取表格</summary>
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://caijihui.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="java" scheme="https://caijihui.github.io/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ExportExcel 内存对比</title>
+    <link href="https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/"/>
+    <id>https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/</id>
+    <published>2021-03-24T02:14:34.000Z</published>
+    <updated>2023-03-04T14:23:34.725Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="php使用excel组件"><a href="#php使用excel组件" class="headerlink" title="php使用excel组件"></a>php使用excel组件</h3><ul><li>Maatwebsite\Excel</li><li>todo</li></ul><h3 id="大文件导出需设置内存"><a href="#大文件导出需设置内存" class="headerlink" title="大文件导出需设置内存"></a>大文件导出需设置内存</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置不限制内存</span></span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;memory_limit&#x27;</span>, -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;本次程序占用内存:&quot;</span> . <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">memory_usage</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memory_usage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="variable">$memory</span>  = ( ! <span class="title function_ invoke__">function_exists</span>(<span class="string">&#x27;memory_get_usage&#x27;</span>)) ? <span class="string">&#x27;0&#x27;</span> : <span class="title function_ invoke__">round</span>(<span class="title function_ invoke__">memory_get_usage</span>()/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>).<span class="string">&#x27;MB&#x27;</span>;</span><br><span class="line">       <span class="keyword">return</span> <span class="variable">$memory</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="excel导出两种格式导出占用内存使用分布情况"><a href="#excel导出两种格式导出占用内存使用分布情况" class="headerlink" title="excel导出两种格式导出占用内存使用分布情况"></a>excel导出两种格式导出占用内存使用分布情况</h3><pre><code> | 数量    |  xlsx    |  csv |  预计提升 | | ---- | ---- | ----- | ---- | | 1000   | 27.34MB  | 25.12MB  | ~~8.1%| | 10000  | 54.23MB  | 47.98MB  | ~~13%| | 100000 | 309.1MB  | 256.88MB | ~~16.9%|</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;php使用excel组件&quot;&gt;&lt;a href=&quot;#php使用excel组件&quot; class=&quot;headerlink&quot; title=&quot;php使用excel组件&quot;&gt;&lt;/a&gt;php使用excel组件&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Maatwebsite\Excel&lt;/li&gt;
+&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="PHP" scheme="https://caijihui.github.io/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux常用命令</title>
+    <link href="https://caijihui.github.io/2021/03/17/2021-03-17Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>https://caijihui.github.io/2021/03/17/2021-03-17Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</id>
+    <published>2021-03-17T05:35:16.000Z</published>
+    <updated>2023-03-04T14:23:34.725Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Centos-linux-服务器时区切换"><a href="#Centos-linux-服务器时区切换" class="headerlink" title="Centos.linux 服务器时区切换"></a>Centos.linux 服务器时区切换</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">tzselect-&gt; </span><span class="language-bash"> <span class="built_in">cp</span> /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime</span></span><br></pre></td></tr></table></figure><h3 id="Vim-操作"><a href="#Vim-操作" class="headerlink" title="Vim 操作"></a>Vim 操作</h3><ul><li><p>格式化： <code>gg=G</code></p></li><li><p>格式化n行： <code>n==</code></p></li><li><p>复制：  <code>2yy</code>  </p></li><li><p>粘贴：  <code>p</code></p></li><li><p>删除列的方法</p>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 Ctrl + v(j/k 上下选择。左右选择多列)</span><br><span class="line">2 G 全选所有行</span><br><span class="line">3 按下x 即可删除对应列</span><br></pre></td></tr></table></figure></li></ul><h3 id="获取某些进程并kill掉"><a href="#获取某些进程并kill掉" class="headerlink" title="获取某些进程并kill掉"></a>获取某些进程并kill掉</h3><ul><li><code>ps aux | grep &quot;play&quot; | cut -c 17-22 | xargs kill -9</code></li></ul><h3 id="重启supervisor"><a href="#重启supervisor" class="headerlink" title="重启supervisor"></a>重启supervisor</h3><ul><li><code>sudo supervisorctl reload</code></li></ul><h3 id="Linux-统计："><a href="#Linux-统计：" class="headerlink" title="Linux 统计："></a>Linux 统计：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rep -o include  sms.com| wc -l</span><br><span class="line">cat sms.com | grep -o fastcgi | wc -l</span><br><span class="line">cat api.access.log | awk &#x27;&#123;print $1&#125;&#x27; | sort|uniq &gt; a.txt</span><br><span class="line">分割：</span><br><span class="line">awk -F200 &#x27;&#123;print $5&#125;&#x27; app.access.log  ##指定200分割</span><br><span class="line">awk &#x27;&#123;print $7&#125;&#x27; app.access.log |sort|uniq &gt; a.txt ##分割默认空格,统计</span><br><span class="line">Find  / -name &#x27;ss*&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="软连接命令"><a href="#软连接命令" class="headerlink" title="软连接命令"></a>软连接命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">ln</span> -s /application/system/php7/bin/php /usr/local/bin/php7</span><br><span class="line">````</span><br><span class="line"><span class="comment">###  mac 使用Chrome生成pdf</span></span><br><span class="line"></span><br><span class="line">```sh</span><br><span class="line">  /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --print-to-pdf=220.pdf https://mo.fish/main/home/hot</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Centos-linux-服务器时区切换&quot;&gt;&lt;a href=&quot;#Centos-linux-服务器时区切换&quot; class=&quot;headerlink&quot; title=&quot;Centos.linux 服务器时区切换&quot;&gt;&lt;/a&gt;Centos.linux 服务器时区切换&lt;/h3&gt;&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="Linux" scheme="https://caijihui.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Laravel特性</title>
+    <link href="https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/"/>
+    <id>https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/</id>
+    <published>2021-03-11T03:34:13.000Z</published>
+    <updated>2023-03-04T14:23:34.725Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="IoC和DI"><a href="#IoC和DI" class="headerlink" title="IoC和DI"></a>IoC和DI</h2><ul><li>解耦和减少依赖关系</li><li>延迟加载，用时创建对象</li><li></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;IoC和DI&quot;&gt;&lt;a href=&quot;#IoC和DI&quot; class=&quot;headerlink&quot; title=&quot;IoC和DI&quot;&gt;&lt;/a&gt;IoC和DI&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;解耦和减少依赖关系&lt;/li&gt;
+&lt;li&gt;延迟加载，用时创建对象&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/</summary>
+      
+    
+    
+    
+    
+    <category term="Laravel" scheme="https://caijihui.github.io/tags/Laravel/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP执行原理和PHP7比PHP5快的原因</title>
+    <link href="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/"/>
+    <id>https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/</id>
+    <published>2021-03-06T08:10:22.000Z</published>
+    <updated>2023-10-29T14:40:17.824Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><ol><li>php初始化执行，启动zend引擎，加载已注册的扩展模块</li><li>读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树</li><li>zend引擎编译语法树，生成opcode中间代码</li><li>zend引擎执行opcode，返回执行结果</li></ol><p>总结:<br>一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。</p><h2 id="性能提升的原因"><a href="#性能提升的原因" class="headerlink" title="性能提升的原因"></a>性能提升的原因</h2><ol><li>存储变量的结构体变小，尽量使结构体里成员共用内存空间，减少引用，这样内存占用降低，变量的操作速度得到提升。</li><li>字符串结构体的改变，字符串信息和数据本身原来是分成两个独立内存块存放，php7尽量将它们存入同一块内存，提升了cpu缓存命中率。</li><li>数组结构的改变，数组元素和hash映射表在php5中会存入多个内存块，php7尽量将它们分配在同一块内存里，降低了内存占用、提升了cpu缓存命中率。</li><li>改进了函数的调用机制，通过对参数传递环节的优化，减少一些指令操作，提高了执行效率。</li></ol><h2 id="为什么PHP7的性能可以提高这么多？"><a href="#为什么PHP7的性能可以提高这么多？" class="headerlink" title="为什么PHP7的性能可以提高这么多？"></a>为什么PHP7的性能可以提高这么多？</h2><ol><li>JIT</li><li>Zval的改变</li><li>内部类型zend_string</li><li>PHP数组的变化（HashTable和Zend Array）</li><li>函数调用机制（Function Calling Convention）</li><li>通过宏定义和内联函数（inline），让编译器提前完成部分工作</li></ol><h2 id="为什么PHP7的在实际的业务性能提高才30-左右？"><a href="#为什么PHP7的在实际的业务性能提高才30-左右？" class="headerlink" title="为什么PHP7的在实际的业务性能提高才30%左右？"></a>为什么PHP7的在实际的业务性能提高才30%左右？</h2><ol><li>实际的业务不一定有很复杂的计算逻辑</li><li>实际的业务会用到Redis 和MYSQL，网络和IO的瓶颈 影响了PHP7的整体性能</li><li>HTTPS的性能问题 限制了PHP7的能力</li></ol><h2 id="php-fpm"><a href="#php-fpm" class="headerlink" title="php-fpm"></a>php-fpm</h2><ul><li><p>FastCGI</p><ul><li>一种协议，FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口</li><li>监听 事先启动，等待server 请求发起连接，并使用php-cgi 解析程序并返回结果</li><li>一 master 多 worker 模式</li><li>平滑启动</li></ul></li><li><p>php-fpm进程管理器<br>  php-fpm是对fastcgi协议的实现<br>  php-fpm是进程管理器，启动时包括master和worker进程俩部分，<br>  master进程负责管理worker进程，worker进程一般具有多个，用来监听端口，接收来自webserver请求，且每个worker进程都有一个cgi进程解释器，用来执行php代码</p></li></ul><h2 id="php概念"><a href="#php概念" class="headerlink" title="php概念"></a>php概念</h2><p>zval： 变量内存存储结构</p><p>hashTable： 数据结构</p><p>HashTable </p><ul><li>bucket <ul><li>zval[0] , zval[1]</li></ul></li></ul><h3 id="ZVAL-结构体（保存内存变量的结构）"><a href="#ZVAL-结构体（保存内存变量的结构）" class="headerlink" title="ZVAL 结构体（保存内存变量的结构）"></a>ZVAL 结构体（保存内存变量的结构）</h3><p>hashtable </p><ol><li>PHP5</li></ol><ul><li>_zval_struct总的字节 &#x3D; value（16）+ refcount__gc（4）+ type（1）+ is_ref__gc（1） + 内存对齐2 &#x3D; 占用22字节。</li><li>HashTable 占用72字节</li><li>burst IO  2次，64为一次</li><li>bucket  72 字节 存放zval</li></ul><ol start="2"><li>PHP7</li></ol><ul><li>zval_struct 占用16字节</li><li>HashTable&#x2F; zend_array  占用 57字节 （向内存索取空间，默认每次是64字节，不够再向内存索取）</li><li>burst IO  一次</li><li>bucket  32 字节</li></ul><h3 id="PHP-5-到-PHP-7-HashTable-主要做了如下修改"><a href="#PHP-5-到-PHP-7-HashTable-主要做了如下修改" class="headerlink" title="PHP 5 到 PHP 7 HashTable 主要做了如下修改"></a>PHP 5 到 PHP 7 HashTable 主要做了如下修改</h3><p>优化 HashTable 的数据结构：</p><ul><li>PHP数组zend_array 的内存占用从PHP5点72个字节，降低到了56个字节</li><li>使用内存缓存局部性的特点，优化PHP数组效率</li><li>PHP5的 Bucket ，包括 zval 都是独立分配（在内存中是离散的）</li><li>PHP7使用一块连续的空间存储 Bucket， Bucket 和 zval 在内存中都是连续存储的</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;执行步骤&quot;&gt;&lt;a href=&quot;#执行步骤&quot; class=&quot;headerlink&quot; title=&quot;执行步骤&quot;&gt;&lt;/a&gt;执行步骤&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;php初始化执行，启动zend引擎，加载已注册的扩展模块&lt;/li&gt;
+&lt;li&gt;读取脚本文件，zend引擎对脚本进行</summary>
+      
+    
+    
+    
+    
+    <category term="PHP" scheme="https://caijihui.github.io/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis及持久化</title>
+    <link href="https://caijihui.github.io/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+    <id>https://caijihui.github.io/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/</id>
+    <published>2021-01-12T06:48:25.000Z</published>
+    <updated>2023-03-04T14:23:34.724Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Redis相比memcached有哪些优势"><a href="#Redis相比memcached有哪些优势" class="headerlink" title="Redis相比memcached有哪些优势"></a>Redis相比memcached有哪些优势</h3><ul><li>都是基于内存(memory)键-值(key-value)数据库</li><li>支持数据类型比较多</li><li>redis可以持久化其数据 主从和哨兵</li></ul><h3 id="Redis是单线程的，但Redis为什么这么快？"><a href="#Redis是单线程的，但Redis为什么这么快？" class="headerlink" title="Redis是单线程的，但Redis为什么这么快？"></a>Redis是单线程的，但Redis为什么这么快？</h3><ul><li>完全基于内存，</li><li>采用单线程，没有线程切换的消耗</li><li>数据结构比较简单</li><li>Redis的瓶颈最有可能是机器内存的大小或者网络带宽</li></ul><h3 id="RDB-（redis-database）"><a href="#RDB-（redis-database）" class="headerlink" title="RDB （redis database）"></a>RDB （redis database）</h3><ul><li>二进制文件dump.rdb</li><li>save方式 save 300 10  （300s 内有10次改动 就save ）</li><li>bgsave</li></ul><h3 id="AOF-（append-only-file）"><a href="#AOF-（append-only-file）" class="headerlink" title="AOF （append only file）"></a>AOF （append only file）</h3><ul><li>文件追加</li><li>appendonly yes</li><li>AOF可以解决数据持久化的实时性问题</li></ul><p>默认方式：</p><ul><li>Redis服务器默认开启RDB，关闭AOF</li></ul><p>启动优先级：<br>假设Redis 同时打开了RDB和AOF持久化功能，当Redis重启的时候会优先加载AOF，因为AOF数据更新的频率更高，会保存更新的数据。</p><p>rdb 更快，实时性。</p><h2 id="redis-主从集群和哨兵机制"><a href="#redis-主从集群和哨兵机制" class="headerlink" title="redis 主从集群和哨兵机制"></a>redis 主从集群和哨兵机制</h2><p>【Redis专题：深入解读哨兵模式】</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Redis相比memcached有哪些优势&quot;&gt;&lt;a href=&quot;#Redis相比memcached有哪些优势&quot; class=&quot;headerlink&quot; title=&quot;Redis相比memcached有哪些优势&quot;&gt;&lt;/a&gt;Redis相比memcached有哪些优势&lt;/</summary>
+      
+    
+    
+    
+    
+    <category term="redis" scheme="https://caijihui.github.io/tags/redis/"/>
+    
+    <category term="持久化" scheme="https://caijihui.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>k8s-use</title>
+    <link href="https://caijihui.github.io/2021/01/07/2021-01-07k8s-use/"/>
+    <id>https://caijihui.github.io/2021/01/07/2021-01-07k8s-use/</id>
+    <published>2021-01-07T02:31:59.000Z</published>
+    <updated>2023-10-29T13:56:24.583Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h4 id="mac-开启k8"><a href="#mac-开启k8" class="headerlink" title="mac 开启k8"></a>mac 开启k8</h4><h2 id="配置config-map"><a href="#配置config-map" class="headerlink" title="配置config map"></a>配置config map</h2><ul><li>把配置文件放在config 目录下<br>kubectl create configmap test-conf –from-file&#x3D;config -n test</li></ul><h2 id="deployment"><a href="#deployment" class="headerlink" title="deployment"></a>deployment</h2><p> 创建- 搞好配置</p><h2 id="暴露-expose-创建了service"><a href="#暴露-expose-创建了service" class="headerlink" title="暴露 expose 创建了service"></a>暴露 expose 创建了service</h2><p>kubectl expose deployment test –port&#x3D;80 –target-port&#x3D;80 -n test</p><p>或<br>kubectl expose deployment hello-world –type&#x3D;LoadBalancer –name&#x3D;my-service</p><h2 id="映射本地-端口"><a href="#映射本地-端口" class="headerlink" title="映射本地 端口"></a>映射本地 端口</h2><p>kubectl port-forward services&#x2F;test 10080:80 -n test</p><p>通过端口映射就能访问。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;操作&quot;&gt;&lt;a href=&quot;#操作&quot; class=&quot;headerlink&quot; title=&quot;操作&quot;&gt;&lt;/a&gt;操作&lt;/h2&gt;&lt;h4 id=&quot;mac-开启k8&quot;&gt;&lt;a href=&quot;#mac-开启k8&quot; class=&quot;headerlink&quot; title=&quot;mac 开启k8&quot;</summary>
+      
+    
+    
+    
+    
+    <category term="k8s" scheme="https://caijihui.github.io/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php生成pdf或图片</title>
+    <link href="https://caijihui.github.io/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/"/>
+    <id>https://caijihui.github.io/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/</id>
+    <published>2020-04-01T06:56:48.000Z</published>
+    <updated>2023-03-04T14:23:34.724Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="wkhtmltopdf-扩展"><a href="#wkhtmltopdf-扩展" class="headerlink" title="wkhtmltopdf 扩展"></a>wkhtmltopdf 扩展</h3><p> 支持 Linux，mac ，windows</p><p> 官网地址：<br> <a href="https://wkhtmltopdf.org/">https://wkhtmltopdf.org/</a></p><p> <a href="https://wkhtmltopdf.org/downloads.html">https://wkhtmltopdf.org/downloads.html</a></p><p> 官方文档：<br> <a href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt">https://wkhtmltopdf.org/usage/wkhtmltopdf.txt</a></p><h3 id="安装相关插件"><a href="#安装相关插件" class="headerlink" title="安装相关插件"></a>安装相关插件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 插件</span><br><span class="line">composer require barryvdh/laravel-snappy</span><br><span class="line"></span><br><span class="line">## 生成命令</span><br><span class="line">composer require h4cc/wkhtmltopdf-amd64</span><br><span class="line">composer require h4cc/wkhtmltoimage-amd64</span><br></pre></td></tr></table></figure><h3 id="安装支持环境的扩展和中文字体"><a href="#安装支持环境的扩展和中文字体" class="headerlink" title="安装支持环境的扩展和中文字体"></a>安装支持环境的扩展和中文字体</h3><p>生成会出现乱码和环境问题，则需要配置环境和按需加载字体</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install libXrender libXext fontconfig</span><br><span class="line"></span><br><span class="line">yum install -y fontconfig mkfontscale</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> /usr/share/fonts/msyh</span><br><span class="line"><span class="comment">##  此处需要增加字体库文件，再进行编译和查看</span></span><br><span class="line"></span><br><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line">fc-cache -fv</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"> </span><br><span class="line">执行 fc-list :lang=zh 可看到字体已经安装</span><br></pre></td></tr></table></figure><p>或者 拷贝字体文件到&#x2F;usr&#x2F;share&#x2F;fonts目录下</p><h3 id="生成图片"><a href="#生成图片" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">PDF</span>;</span><br><span class="line"><span class="variable">$data</span> = [<span class="string">&#x27;name&#x27;</span>=&gt;<span class="string">&#x27;测试&#x27;</span>];</span><br><span class="line"><span class="variable">$fileName</span> = <span class="string">&#x27;a.pdf&#x27;</span>;</span><br><span class="line"><span class="variable">$type</span> = <span class="string">&#x27;a4&#x27;</span>;</span><br><span class="line"><span class="comment">// 生成并保存- 保存时放绝对路径</span></span><br><span class="line">PDF::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">setPaper</span>(<span class="variable">$type</span>)-&gt;<span class="title function_ invoke__">setOrientation</span>(<span class="string">&#x27;landscape&#x27;</span>)</span><br><span class="line">-&gt;<span class="title function_ invoke__">save</span>(<span class="variable">$fileName</span>);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line"><span class="variable">$pdf</span> = PDF::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">setPaper</span>(<span class="variable">$type</span>)-&gt;<span class="title function_ invoke__">setOrientation</span>(<span class="string">&#x27;landscape&#x27;</span>);</span><br><span class="line"><span class="variable">$pdf</span>-&gt;<span class="title function_ invoke__">stream</span>();</span><br></pre></td></tr></table></figure><h3 id="生成图片-1"><a href="#生成图片-1" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">SnappyImage</span>;</span><br><span class="line"><span class="variable">$data</span> = [<span class="string">&#x27;name&#x27;</span>=&gt;<span class="string">&#x27;测试&#x27;</span>];</span><br><span class="line"><span class="variable">$fileName</span> = <span class="string">&#x27;a.png&#x27;</span>;</span><br><span class="line"><span class="comment">// 生成并保存 保存时放绝对路径</span></span><br><span class="line"><span class="title class_">SnappyImage</span>::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">save</span>(<span class="variable">$fileName</span>);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line"><span class="title class_">SnappyImage</span>::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">stream</span>();</span><br></pre></td></tr></table></figure><p>详情安装查看:<br><a href="https://packagist.org/packages/barryvdh/laravel-snappy">https://packagist.org/packages/barryvdh/laravel-snappy</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;wkhtmltopdf-扩展&quot;&gt;&lt;a href=&quot;#wkhtmltopdf-扩展&quot; class=&quot;headerlink&quot; title=&quot;wkhtmltopdf 扩展&quot;&gt;&lt;/a&gt;wkhtmltopdf 扩展&lt;/h3&gt;&lt;p&gt; 支持 Linux，mac ，windows</summary>
+      
+    
+    
+    
+    
+    <category term="工具" scheme="https://caijihui.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>新Mac搭建通用使用环境</title>
+    <link href="https://caijihui.github.io/2020/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/"/>
+    <id>https://caijihui.github.io/2020/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/</id>
+    <published>2020-03-31T05:47:02.000Z</published>
+    <updated>2023-10-29T14:40:23.469Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="终端工具及命令"><a href="#终端工具及命令" class="headerlink" title="终端工具及命令"></a>终端工具及命令</h2><ul><li>iTerm</li><li>oh-my-zsh</li><li>vim</li><li>supervisor</li></ul><h2 id="lnmp"><a href="#lnmp" class="headerlink" title="lnmp"></a>lnmp</h2><p>   配置环境变量</p><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><ul><li>redis</li><li>mq</li><li>mysql</li><li>php</li></ul><h2 id="mac-app"><a href="#mac-app" class="headerlink" title="mac app"></a>mac app</h2><p>app 地址： <a href="https://xclient.info/">https://xclient.info/</a></p><ul><li>AIfred</li><li>phpstorm &#x2F; goland</li><li>google chrome</li><li>sequel Ace或Pro</li><li>sublime</li><li>charles</li><li>WX&#x2F;QQ</li><li>mail</li><li>ClashX</li></ul><h2 id="chrome-extension"><a href="#chrome-extension" class="headerlink" title="chrome extension"></a>chrome extension</h2><ul><li>FeHelper(前端助手)</li><li>Github 加速器</li><li>skyZIP™ Proxy</li><li>掘金 0.3.9</li><li>Xdebug helper 1.6.1</li><li>Print Friendly &amp; PDF</li></ul><h2 id="微信多开，防撤回"><a href="#微信多开，防撤回" class="headerlink" title="微信多开，防撤回"></a>微信多开，防撤回</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Sunnyyoung/WeChatTweak-macOS.git</span><br><span class="line"><span class="built_in">cd</span> WeChatTweak-macOS</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure><h2 id="工具类网站"><a href="#工具类网站" class="headerlink" title="工具类网站"></a>工具类网站</h2><ul><li><a href="https://www.toolnb.com/">https://www.toolnb.com/</a></li><li><a href="http://tool.chinaz.com/Tools/Unicode.aspx">http://tool.chinaz.com/Tools/Unicode.aspx</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;终端工具及命令&quot;&gt;&lt;a href=&quot;#终端工具及命令&quot; class=&quot;headerlink&quot; title=&quot;终端工具及命令&quot;&gt;&lt;/a&gt;终端工具及命令&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;iTerm&lt;/li&gt;
+&lt;li&gt;oh-my-zsh&lt;/li&gt;
+&lt;li&gt;vim&lt;/li&gt;
+&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="Mac" scheme="https://caijihui.github.io/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>资源合集</title>
+    <link href="https://caijihui.github.io/2019/10/10/2019-10-10%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/"/>
+    <id>https://caijihui.github.io/2019/10/10/2019-10-10%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/</id>
+    <published>2019-10-10T01:24:45.000Z</published>
+    <updated>2023-10-29T13:56:16.005Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="laravel-excel"><a href="#laravel-excel" class="headerlink" title="laravel-excel"></a>laravel-excel</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require maatwebsite/excel</span><br></pre></td></tr></table></figure><p>参考： <a href="https://blog.csdn.net/beyond__devil/article/details/83008782">https://blog.csdn.net/beyond__devil/article/details/83008782</a></p><h3 id="laravel-admin-后台"><a href="#laravel-admin-后台" class="headerlink" title="laravel-admin 后台"></a>laravel-admin 后台</h3><p>参考： <a href="https://laravel-admin.org/docs/zh">https://laravel-admin.org/docs/zh</a></p><h3 id="crontab-生成表达式"><a href="#crontab-生成表达式" class="headerlink" title="crontab 生成表达式"></a>crontab 生成表达式</h3><p>参考：<a href="http://cron.qqe2.com/">http://cron.qqe2.com/</a></p><h3 id="Linux-deployer用户-创建及设置"><a href="#Linux-deployer用户-创建及设置" class="headerlink" title="Linux  deployer用户 创建及设置"></a>Linux  deployer用户 创建及设置</h3><p>参考：<a href="https://www.codercto.com/a/20403.html">https://www.codercto.com/a/20403.html</a></p><h3 id="phpstorm-x2F-webstorm-activation-code"><a href="#phpstorm-x2F-webstorm-activation-code" class="headerlink" title="phpstorm&#x2F;webstorm  activation code"></a>phpstorm&#x2F;webstorm  activation code</h3><p>参考：<a href="https://blog.csdn.net/qq_33733970">https://blog.csdn.net/qq_33733970</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;laravel-excel&quot;&gt;&lt;a href=&quot;#laravel-excel&quot; class=&quot;headerlink&quot; title=&quot;laravel-excel&quot;&gt;&lt;/a&gt;laravel-excel&lt;/h3&gt;&lt;figure class=&quot;highlight shel</summary>
+      
+    
+    
+    
+    
+    <category term="资源" scheme="https://caijihui.github.io/tags/%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>类 self和static区分</title>
+    <link href="https://caijihui.github.io/2019/07/30/2019-07-30%E7%B1%BBself%E5%92%8Cstatic%E5%8C%BA%E5%88%86/"/>
+    <id>https://caijihui.github.io/2019/07/30/2019-07-30%E7%B1%BBself%E5%92%8Cstatic%E5%8C%BA%E5%88%86/</id>
+    <published>2019-07-30T01:48:14.000Z</published>
+    <updated>2023-03-04T14:23:34.724Z</updated>
+    
+    <content type="html"><![CDATA[<p>类的静态延迟绑定<br>在 PHP 类中，self指向的是当前方法存在的这个类，也就是父类。static指向的是最终那个子类。</p><h3 id="self"><a href="#self" class="headerlink" title="self"></a>self</h3><p>取决于定义当前方法所在的类,调用当前所在层的方法。</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">self</span>::<span class="title function_ invoke__">who</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">B::<span class="title function_ invoke__">test</span>();<span class="comment">//A</span></span><br></pre></td></tr></table></figure><h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>后期静态绑定,取初始调用类</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">static</span>::<span class="title function_ invoke__">who</span>(); <span class="comment">// 后期静态绑定从这里开始</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B::<span class="title function_ invoke__">test</span>();<span class="comment">// 输出  B</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;类的静态延迟绑定&lt;br&gt;在 PHP 类中，self指向的是当前方法存在的这个类，也就是父类。static指向的是最终那个子类。&lt;/p&gt;
+&lt;h3 id=&quot;self&quot;&gt;&lt;a href=&quot;#self&quot; class=&quot;headerlink&quot; title=&quot;self&quot;&gt;&lt;/a&gt;sel</summary>
+      
+    
+    
+    
+    
+    <category term="Class" scheme="https://caijihui.github.io/tags/Class/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux基本命令总结</title>
+    <link href="https://caijihui.github.io/2019/06/28/2019-06-28Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/"/>
+    <id>https://caijihui.github.io/2019/06/28/2019-06-28Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/</id>
+    <published>2019-06-28T09:38:31.000Z</published>
+    <updated>2023-10-29T13:55:51.311Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>总结部分服务命令</code></p><h3 id="linux-权限赋予"><a href="#linux-权限赋予" class="headerlink" title="linux 权限赋予"></a>linux 权限赋予</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">adduser test</span><br><span class="line">passwd test</span><br><span class="line">usermod -g root test</span><br><span class="line">vim /etc/sudoers -&gt;</span><br><span class="line">添加</span><br><span class="line">deployer   ALL=(ALL)    ALL</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="配置全局命令-如-php"><a href="#配置全局命令-如-php" class="headerlink" title="配置全局命令(如 php)"></a>配置全局命令(如 php)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 在最底下添加相应的命令</span></span></span><br><span class="line">export PATH=$PATH:/usr/local/php/bin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 保存后</span></span></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">然后就 可以使用相关命令</span><br><span class="line"></span><br><span class="line">php -v</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="filebeat-解析日志设置索引"><a href="#filebeat-解析日志设置索引" class="headerlink" title="filebeat 解析日志设置索引"></a>filebeat 解析日志设置索引</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 配置日志源 ，自定义需要区分的字段</span><br><span class="line">filebeat.prospectors:</span><br><span class="line">    </span><br><span class="line">- type: log</span><br><span class="line">  enabled: true</span><br><span class="line">  paths:</span><br><span class="line">          - /var/logs/*.log</span><br><span class="line">  log_type: caiyuanzi</span><br><span class="line">  json.keys_under_root: true</span><br><span class="line">  json.overwrite_keys: true</span><br><span class="line">  fields:</span><br><span class="line">     from: caiyuanzi</span><br><span class="line">  fields_under_root: true</span><br><span class="line"></span><br><span class="line">## 输出并自定义设置索引</span><br><span class="line">output.elasticsearch:</span><br><span class="line">   hosts: [&quot;localhost:9200&quot;]</span><br><span class="line">   index: &quot;test_web-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">   indices:</span><br><span class="line"></span><br><span class="line">     - index: &quot;tcaiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;caiy&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;caiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          from: &quot;caiyuanzi&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;api-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;api&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;unnormal-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;异常&quot;</span><br></pre></td></tr></table></figure><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><ul><li>配置    &#x2F;etc</li><li>命令    &#x2F;usr&#x2F;bin</li><li>运行服务 &#x2F;var&#x2F;run</li></ul><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t          ## 测试配置是否正确</span><br><span class="line">sudo nginx -s stop     ## 关闭</span><br><span class="line">sudo nginx -s reload   ## 重启</span><br></pre></td></tr></table></figure><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><blockquote><ol><li>php.ini 配置</li><li>php-fpm.conf 配置</li></ol></blockquote><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo killall  php-fpm</span><br><span class="line">sudo php-fpm</span><br><span class="line"></span><br><span class="line">kill  -USR2    php平滑重启</span><br></pre></td></tr></table></figure><h3 id="supervisor-服务监控者"><a href="#supervisor-服务监控者" class="headerlink" title="supervisor (服务监控者)"></a>supervisor (服务监控者)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo supervisorctl status   </span><br><span class="line">sudo supervisorctl reload   </span><br><span class="line">sudo supervisorctl start name</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="gitlab-runner"><a href="#gitlab-runner" class="headerlink" title="gitlab-runner"></a>gitlab-runner</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  ## 安装</span><br><span class="line">  ## 注册 gitlab-runenr 服务</span><br><span class="line">  gitlab-runner register </span><br><span class="line">  </span><br><span class="line">  eg: gitlab-runner register --name my-runner --url http://gitlab.example.com --registration-token my-registration-token</span><br><span class="line"></span><br><span class="line">  ## 设置 run 运行配置  服务 日志 运行日志</span><br><span class="line">gitlab-runner  run --working-directory /home/deployer --config  /etc/gitlab-runner/config.toml --service gitlab-runner --syslog --user deployer</span><br><span class="line"></span><br><span class="line">## 注销的方法</span><br><span class="line">gitlab-runner unregister --name [name]  注销</span><br><span class="line">gitlab-runner unregister --url [url] --token [token]  注销</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gitlab-runner restart </span><br><span class="line">gitlab-runner status  </span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br><span class="line">service mysqld stop</span><br><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure><h3 id="docker-基本服务配置"><a href="#docker-基本服务配置" class="headerlink" title="docker 基本服务配置"></a>docker 基本服务配置</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## redis 6380</span></span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -p -d 6380:6379 --name redis6380  -v /application/system/redis6380/redis.conf:/etc/redis/redis.conf  -v /application/system/redis6380/data:/data   a4fe14ff1981  redis-server /etc/redis/redis.conf --appendonly <span class="built_in">yes</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">## mysql 3307</span></span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> --name mysql3307  -d -p 3307:3306 -eMYSQL_ROOT_PASSWORD=cjh123456 -v /application/system/mysql3307/data:/var/lib/mysql -v /application/system/mysql3307/my.cnf:/etc/mysql/my.cnf  7faa3c53e6d6</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="清理磁盘"><a href="#清理磁盘" class="headerlink" title="清理磁盘"></a>清理磁盘</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  ## 查看</span><br><span class="line">du -sh *</span><br><span class="line">  ## 列出目录占用空间</span><br><span class="line">ls |grep -v proc |xargs du -sh |sort -h</span><br></pre></td></tr></table></figure><h3 id="phpstorm-常用"><a href="#phpstorm-常用" class="headerlink" title="phpstorm 常用"></a>phpstorm 常用</h3><ul><li>ctrl+shift+n 搜索文件</li><li>ctrl+f       本页面搜索</li><li>ctrl+shift+f    全文件搜索</li><li>Shift + F2      可以快速跳到错误行或无用行</li><li>ctrl + 鼠标选中   批量增减</li><li>alt + l     跳行</li></ul><h3 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h3><ul><li>Alt+Shift+下键（上下左右的下）</li><li>Alt+Shift+上键（上下左右的上)</li><li>ctrl+shift+k  删除当前行</li><li>shift+ 上下键 选中行</li></ul><h3 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h3><p>一般站点的 docs 为 <code>gitbook</code> 生成的。</p><p><code>gitbook</code>  请查看 <a href="https://docs.gitbook.com/">参考文档</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;code&gt;总结部分服务命令&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;linux-权限赋予&quot;&gt;&lt;a href=&quot;#linux-权限赋予&quot; class=&quot;headerlink&quot; title=&quot;linux 权限赋予&quot;&gt;&lt;/a&gt;linux 权限赋予&lt;/h3&gt;&lt;figure clas</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>swoole加速laravel</title>
+    <link href="https://caijihui.github.io/2019/04/10/2019-04-10swoole%E5%8A%A0%E9%80%9Flaravel/"/>
+    <id>https://caijihui.github.io/2019/04/10/2019-04-10swoole%E5%8A%A0%E9%80%9Flaravel/</id>
+    <published>2019-04-10T08:44:41.000Z</published>
+    <updated>2023-03-04T14:23:34.723Z</updated>
+    
+    <content type="html"><![CDATA[<p>（以laravel 为例）<br>现有轮子：</p><ul><li>swooletw&#x2F;laravel-swoole</li><li>garveen&#x2F;laravoole</li></ul><ol><li><p>安装</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require swooletw/laravel-swoole</span><br></pre></td></tr></table></figure></li><li><p>在 config&#x2F;app.php 的 providers 数组中加上</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SwooleTW\Http\LaravelServiceProvider::class,</span><br><span class="line">    </span><br></pre></td></tr></table></figure></li><li><p>配置文件执行命令或在config文件夹创建swoole_http.php</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php artisan vendor:publish --provider=<span class="string">&quot;SwooleTW\Http\HttpServiceProvider&quot;</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure><p> 去 config&#x2F;swoole_http.php 中配置信息</p> <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;server&#x27;</span> =&gt; [</span><br><span class="line">        <span class="string">&#x27;host&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_HOST&#x27;</span>, <span class="string">&#x27;0.0.0.0&#x27;</span>),<span class="comment">//监听任意ip</span></span><br><span class="line">        <span class="string">&#x27;port&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_PORT&#x27;</span>, <span class="string">&#x27;1215&#x27;</span>),</span><br><span class="line">        <span class="string">&#x27;options&#x27;</span> =&gt; [</span><br><span class="line">            <span class="string">&#x27;pid_file&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_PID_FILE&#x27;</span>, <span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;storage/logs/swoole_http.pid&#x27;</span>)),</span><br><span class="line">            <span class="string">&#x27;log_file&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_LOG_FILE&#x27;</span>, <span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;storage/logs/swoole_http.log&#x27;</span>)),</span><br><span class="line">            <span class="string">&#x27;daemonize&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_DAEMONIZE&#x27;</span>, <span class="number">1</span>),<span class="comment">//1-程序将转入后台作为守护进程运行</span></span><br><span class="line">        ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure></li><li><p>启动swoole HTTP服务</p> <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 启动</span></span><br><span class="line">php artisan swoole:http start</span><br><span class="line">    </span><br><span class="line"><span class="comment">## 重启    </span></span><br><span class="line">php artisan swoole:http restart</span><br></pre></td></tr></table></figure><p> 打开 <a href="http://127.0.0.1:1215/">http://127.0.0.1:1215</a>，即可访问应用</p><p> <code>不支持热启动</code>，每次需要重启。</p></li><li><p>nginx 配置,支持热启动</p></li></ol><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> stu.com;</span><br><span class="line">    <span class="attribute">root</span> /path/app/ublic;</span><br><span class="line">    <span class="attribute">index</span> index.php;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> = /index.php &#123;</span><br><span class="line">        <span class="comment"># Ensure that there is no such file named &quot;not_exists&quot;</span></span><br><span class="line">        <span class="comment"># in your &quot;public&quot; directory.</span></span><br><span class="line">        <span class="attribute">try_files</span> /not_exists <span class="variable">@swoole</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@swoole</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> <span class="variable">@swoole</span> &#123;</span><br><span class="line">        <span class="attribute">set</span> <span class="variable">$suffix</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">if</span> (<span class="variable">$uri</span> = /index.php) &#123;</span><br><span class="line">            <span class="attribute">set</span> <span class="variable">$suffix</span> <span class="string">&quot;/&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> SERVER_PORT <span class="variable">$server_port</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> REMOTE_ADDR <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># IF https</span></span><br><span class="line">        <span class="comment"># proxy_set_header HTTPS &quot;on&quot;;</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:1215<span class="variable">$suffix</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>参考：<a href="https://segmentfault.com/a/1190000017553188">https://segmentfault.com/a/1190000017553188</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;（以laravel 为例）&lt;br&gt;现有轮子：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;swooletw&amp;#x2F;laravel-swoole&lt;/li&gt;
+&lt;li&gt;garveen&amp;#x2F;laravoole&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装&lt;/p&gt;
+ &lt;figure c</summary>
+      
+    
+    
+    
+    
+    <category term="swoole" scheme="https://caijihui.github.io/tags/swoole/"/>
+    
+    <category term="laravel" scheme="https://caijihui.github.io/tags/laravel/"/>
+    
+  </entry>
+  
+</feed>

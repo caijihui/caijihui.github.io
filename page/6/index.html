@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caijihui.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="技术和分享">
+<meta property="og:type" content="website">
+<meta property="og:title" content="菜园子">
+<meta property="og:url" content="https://caijihui.github.io/page/6/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="技术和分享">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Cai JiHui">
+<meta property="article:tag" content="PHP,MYSQL,REDIS,docker">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://caijihui.github.io/page/6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>菜园子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="菜园子" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">开发经历</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/09/2018-03-09ubuntu%E6%90%AD%E5%BB%BAlamp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/09/2018-03-09ubuntu%E6%90%AD%E5%BB%BAlamp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">ubuntu搭建lamp开发环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-09 15:12:00" itemprop="dateCreated datePublished" datetime="2018-03-09T15:12:00+08:00">2018-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.安装apache2  :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo  apt-get install  apache2</span><br></pre></td></tr></table></figure>
+<p>2.安装php5.6或其他版本：<br>使用ppa增加源:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo add-apt-repository ppa:ondrej/php</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y php7.0 php7.0-mysql php7.0-curl php7.0-json php7.0-cgi</span><br></pre></td></tr></table></figure>
+<p>或<br>关于php5.4–php5.6版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo add-apt-repository ppa:ondrej/php</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install php5.6 php5.6-mcrypt php5.6-mbstring php5.6-curl php5.6-cli php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip</span><br></pre></td></tr></table></figure>
+<p>安装完成后，输入 php -v 查看当前的版本<br>3.安装mysql</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get mysql-server</span><br></pre></td></tr></table></figure>
+
+<p>  至此，lamp 环境已经搭建完成。</p>
+<p>  接下来就是修改apache2目录:</p>
+<ul>
+<li>cd &#x2F;etc&#x2F;apache2&#x2F;sites-enabled</li>
+<li>vi 000-default.conf 默认的最好不用去修改 先到本地添加几个站点。</li>
+<li>vi &#x2F;etc&#x2F;hosts 增加就好了。不懂就直接百度了。</li>
+</ul>
+<p>4.我们可以先配置多个站点，方便开发</p>
+<ul>
+<li>cd &#x2F;etc&#x2F;apache2&#x2F;sites-available</li>
+<li>看到有个000-default.conf 文件，</li>
+<li>直接cp 几份到当前目录就好了，逐渐设置根目录和域名。</li>
+<li>然后把这些文件cp 到 &#x2F;etc&#x2F;apache2&#x2F;sites-enabled 这个目录下。</li>
+<li>记住需要到 cd &#x2F;etc&#x2F;apache2 vi apache2.conf</li>
+<li>把里面的None全部修改成All</li>
+<li>重启apache2 :service apache2 restart</li>
+</ul>
+<p>5.到了这里，就配置成功了。欢迎分享。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/09/2018-03-09mac%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8supervisor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/09/2018-03-09mac%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8supervisor/" class="post-title-link" itemprop="url">mac安装和使用supervisor</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-09 15:02:05" itemprop="dateCreated datePublished" datetime="2018-03-09T15:02:05+08:00">2018-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-29 22:15:18" itemprop="dateModified" datetime="2023-10-29T22:15:18+08:00">2023-10-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>命令</p>
+<ul>
+<li>sudo supervisorctl status   查看状态</li>
+<li>sudo supervisorctl reload   重启</li>
+</ul>
+<p>1.安装和启动supervisor</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install supervisor</span><br><span class="line">brew services start supervisor</span><br></pre></td></tr></table></figure>
+
+<p>2.修改配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/etc/supervisord.ini</span><br><span class="line"><span class="comment">##找到如下部分： 把前面的注释去掉</span></span><br><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=127.0.0.1:9001        ; ip_address:port specifier, *:port <span class="keyword">for</span> all iface</span><br><span class="line">username=user              ; default is no username (open server)</span><br><span class="line">password=123               ; default is no password (open server)</span><br></pre></td></tr></table></figure>
+
+<p>3.创建进程任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir supervisor.d      </span><br><span class="line">vi  queue_mm.ini</span><br></pre></td></tr></table></figure>
+<p>  文件内容格式如下 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[program:queue_mm]    //进程名称</span><br><span class="line">process_name=%(program_name)s_%(process_num)02d</span><br><span class="line">command=php /Users/facevisa/caijihui/laravel/artisan queue:work  beanstalkd –queue=mm   // 命令</span><br><span class="line">autostart=true      //设置开启</span><br><span class="line">autorestart=true   //设置重启</span><br><span class="line">numprocs=1         //进程启动数</span><br><span class="line">redirect_stderr=true</span><br><span class="line">stdout_logfile=/Users/facevisa/my/laravel//storage/logs/queue_mm.log //日志文件</span><br></pre></td></tr></table></figure>
+
+<p>4.重启服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services restart supervisor</span><br></pre></td></tr></table></figure>
+
+<p>5.测试   </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在命令行输入   supervisorctl    </span><br><span class="line">如果出现  http://localhost:9001 refused connection   </span><br><span class="line">参考第三步，取消注释；如无提示，就ok</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>至此，就安装成功了</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/09/2018-03-09%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2-%E6%84%9F%E6%83%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/09/2018-03-09%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2-%E6%84%9F%E6%83%B3/" class="post-title-link" itemprop="url">网站所需要掌握的技术</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-09 13:40:07" itemprop="dateCreated datePublished" datetime="2018-03-09T13:40:07+08:00">2018-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="所需要功能和技术-list"><a href="#所需要功能和技术-list" class="headerlink" title="所需要功能和技术 list"></a>所需要功能和技术 list</h2><ol>
+<li><p>laravel</p>
+<ul>
+<li>命令  <code>php artisan make:command  mg:do</code></li>
+<li>ORM   </li>
+<li>队列  <code>php artisan make:job testQueue</code></li>
+</ul>
+</li>
+<li><p>mysql-redis</p>
+<ul>
+<li>查询优化</li>
+<li>索引</li>
+<li>redis</li>
+</ul>
+</li>
+<li><p>linux</p>
+<ul>
+<li>vim </li>
+<li>nginx （负载均衡，反向代理）</li>
+<li>服务管理</li>
+</ul>
+</li>
+<li><p>登录注册-权限验证–token</p>
+<ul>
+<li>jwt （header头 + 载荷（含传递数据） + 签名哈希）</li>
+</ul>
+</li>
+<li><p>一些查询及展示列表</p>
+<ul>
+<li>bootstrap-table</li>
+<li>ajax</li>
+</ul>
+</li>
+<li><p>文件操作及日志  </p>
+<ul>
+<li>oss</li>
+<li>elk</li>
+<li>filebeat</li>
+</ul>
+</li>
+<li><p>docker</p>
+<ul>
+<li>docker-compose </li>
+<li>Dockerfile</li>
+<li>docker build</li>
+</ul>
+</li>
+<li><p>gitlab &#x2F;gitlab-runner</p>
+<ul>
+<li>gitlab git 流程</li>
+<li>laravel 项目 ci</li>
+</ul>
+</li>
+<li><p>说明文档 -（gitbook）</p>
+</li>
+</ol>
+<h2 id="现阶段遇到的问题"><a href="#现阶段遇到的问题" class="headerlink" title="现阶段遇到的问题"></a>现阶段遇到的问题</h2><blockquote>
+<ol>
+<li>感觉没有找到优秀的资料查询方式</li>
+<li>没有形成自己的技术核心  </li>
+<li>开发经验不足，姜还是老的辣 </li>
+<li>没有得到系统的学习 </li>
+<li>看书,缺少实践</li>
+</ol>
+</blockquote>
+<h2 id="现阶段的主要成就在哪"><a href="#现阶段的主要成就在哪" class="headerlink" title="现阶段的主要成就在哪"></a>现阶段的主要成就在哪</h2><blockquote>
+<ul>
+<li>使用php自有函数</li>
+<li>laravel 基本开发-commond orm jwt</li>
+<li>日志监控基本搭建sentry,filebeat</li>
+<li>gitlab-runner</li>
+</ul>
+</blockquote>
+<p>  &#x3D;&#x3D; 感觉没有成就 &#x3D;&#x3D;</p>
+<h4 id="编程接受知识来源"><a href="#编程接受知识来源" class="headerlink" title="编程接受知识来源"></a>编程接受知识来源</h4><ol>
+<li>github 搜素 demo</li>
+<li>v2ex   </li>
+<li>公司技术分享会</li>
+<li>掘金</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">认识自身不足，缺少实战经验，编程思想感觉没有得到提升。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/08/2018-03-09%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/08/2018-03-09%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">搭建svn服务器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-08 16:51:00" itemprop="dateCreated datePublished" datetime="2018-03-08T16:51:00+08:00">2018-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>安装svn  :   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install subversion</span><br></pre></td></tr></table></figure></li>
+<li>切换到home目录并创建svn文件：<br>bash<br>cd &#x2F;home  mkdir svn</li>
+</ol>
+<ul>
+<li><p>创建项目目录：cd svn mkdir project</p>
+</li>
+<li><p>使用svn 创建svn配置文件 ： svnadmin create &#x2F;home&#x2F;svn&#x2F;project</p>
+</li>
+<li><p>修改配置文件：<br>cd &#x2F;data&#x2F;svn&#x2F;project&#x2F;conf&#x2F;<br>进入conf目录，然后编辑svnserve.conf、authz和passwd文件。<br>具体的，可以参考以下内容进行编辑。</p>
+<ul>
+<li>编辑 svnserve.conf文件</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@arui conf]<span class="comment"># vi svnserve.conf</span></span><br><span class="line">[general]</span><br><span class="line">anon-access = none</span><br><span class="line">auth-access = write</span><br><span class="line">password-db = passwd</span><br><span class="line">authz-db = authz</span><br><span class="line">realm = project</span><br></pre></td></tr></table></figure>
+<pre><code>* 编辑authz文件
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@arui conf]<span class="comment"># vi authz</span></span><br><span class="line">[<span class="built_in">groups</span>]</span><br><span class="line">manager=<span class="built_in">test</span></span><br><span class="line">[project:/]</span><br><span class="line">@manager = rw</span><br></pre></td></tr></table></figure>
+<pre><code>* 给project仓库添加一个名称为test的用户，权限为读写。
+
+* 编辑passwd文件
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@arui conf]<span class="comment"># vi passwd</span></span><br><span class="line"><span class="built_in">test</span> = 123456</span><br></pre></td></tr></table></figure>
+<pre><code>   将test用户的密码设置为123456
+</code></pre>
+<h2 id="启动svn-服务"><a href="#启动svn-服务" class="headerlink" title="启动svn 服务"></a>启动svn 服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r /home/svn/project</span><br></pre></td></tr></table></figure>
+
+<h2 id="开启防火墙"><a href="#开启防火墙" class="headerlink" title="开启防火墙"></a>开启防火墙</h2><ul>
+<li>使用SVN客户端连接到svn:&#x2F;&#x2F;VPS IP&#x2F;project，根据提示输入用户名test、密码123456，如果顺利，即可连接成功。</li>
+<li>如果无法连接，可能是VSP服务器的3690端口未开放，此时可以用telnet测试下。如果未开放，需要在VPS上设置Iptable解除端口限制。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/iptables</span><br><span class="line">添加：</span><br><span class="line">-A OUTPUT -p tcp -m tcp –dport 3690 -jACCEPT</span><br></pre></td></tr></table></figure></li>
+<li>以后即可在其他地方访问svn了.</li>
+</ul>
+<p>使用示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn import /data/test svn://ip/svn/project/myapp/ -m ‘f’ –force;</span><br></pre></td></tr></table></figure>
+<p>按照提示输入用户名和密码，然后就创建一个库成功了。<br>关于一点错误提示：<br>svn: E170001报错的原因以及解决方案<br>默认情况下是记录了开始输入的账户密码，需要清除才能验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /root/.subversion/auth/</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/" class="post-title-link" itemprop="url">搭建 ShadowSocks （VPS搭建SS）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-08 16:23:03" itemprop="dateCreated datePublished" datetime="2018-03-08T16:23:03+08:00">2018-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-29 22:41:22" itemprop="dateModified" datetime="2023-10-29T22:41:22+08:00">2023-10-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="搭建梯子说明"><a href="#搭建梯子说明" class="headerlink" title="搭建梯子说明"></a>搭建梯子说明</h3><p>只支持国外的vps,国内的服务商ip被墙了。</p>
+<h3 id="编写ss-sh"><a href="#编写ss-sh" class="headerlink" title="编写ss.sh"></a>编写ss.sh</h3><p>内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /bin/bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">log</span>路径</span></span><br><span class="line">export log_path=/etc/ss.log</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置端口号</span></span><br><span class="line">echo -n -e &#x27;\033[36mPlease enter PORT(1225 default): \033[0m&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> -n <span class="string">&quot;please enter port(1225 default):&quot;</span></span></span><br><span class="line">read port</span><br><span class="line">if [ ! -n &quot;$port&quot; ];then</span><br><span class="line">        echo &quot;port will be set to 1225&quot;</span><br><span class="line">        port=1225</span><br><span class="line">else</span><br><span class="line">        echo &quot;port will be set to $port&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置密码</span></span><br><span class="line">echo -n -e &#x27;\033[36mPlease enter PASSWORD(123456 default): \033[0m&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> -n <span class="string">&quot;please enter password(123456 default):&quot;</span></span></span><br><span class="line">read pwd</span><br><span class="line">if [ ! -n &quot;$pwd&quot; ];then</span><br><span class="line">        echo &quot;password will be set to 123456&quot;</span><br><span class="line">        pwd=123456</span><br><span class="line">else</span><br><span class="line">        echo &quot;password will be set to $pwd&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">写shadowsocks.json配置文件</span></span><br><span class="line"><span class="meta prompt_">cat&gt;</span><span class="language-bash">/etc/shadowsocks.json&lt;&lt;<span class="string">EOF</span></span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:$port,</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;$pwd&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">安装 shadowsocks 防火墙等</span></span></span><br><span class="line">ret=`yum install -y m2crypto python-setuptools &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`easy_install pip &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`pip install shadowsocks &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`yum install -y firewalld &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`systemctl start firewalld &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">开启端口</span></span></span><br><span class="line">ret=`firewall-cmd --permanent --zone=public --add-port=22/tcp &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`firewall-cmd --permanent --zone=public --add-port=$port/tcp &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`firewall-cmd --reload &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">如果有相同功能的进程则杀死</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">pkill -9 ssserver</span></span></span><br><span class="line">ps -ef|grep ssserver|grep shadowsocks|awk &#x27;&#123; print $2 &#125;&#x27;|xargs kill -9</span><br><span class="line">/usr/bin/ssserver -c /etc/shadowsocks.json -d start</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">成功</span></span></span><br><span class="line">if [ $? -eq 0 ];then</span><br><span class="line">clear</span><br><span class="line">cat&lt;&lt;EOF</span><br><span class="line">***************Congratulation!*************</span><br><span class="line">Shadowsocks installed successfully!</span><br><span class="line"></span><br><span class="line">PORT: $port</span><br><span class="line">PASSWORD: $pwd</span><br><span class="line">METHOD: aes-256-cfb</span><br><span class="line"></span><br><span class="line">***************JUST ENJOY IT!**************</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">失败</span></span></span><br><span class="line">else</span><br><span class="line">clear</span><br><span class="line">cat&lt;&lt;EOF</span><br><span class="line">************Failed,retry please!***********</span><br><span class="line"></span><br><span class="line">cat /etc/ss.log to get something you need…</span><br><span class="line"></span><br><span class="line">************Failed,retry please!***********</span><br><span class="line">EOF</span><br><span class="line">fi</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<h3 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash ss.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置端口号并回车，直接回车是设置为1225</span></span><br><span class="line">Please enter PORT(1225 default):</span><br><span class="line"><span class="comment"># 设置密码并回车，直接回车是设置为123456</span></span><br><span class="line">Please enter PASSWORD(123456 default):</span><br><span class="line"><span class="comment"># 等待一会……就完成了（初次执行约2-5min）</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cai JiHui</p>
+  <div class="site-description" itemprop="description">技术和分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caijihui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caijihui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai JiHui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

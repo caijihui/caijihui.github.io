@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caijihui.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="搭建梯子说明只支持国外的vps,国内的服务商ip被墙了。 编写ss.sh内容如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475#! &#x2F;bin&#x2F;bash# log">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建 ShadowSocks （VPS搭建SS）">
+<meta property="og:url" content="https://caijihui.github.io/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="搭建梯子说明只支持国外的vps,国内的服务商ip被墙了。 编写ss.sh内容如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475#! &#x2F;bin&#x2F;bash# log">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-08T08:23:03.000Z">
+<meta property="article:modified_time" content="2023-10-29T14:41:22.697Z">
+<meta property="article:author" content="Cai JiHui">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="ss">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://caijihui.github.io/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>搭建 ShadowSocks （VPS搭建SS） | 菜园子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="菜园子" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">开发经历</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          搭建 ShadowSocks （VPS搭建SS）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-08 16:23:03" itemprop="dateCreated datePublished" datetime="2018-03-08T16:23:03+08:00">2018-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-29 22:41:22" itemprop="dateModified" datetime="2023-10-29T22:41:22+08:00">2023-10-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="搭建梯子说明"><a href="#搭建梯子说明" class="headerlink" title="搭建梯子说明"></a>搭建梯子说明</h3><p>只支持国外的vps,国内的服务商ip被墙了。</p>
+<h3 id="编写ss-sh"><a href="#编写ss-sh" class="headerlink" title="编写ss.sh"></a>编写ss.sh</h3><p>内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /bin/bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">log</span>路径</span></span><br><span class="line">export log_path=/etc/ss.log</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置端口号</span></span><br><span class="line">echo -n -e &#x27;\033[36mPlease enter PORT(1225 default): \033[0m&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> -n <span class="string">&quot;please enter port(1225 default):&quot;</span></span></span><br><span class="line">read port</span><br><span class="line">if [ ! -n &quot;$port&quot; ];then</span><br><span class="line">        echo &quot;port will be set to 1225&quot;</span><br><span class="line">        port=1225</span><br><span class="line">else</span><br><span class="line">        echo &quot;port will be set to $port&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置密码</span></span><br><span class="line">echo -n -e &#x27;\033[36mPlease enter PASSWORD(123456 default): \033[0m&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> -n <span class="string">&quot;please enter password(123456 default):&quot;</span></span></span><br><span class="line">read pwd</span><br><span class="line">if [ ! -n &quot;$pwd&quot; ];then</span><br><span class="line">        echo &quot;password will be set to 123456&quot;</span><br><span class="line">        pwd=123456</span><br><span class="line">else</span><br><span class="line">        echo &quot;password will be set to $pwd&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">写shadowsocks.json配置文件</span></span><br><span class="line"><span class="meta prompt_">cat&gt;</span><span class="language-bash">/etc/shadowsocks.json&lt;&lt;<span class="string">EOF</span></span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:$port,</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;$pwd&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">安装 shadowsocks 防火墙等</span></span></span><br><span class="line">ret=`yum install -y m2crypto python-setuptools &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`easy_install pip &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`pip install shadowsocks &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`yum install -y firewalld &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`systemctl start firewalld &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">开启端口</span></span></span><br><span class="line">ret=`firewall-cmd --permanent --zone=public --add-port=22/tcp &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`firewall-cmd --permanent --zone=public --add-port=$port/tcp &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`firewall-cmd --reload &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">如果有相同功能的进程则杀死</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">pkill -9 ssserver</span></span></span><br><span class="line">ps -ef|grep ssserver|grep shadowsocks|awk &#x27;&#123; print $2 &#125;&#x27;|xargs kill -9</span><br><span class="line">/usr/bin/ssserver -c /etc/shadowsocks.json -d start</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">成功</span></span></span><br><span class="line">if [ $? -eq 0 ];then</span><br><span class="line">clear</span><br><span class="line">cat&lt;&lt;EOF</span><br><span class="line">***************Congratulation!*************</span><br><span class="line">Shadowsocks installed successfully!</span><br><span class="line"></span><br><span class="line">PORT: $port</span><br><span class="line">PASSWORD: $pwd</span><br><span class="line">METHOD: aes-256-cfb</span><br><span class="line"></span><br><span class="line">***************JUST ENJOY IT!**************</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">失败</span></span></span><br><span class="line">else</span><br><span class="line">clear</span><br><span class="line">cat&lt;&lt;EOF</span><br><span class="line">************Failed,retry please!***********</span><br><span class="line"></span><br><span class="line">cat /etc/ss.log to get something you need…</span><br><span class="line"></span><br><span class="line">************Failed,retry please!***********</span><br><span class="line">EOF</span><br><span class="line">fi</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<h3 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash ss.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置端口号并回车，直接回车是设置为1225</span></span><br><span class="line">Please enter PORT(1225 default):</span><br><span class="line"><span class="comment"># 设置密码并回车，直接回车是设置为123456</span></span><br><span class="line">Please enter PASSWORD(123456 default):</span><br><span class="line"><span class="comment"># 等待一会……就完成了（初次执行约2-5min）</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+              <a href="/tags/ss/" rel="tag"># ss</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/14/2018-01-14base%E7%BB%86%E8%8A%82/" rel="prev" title="base细节">
+      <i class="fa fa-chevron-left"></i> base细节
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/08/2018-03-09%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="next" title="搭建svn服务器">
+      搭建svn服务器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E6%A2%AF%E5%AD%90%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">搭建梯子说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99ss-sh"><span class="nav-number">2.</span> <span class="nav-text">编写ss.sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">执行脚本</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cai JiHui</p>
+  <div class="site-description" itemprop="description">技术和分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caijihui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caijihui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai JiHui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

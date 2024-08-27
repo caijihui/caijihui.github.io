@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caijihui.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="AOP面向切面编程，原理是 动态代理 动态代理有两种方式 jdk自带的，cglib动态代理是基于拦截器和反射来实现的，代理对象实现 InvocationHandler 方法 有代理对象就使用jdk动态代理，否则使用cglibaop中的五种通知：前置后置异常通知返回通知环绕通知 - 上述4个封装和集成 mybatis主要是 # 和 $ 区别:  #&amp;#123;&amp;#125; : 对读取到的参数先使用?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java相关知识">
+<meta property="og:url" content="https://caijihui.github.io/2023/10/29/2023-10-29java%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="AOP面向切面编程，原理是 动态代理 动态代理有两种方式 jdk自带的，cglib动态代理是基于拦截器和反射来实现的，代理对象实现 InvocationHandler 方法 有代理对象就使用jdk动态代理，否则使用cglibaop中的五种通知：前置后置异常通知返回通知环绕通知 - 上述4个封装和集成 mybatis主要是 # 和 $ 区别:  #&amp;#123;&amp;#125; : 对读取到的参数先使用?">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-29T14:16:09.000Z">
+<meta property="article:modified_time" content="2024-08-27T14:33:54.825Z">
+<meta property="article:author" content="Cai JiHui">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://caijihui.github.io/2023/10/29/2023-10-29java%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java相关知识 | 菜园子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="菜园子" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">开发经历</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2023/10/29/2023-10-29java%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java相关知识
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-29 22:16:09" itemprop="dateCreated datePublished" datetime="2023-10-29T22:16:09+08:00">2023-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-27 22:33:54" itemprop="dateModified" datetime="2024-08-27T22:33:54+08:00">2024-08-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>面向切面编程，原理是 动态代理</p>
+<p>动态代理有两种方式 jdk自带的，cglib<br>动态代理是基于拦截器和反射来实现的，代理对象实现 InvocationHandler 方法</p>
+<p>有代理对象就使用jdk动态代理，否则使用cglib<br>aop中的五种通知：<br>前置<br>后置<br>异常通知<br>返回通知<br>环绕通知 - 上述4个封装和集成</p>
+<h3 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h3><p>主要是 # 和 $ 区别:</p>
+<ul>
+<li><p><code>#&#123;&#125;</code> : 对读取到的参数先使用?来占位，然后去预编译SQL，最后再将?替换为形参值。</p>
+</li>
+<li><p><code>$&#123;&#125;</code> : 直接替换读取到的形参值，没有预编译的过程。</p>
+</li>
+</ul>
+<h3 id="生产环境怎么定位问题"><a href="#生产环境怎么定位问题" class="headerlink" title="生产环境怎么定位问题"></a>生产环境怎么定位问题</h3><p>目前只能想到通过log</p>
+<ol>
+<li>elk 查询业务log</li>
+<li>全链路日历追踪系统 - traceId</li>
+<li>监控告警设置如 monitor</li>
+</ol>
+<h3 id="线上cup-飙升排查"><a href="#线上cup-飙升排查" class="headerlink" title="线上cup 飙升排查"></a>线上cup 飙升排查</h3><ol>
+<li>top 查出进程</li>
+<li>top -Hp 进程号 查出最大线程</li>
+<li>printf “%x\n 10”  查出线程对应的线程号</li>
+<li>jstack  进程 | grep 线程  查出对应的代码</li>
+</ol>
+<p>jmap -dump:format&#x3D;b,file&#x3D;filename 进程ID  mat 分析工具</p>
+<p>jmap -heap 17038</p>
+<p>jstack -gcutil 17038 5000   每5s输出一次</p>
+<p>原因和分析</p>
+<ol>
+<li>死循环和频繁的GC</li>
+<li>大对象使用</li>
+<li>循环和死锁</li>
+</ol>
+<h3 id="OOM产生的原因"><a href="#OOM产生的原因" class="headerlink" title="OOM产生的原因"></a>OOM产生的原因</h3><ol>
+<li>内存泄漏，资源未及时回收</li>
+<li>加载大对象，可用内存资源不足</li>
+<li>死循环，循环引用</li>
+</ol>
+<p>解决方案：</p>
+<ol>
+<li>重启服务或者服务回滚</li>
+<li>查询最大占用内存线程的日志</li>
+<li>增大对应服务的内存</li>
+</ol>
+<h3 id="内存溢出-和内存泄漏"><a href="#内存溢出-和内存泄漏" class="headerlink" title="内存溢出 和内存泄漏"></a>内存溢出 和内存泄漏</h3><ol>
+<li>内存溢出，<br>就是说，你向系统申请了装10个橘子的篮子（内存）并拿到了，但你却用它来装10个苹果，从而超出其最大能够容纳的范围，于是产生溢出；</li>
+<li>内存泄漏，<br>就是说系统的篮子（内存）是有限的，而你申请了一个篮子，拿到之后没有归还（忘记还了或是丢了），于是造成一次内存泄漏。在你需要用篮子的时候，又去申请，如此反复，最终系统的篮子无法满足你的需求，最终会由内存泄漏造成内存溢出。</li>
+</ol>
+<h3 id="多线程和mq的区别"><a href="#多线程和mq的区别" class="headerlink" title="多线程和mq的区别"></a>多线程和mq的区别</h3><ol>
+<li>都可以做异步任务，多线程适合本地的简单业务，mq更适合大项目跨业务服务的场景。</li>
+<li>多线程会创建大量线程，单机运行，如果机器宕机任务丢失，占用cup资源</li>
+<li>消费mq，集群模式可以扩容并</li>
+</ol>
+<h3 id="mq如何保证消息不被重复消费"><a href="#mq如何保证消息不被重复消费" class="headerlink" title="mq如何保证消息不被重复消费"></a>mq如何保证消息不被重复消费</h3><p>主要是保证消费幂等性</p>
+<ol>
+<li>redis 缓存控制</li>
+<li>数据库唯一索引等</li>
+</ol>
+<h3 id="线程池-参数-优点-风险点"><a href="#线程池-参数-优点-风险点" class="headerlink" title="线程池 参数 优点  风险点"></a>线程池 参数 优点  风险点</h3><p>int corePoolSize,  核心线程数<br>int maximumPoolSize, 最大线程数<br>long keepAliveTime, 空闲线程存活时间<br>TimeUnit unit, 单位<br>BlockingQueue<Runnable> workQueue,  工作队列<br>ThreadFactory threadFactory, 线程工程，执行方法<br>RejectedExecutionHandler handler  拒绝策略</p>
+<ol>
+<li>丢弃任务并抛异常</li>
+<li>丢弃任务不抛异常</li>
+<li>丢弃最早入队的任务</li>
+<li>调用队列重新提交并执行</li>
+</ol>
+<p>优点：减少线程创建的开销，统一管理线程</p>
+<p>风险点： 死锁，资源不足，请求过载，线程泄漏（error 导致 线程减少，没有返回线程池）</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/18/2023-10-18%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/" rel="prev" title="规则引擎">
+      <i class="fa fa-chevron-left"></i> 规则引擎
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/08/27/2024-08-27-%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E5%9F%9F%E5%90%8Ddev-app-%E7%BB%93%E5%B0%BE/" rel="next" title="2024-08-27.配置虚拟域名dev app 结尾">
+      2024-08-27.配置虚拟域名dev app 结尾 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP"><span class="nav-number">1.</span> <span class="nav-text">AOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mybatis"><span class="nav-number">2.</span> <span class="nav-text">mybatis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E6%80%8E%E4%B9%88%E5%AE%9A%E4%BD%8D%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">生产环境怎么定位问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E4%B8%8Acup-%E9%A3%99%E5%8D%87%E6%8E%92%E6%9F%A5"><span class="nav-number">4.</span> <span class="nav-text">线上cup 飙升排查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OOM%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">5.</span> <span class="nav-text">OOM产生的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA-%E5%92%8C%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">内存溢出 和内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cmq%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">多线程和mq的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mq%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%B8%8D%E8%A2%AB%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-number">8.</span> <span class="nav-text">mq如何保证消息不被重复消费</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0-%E5%8F%82%E6%95%B0-%E4%BC%98%E7%82%B9-%E9%A3%8E%E9%99%A9%E7%82%B9"><span class="nav-number">9.</span> <span class="nav-text">线程池 参数 优点  风险点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cai JiHui</p>
+  <div class="site-description" itemprop="description">技术和分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caijihui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caijihui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai JiHui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

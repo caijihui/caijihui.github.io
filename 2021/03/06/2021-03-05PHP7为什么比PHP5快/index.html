@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caijihui.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="执行步骤 php初始化执行，启动zend引擎，加载已注册的扩展模块 读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树 zend引擎编译语法树，生成opcode中间代码 zend引擎执行opcode，返回执行结果  总结:一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。 性能提升的原因 存储变量的结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP执行原理和PHP7比PHP5快的原因">
+<meta property="og:url" content="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="执行步骤 php初始化执行，启动zend引擎，加载已注册的扩展模块 读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树 zend引擎编译语法树，生成opcode中间代码 zend引擎执行opcode，返回执行结果  总结:一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。 性能提升的原因 存储变量的结构">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-06T08:10:22.000Z">
+<meta property="article:modified_time" content="2023-10-29T14:40:17.824Z">
+<meta property="article:author" content="Cai JiHui">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PHP执行原理和PHP7比PHP5快的原因 | 菜园子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="菜园子" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">开发经历</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PHP执行原理和PHP7比PHP5快的原因
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-06 16:10:22" itemprop="dateCreated datePublished" datetime="2021-03-06T16:10:22+08:00">2021-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-29 22:40:17" itemprop="dateModified" datetime="2023-10-29T22:40:17+08:00">2023-10-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><ol>
+<li>php初始化执行，启动zend引擎，加载已注册的扩展模块</li>
+<li>读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树</li>
+<li>zend引擎编译语法树，生成opcode中间代码</li>
+<li>zend引擎执行opcode，返回执行结果</li>
+</ol>
+<p>总结:<br>一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。</p>
+<h2 id="性能提升的原因"><a href="#性能提升的原因" class="headerlink" title="性能提升的原因"></a>性能提升的原因</h2><ol>
+<li>存储变量的结构体变小，尽量使结构体里成员共用内存空间，减少引用，这样内存占用降低，变量的操作速度得到提升。</li>
+<li>字符串结构体的改变，字符串信息和数据本身原来是分成两个独立内存块存放，php7尽量将它们存入同一块内存，提升了cpu缓存命中率。</li>
+<li>数组结构的改变，数组元素和hash映射表在php5中会存入多个内存块，php7尽量将它们分配在同一块内存里，降低了内存占用、提升了cpu缓存命中率。</li>
+<li>改进了函数的调用机制，通过对参数传递环节的优化，减少一些指令操作，提高了执行效率。</li>
+</ol>
+<h2 id="为什么PHP7的性能可以提高这么多？"><a href="#为什么PHP7的性能可以提高这么多？" class="headerlink" title="为什么PHP7的性能可以提高这么多？"></a>为什么PHP7的性能可以提高这么多？</h2><ol>
+<li>JIT</li>
+<li>Zval的改变</li>
+<li>内部类型zend_string</li>
+<li>PHP数组的变化（HashTable和Zend Array）</li>
+<li>函数调用机制（Function Calling Convention）</li>
+<li>通过宏定义和内联函数（inline），让编译器提前完成部分工作</li>
+</ol>
+<h2 id="为什么PHP7的在实际的业务性能提高才30-左右？"><a href="#为什么PHP7的在实际的业务性能提高才30-左右？" class="headerlink" title="为什么PHP7的在实际的业务性能提高才30%左右？"></a>为什么PHP7的在实际的业务性能提高才30%左右？</h2><ol>
+<li>实际的业务不一定有很复杂的计算逻辑</li>
+<li>实际的业务会用到Redis 和MYSQL，网络和IO的瓶颈 影响了PHP7的整体性能</li>
+<li>HTTPS的性能问题 限制了PHP7的能力</li>
+</ol>
+<h2 id="php-fpm"><a href="#php-fpm" class="headerlink" title="php-fpm"></a>php-fpm</h2><ul>
+<li><p>FastCGI</p>
+<ul>
+<li>一种协议，FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口</li>
+<li>监听 事先启动，等待server 请求发起连接，并使用php-cgi 解析程序并返回结果</li>
+<li>一 master 多 worker 模式</li>
+<li>平滑启动</li>
+</ul>
+</li>
+<li><p>php-fpm进程管理器<br>  php-fpm是对fastcgi协议的实现<br>  php-fpm是进程管理器，启动时包括master和worker进程俩部分，<br>  master进程负责管理worker进程，worker进程一般具有多个，用来监听端口，接收来自webserver请求，且每个worker进程都有一个cgi进程解释器，用来执行php代码</p>
+</li>
+</ul>
+<h2 id="php概念"><a href="#php概念" class="headerlink" title="php概念"></a>php概念</h2><p>zval： 变量内存存储结构</p>
+<p>hashTable： 数据结构</p>
+<p>HashTable </p>
+<ul>
+<li>bucket <ul>
+<li>zval[0] , zval[1]</li>
+</ul>
+</li>
+</ul>
+<h3 id="ZVAL-结构体（保存内存变量的结构）"><a href="#ZVAL-结构体（保存内存变量的结构）" class="headerlink" title="ZVAL 结构体（保存内存变量的结构）"></a>ZVAL 结构体（保存内存变量的结构）</h3><p>hashtable </p>
+<ol>
+<li>PHP5</li>
+</ol>
+<ul>
+<li>_zval_struct总的字节 &#x3D; value（16）+ refcount__gc（4）+ type（1）+ is_ref__gc（1） + 内存对齐2 &#x3D; 占用22字节。</li>
+<li>HashTable 占用72字节</li>
+<li>burst IO  2次，64为一次</li>
+<li>bucket  72 字节 存放zval</li>
+</ul>
+<ol start="2">
+<li>PHP7</li>
+</ol>
+<ul>
+<li>zval_struct 占用16字节</li>
+<li>HashTable&#x2F; zend_array  占用 57字节 （向内存索取空间，默认每次是64字节，不够再向内存索取）</li>
+<li>burst IO  一次</li>
+<li>bucket  32 字节</li>
+</ul>
+<h3 id="PHP-5-到-PHP-7-HashTable-主要做了如下修改"><a href="#PHP-5-到-PHP-7-HashTable-主要做了如下修改" class="headerlink" title="PHP 5 到 PHP 7 HashTable 主要做了如下修改"></a>PHP 5 到 PHP 7 HashTable 主要做了如下修改</h3><p>优化 HashTable 的数据结构：</p>
+<ul>
+<li>PHP数组zend_array 的内存占用从PHP5点72个字节，降低到了56个字节</li>
+<li>使用内存缓存局部性的特点，优化PHP数组效率</li>
+<li>PHP5的 Bucket ，包括 zval 都是独立分配（在内存中是离散的）</li>
+<li>PHP7使用一块连续的空间存储 Bucket， Bucket 和 zval 在内存中都是连续存储的</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PHP/" rel="tag"># PHP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/" rel="prev" title="Redis及持久化">
+      <i class="fa fa-chevron-left"></i> Redis及持久化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/" rel="next" title="Laravel特性">
+      Laravel特性 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">执行步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">性能提升的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88PHP7%E7%9A%84%E6%80%A7%E8%83%BD%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E8%BF%99%E4%B9%88%E5%A4%9A%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">为什么PHP7的性能可以提高这么多？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88PHP7%E7%9A%84%E5%9C%A8%E5%AE%9E%E9%99%85%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8F%90%E9%AB%98%E6%89%8D30-%E5%B7%A6%E5%8F%B3%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">为什么PHP7的在实际的业务性能提高才30%左右？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-fpm"><span class="nav-number">5.</span> <span class="nav-text">php-fpm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php%E6%A6%82%E5%BF%B5"><span class="nav-number">6.</span> <span class="nav-text">php概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZVAL-%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%88%E4%BF%9D%E5%AD%98%E5%86%85%E5%AD%98%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%93%E6%9E%84%EF%BC%89"><span class="nav-number">6.1.</span> <span class="nav-text">ZVAL 结构体（保存内存变量的结构）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-5-%E5%88%B0-PHP-7-HashTable-%E4%B8%BB%E8%A6%81%E5%81%9A%E4%BA%86%E5%A6%82%E4%B8%8B%E4%BF%AE%E6%94%B9"><span class="nav-number">6.2.</span> <span class="nav-text">PHP 5 到 PHP 7 HashTable 主要做了如下修改</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cai JiHui</p>
+  <div class="site-description" itemprop="description">技术和分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caijihui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caijihui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai JiHui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

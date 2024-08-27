@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caijihui.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="技术-TabulaTabula 是什么?Tabula是一个开源工具，用于从PDF文档中提取表格数据。它的主要技术包括:  PDF解析:Tabula 使用  的 PDFBox 库来解析PDF 文档的内容和布局。它可以定位到每个页的文本块和图像的坐标; 表格识别:Tabula 通过分析页面上的线条和文本块的布局来识别表格的结构。它会查找垂直和水平的线条作为列和行的分隔符; 单元格提取:在确定了表格的结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-pdf表格转json">
+<meta property="og:url" content="https://caijihui.github.io/2023/10/18/2023-10-18java-pdf%E8%A1%A8%E6%A0%BC%E8%BD%ACison/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="技术-TabulaTabula 是什么?Tabula是一个开源工具，用于从PDF文档中提取表格数据。它的主要技术包括:  PDF解析:Tabula 使用  的 PDFBox 库来解析PDF 文档的内容和布局。它可以定位到每个页的文本块和图像的坐标; 表格识别:Tabula 通过分析页面上的线条和文本块的布局来识别表格的结构。它会查找垂直和水平的线条作为列和行的分隔符; 单元格提取:在确定了表格的结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-18T14:25:48.000Z">
+<meta property="article:modified_time" content="2023-10-29T14:28:02.290Z">
+<meta property="article:author" content="Cai JiHui">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://caijihui.github.io/2023/10/18/2023-10-18java-pdf%E8%A1%A8%E6%A0%BC%E8%BD%ACison/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java-pdf表格转json | 菜园子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="菜园子" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">开发经历</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2023/10/18/2023-10-18java-pdf%E8%A1%A8%E6%A0%BC%E8%BD%ACison/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java-pdf表格转json
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-18 22:25:48" itemprop="dateCreated datePublished" datetime="2023-10-18T22:25:48+08:00">2023-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-29 22:28:02" itemprop="dateModified" datetime="2023-10-29T22:28:02+08:00">2023-10-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="技术-Tabula"><a href="#技术-Tabula" class="headerlink" title="技术-Tabula"></a>技术-Tabula</h3><p>Tabula 是什么?<br>Tabula是一个开源工具，用于从PDF文档中提取表格数据。<br>它的主要技术包括:</p>
+<ul>
+<li><strong>PDF解析</strong>:Tabula 使用  的 PDFBox 库来解析PDF 文档的内容和布局。它可以定位到每个页的文本块和图像的坐标;</li>
+<li>表格识别:Tabula 通过分析页面上的线条和文本块的布局来识别表格的结构。它会查找垂直和水平的线条作为列和行的分隔符;</li>
+<li>单元格提取:在确定了表格的结构后，Tabula 会分析每个单元格对应的文本块，并提取出单元格中的文本内容;</li>
+<li>数据整理: Tabula 会尝试自动整理从表格中提取的数据例如:纵向和横向合并单元格外理跨页的表格等。它也会执行一定的文本清理;</li>
+<li>导出格式: Tabula 支持将提取出来的数据导出为 CSV 和JSON 格式。用户可以导入到Excel 等其他工具中进行后续分析。</li>
+<li>优化算法: Tabula 在表格分析和数据提取方面使用了一些优化的算法和启发式规则,以提高正确率。同时它也提供了交互式的编辑接口供用户校正结果。</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>maven依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;technology.tabula&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;tabula&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.0.5&lt;/version&gt;</span><br><span class="line">      &lt;exclusions&gt;</span><br><span class="line">          &lt;exclusion&gt;</span><br><span class="line">              &lt;artifactId&gt;slf4j-simple&lt;/artifactId&gt;</span><br><span class="line">              &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">          &lt;/exclusion&gt;</span><br><span class="line">      &lt;/exclusions&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>实现通用的获取文件内容的方案,由于各种表格字段不尽相同,使用jsonArray 来接收。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    String path = &quot;&quot;;</span><br><span class="line">    // 参考下面方法</span><br><span class="line">    JSONArray jsonArray = getListByFilePath(path);</span><br><span class="line">    List&lt;UserPO&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">    for (int i = 0; i &lt; jsonArray.size(); i++) &#123;</span><br><span class="line">        JSONArray jsonPage = jsonArray.getJSONArray(i);</span><br><span class="line">        for (int i1 = 0; i1 &lt; jsonPage.size(); i1++) &#123;</span><br><span class="line">            //获取实际数据节点</span><br><span class="line">            JSONArray data = jsonPage.getJSONObject(i).getJSONArray(&quot;data&quot;);</span><br><span class="line">            // 遍历获取所以的data</span><br><span class="line">            for (int i2 = 0; i2 &lt; data.size(); i2++) &#123;</span><br><span class="line">                JSONArray dataD = data.getJSONArray(i2);</span><br><span class="line">                String xuhao = dataD.getJSONObject(0).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;);</span><br><span class="line">                if (xuhao.contains(&quot;序号&quot;)) &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                UserPO userPO = new UserPO();</span><br><span class="line">                // 正常取节点的数据</span><br><span class="line">                String name = dataD.getJSONObject(1).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;);</span><br><span class="line">                Integer age = Integer.parseInt(dataD.getJSONObject(2).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;));</span><br><span class="line">                userPO.setName(name);</span><br><span class="line">                userPO.setAge(age);</span><br><span class="line">                res.add(userPO);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 读取pdf,转化成 json</span><br><span class="line"> *</span><br><span class="line"> * @param pathName 文件名称</span><br><span class="line"> * @return JSONArray</span><br><span class="line"> */</span><br><span class="line">public static JSONArray getListByFilePath(String pathName) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        String[] args = new String[]&#123;&quot;-f=JSON&quot;, &quot;-p=all&quot;, pathName, &quot;-I&quot;&#125;;</span><br><span class="line">        CommandLineParser parser = new DefaultParser();</span><br><span class="line">        CommandLine cmd = parser.parse(CommandLineApp.buildOptions(), args);</span><br><span class="line">        StringBuilder stringBuilder = new StringBuilder();</span><br><span class="line">        new CommandLineApp(stringBuilder, cmd).extractTables(cmd);</span><br><span class="line">        return JSONArray.parseArray(stringBuilder.toString());</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考博客: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014539731/article/details/118549366">https://blog.csdn.net/u014539731/article/details/118549366</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/" rel="prev" title="ExportExcel 内存对比">
+      <i class="fa fa-chevron-left"></i> ExportExcel 内存对比
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/18/2023-10-18%E5%B9%B3%E5%8F%B0%E5%BA%95%E5%B1%82%E4%BF%A1%E4%BB%BB%E5%92%8C%E5%A5%91%E7%BA%A6%E7%B2%BE%E7%A5%9E/" rel="next" title="平台底层信任和契约精神">
+      平台底层信任和契约精神 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF-Tabula"><span class="nav-number">1.</span> <span class="nav-text">技术-Tabula</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cai JiHui</p>
+  <div class="site-description" itemprop="description">技术和分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caijihui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caijihui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai JiHui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caijihui.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="总结部分服务命令 linux 权限赋予1234567adduser testpasswd testusermod -g root testvim &#x2F;etc&#x2F;sudoers -&gt;添加deployer   ALL&#x3D;(ALL)    ALL  配置全局命令(如 php)1234567891011121314vim &#x2F;etc&#x2F;profile## 在最底下添加相应的命令export PATH&#x3D;$PAT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux基本命令总结">
+<meta property="og:url" content="https://caijihui.github.io/2019/06/28/2019-06-28Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="菜园子">
+<meta property="og:description" content="总结部分服务命令 linux 权限赋予1234567adduser testpasswd testusermod -g root testvim &#x2F;etc&#x2F;sudoers -&gt;添加deployer   ALL&#x3D;(ALL)    ALL  配置全局命令(如 php)1234567891011121314vim &#x2F;etc&#x2F;profile## 在最底下添加相应的命令export PATH&#x3D;$PAT">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-28T09:38:31.000Z">
+<meta property="article:modified_time" content="2023-10-29T13:55:51.311Z">
+<meta property="article:author" content="Cai JiHui">
+<meta property="article:tag" content="PHP,MYSQL,REDIS,docker">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://caijihui.github.io/2019/06/28/2019-06-28Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux基本命令总结 | 菜园子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="菜园子" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">开发经历</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2019/06/28/2019-06-28Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux基本命令总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-28 17:38:31" itemprop="dateCreated datePublished" datetime="2019-06-28T17:38:31+08:00">2019-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-29 21:55:51" itemprop="dateModified" datetime="2023-10-29T21:55:51+08:00">2023-10-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><code>总结部分服务命令</code></p>
+<h3 id="linux-权限赋予"><a href="#linux-权限赋予" class="headerlink" title="linux 权限赋予"></a>linux 权限赋予</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">adduser test</span><br><span class="line">passwd test</span><br><span class="line">usermod -g root test</span><br><span class="line">vim /etc/sudoers -&gt;</span><br><span class="line">添加</span><br><span class="line">deployer   ALL=(ALL)    ALL</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置全局命令-如-php"><a href="#配置全局命令-如-php" class="headerlink" title="配置全局命令(如 php)"></a>配置全局命令(如 php)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 在最底下添加相应的命令</span></span></span><br><span class="line">export PATH=$PATH:/usr/local/php/bin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 保存后</span></span></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">然后就 可以使用相关命令</span><br><span class="line"></span><br><span class="line">php -v</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="filebeat-解析日志设置索引"><a href="#filebeat-解析日志设置索引" class="headerlink" title="filebeat 解析日志设置索引"></a>filebeat 解析日志设置索引</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 配置日志源 ，自定义需要区分的字段</span><br><span class="line">filebeat.prospectors:</span><br><span class="line">    </span><br><span class="line">- type: log</span><br><span class="line">  enabled: true</span><br><span class="line">  paths:</span><br><span class="line">          - /var/logs/*.log</span><br><span class="line">  log_type: caiyuanzi</span><br><span class="line">  json.keys_under_root: true</span><br><span class="line">  json.overwrite_keys: true</span><br><span class="line">  fields:</span><br><span class="line">     from: caiyuanzi</span><br><span class="line">  fields_under_root: true</span><br><span class="line"></span><br><span class="line">## 输出并自定义设置索引</span><br><span class="line">output.elasticsearch:</span><br><span class="line">   hosts: [&quot;localhost:9200&quot;]</span><br><span class="line">   index: &quot;test_web-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">   indices:</span><br><span class="line"></span><br><span class="line">     - index: &quot;tcaiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;caiy&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;caiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          from: &quot;caiyuanzi&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;api-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;api&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;unnormal-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;异常&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><ul>
+<li>配置    &#x2F;etc</li>
+<li>命令    &#x2F;usr&#x2F;bin</li>
+<li>运行服务 &#x2F;var&#x2F;run</li>
+</ul>
+<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t          ## 测试配置是否正确</span><br><span class="line">sudo nginx -s stop     ## 关闭</span><br><span class="line">sudo nginx -s reload   ## 重启</span><br></pre></td></tr></table></figure>
+
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><blockquote>
+<ol>
+<li>php.ini 配置</li>
+<li>php-fpm.conf 配置</li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo killall  php-fpm</span><br><span class="line">sudo php-fpm</span><br><span class="line"></span><br><span class="line">kill  -USR2    php平滑重启</span><br></pre></td></tr></table></figure>
+
+<h3 id="supervisor-服务监控者"><a href="#supervisor-服务监控者" class="headerlink" title="supervisor (服务监控者)"></a>supervisor (服务监控者)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo supervisorctl status   </span><br><span class="line">sudo supervisorctl reload   </span><br><span class="line">sudo supervisorctl start name</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="gitlab-runner"><a href="#gitlab-runner" class="headerlink" title="gitlab-runner"></a>gitlab-runner</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  ## 安装</span><br><span class="line">  ## 注册 gitlab-runenr 服务</span><br><span class="line">  gitlab-runner register </span><br><span class="line">  </span><br><span class="line">  eg: gitlab-runner register --name my-runner --url http://gitlab.example.com --registration-token my-registration-token</span><br><span class="line"></span><br><span class="line">  ## 设置 run 运行配置  服务 日志 运行日志</span><br><span class="line">gitlab-runner  run --working-directory /home/deployer --config  /etc/gitlab-runner/config.toml --service gitlab-runner --syslog --user deployer</span><br><span class="line"></span><br><span class="line">## 注销的方法</span><br><span class="line">gitlab-runner unregister --name [name]  注销</span><br><span class="line">gitlab-runner unregister --url [url] --token [token]  注销</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gitlab-runner restart </span><br><span class="line">gitlab-runner status  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br><span class="line">service mysqld stop</span><br><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="docker-基本服务配置"><a href="#docker-基本服务配置" class="headerlink" title="docker 基本服务配置"></a>docker 基本服务配置</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## redis 6380</span></span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -p -d 6380:6379 --name redis6380  -v /application/system/redis6380/redis.conf:/etc/redis/redis.conf  -v /application/system/redis6380/data:/data   a4fe14ff1981  redis-server /etc/redis/redis.conf --appendonly <span class="built_in">yes</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">## mysql 3307</span></span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> --name mysql3307  -d -p 3307:3306 -eMYSQL_ROOT_PASSWORD=cjh123456 -v /application/system/mysql3307/data:/var/lib/mysql -v /application/system/mysql3307/my.cnf:/etc/mysql/my.cnf  7faa3c53e6d6</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="清理磁盘"><a href="#清理磁盘" class="headerlink" title="清理磁盘"></a>清理磁盘</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  ## 查看</span><br><span class="line">du -sh *</span><br><span class="line">  ## 列出目录占用空间</span><br><span class="line">ls |grep -v proc |xargs du -sh |sort -h</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="phpstorm-常用"><a href="#phpstorm-常用" class="headerlink" title="phpstorm 常用"></a>phpstorm 常用</h3><ul>
+<li>ctrl+shift+n 搜索文件</li>
+<li>ctrl+f       本页面搜索</li>
+<li>ctrl+shift+f    全文件搜索</li>
+<li>Shift + F2      可以快速跳到错误行或无用行</li>
+<li>ctrl + 鼠标选中   批量增减</li>
+<li>alt + l     跳行</li>
+</ul>
+<h3 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h3><ul>
+<li>Alt+Shift+下键（上下左右的下）</li>
+<li>Alt+Shift+上键（上下左右的上)</li>
+<li>ctrl+shift+k  删除当前行</li>
+<li>shift+ 上下键 选中行</li>
+</ul>
+<h3 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h3><p>一般站点的 docs 为 <code>gitbook</code> 生成的。</p>
+<p><code>gitbook</code>  请查看 <a target="_blank" rel="noopener" href="https://docs.gitbook.com/">参考文档</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/10/2019-04-10swoole%E5%8A%A0%E9%80%9Flaravel/" rel="prev" title="swoole加速laravel">
+      <i class="fa fa-chevron-left"></i> swoole加速laravel
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/30/2019-07-30%E7%B1%BBself%E5%92%8Cstatic%E5%8C%BA%E5%88%86/" rel="next" title="类 self和static区分">
+      类 self和static区分 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-%E6%9D%83%E9%99%90%E8%B5%8B%E4%BA%88"><span class="nav-number">1.</span> <span class="nav-text">linux 权限赋予</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%85%A8%E5%B1%80%E5%91%BD%E4%BB%A4-%E5%A6%82-php"><span class="nav-number">2.</span> <span class="nav-text">配置全局命令(如 php)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filebeat-%E8%A7%A3%E6%9E%90%E6%97%A5%E5%BF%97%E8%AE%BE%E7%BD%AE%E7%B4%A2%E5%BC%95"><span class="nav-number">3.</span> <span class="nav-text">filebeat 解析日志设置索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux"><span class="nav-number">4.</span> <span class="nav-text">linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">5.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP"><span class="nav-number">6.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#supervisor-%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7%E8%80%85"><span class="nav-number">7.</span> <span class="nav-text">supervisor (服务监控者)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitlab-runner"><span class="nav-number">8.</span> <span class="nav-text">gitlab-runner</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">9.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-%E5%9F%BA%E6%9C%AC%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE"><span class="nav-number">10.</span> <span class="nav-text">docker 基本服务配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E7%A3%81%E7%9B%98"><span class="nav-number">11.</span> <span class="nav-text">清理磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phpstorm-%E5%B8%B8%E7%94%A8"><span class="nav-number">12.</span> <span class="nav-text">phpstorm 常用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vscode"><span class="nav-number">13.</span> <span class="nav-text">vscode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docs"><span class="nav-number">14.</span> <span class="nav-text">docs</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cai JiHui</p>
+  <div class="site-description" itemprop="description">技术和分享</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caijihui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caijihui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai JiHui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
