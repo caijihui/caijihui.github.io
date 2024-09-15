@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2023/10/18/2023-10-18java-pdf%E8%A1%A8%E6%A0%BC%E8%BD%ACison/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/11/2021-03-11Laravel%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">Laravel特性</a>
+            <a href="/2023/10/18/2023-10-18java-pdf%E8%A1%A8%E6%A0%BC%E8%BD%ACison/" class="post-title-link" itemprop="url">java-pdf表格转json</a>
         </h2>
 
         <div class="post-meta">
@@ -189,14 +189,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-03-11 11:34:13" itemprop="dateCreated datePublished" datetime="2021-03-11T11:34:13+08:00">2021-03-11</time>
+              <time title="创建时间：2023-10-18 22:25:48" itemprop="dateCreated datePublished" datetime="2023-10-18T22:25:48+08:00">2023-10-18</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
+                <time title="修改时间：2023-10-29 22:28:02" itemprop="dateModified" datetime="2023-10-29T22:28:02+08:00">2023-10-29</time>
               </span>
 
           
@@ -210,10 +210,263 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="IoC和DI"><a href="#IoC和DI" class="headerlink" title="IoC和DI"></a>IoC和DI</h2><ul>
-<li>解耦和减少依赖关系</li>
-<li>延迟加载，用时创建对象</li>
-<li></li>
+          <h3 id="技术-Tabula"><a href="#技术-Tabula" class="headerlink" title="技术-Tabula"></a>技术-Tabula</h3><p>Tabula 是什么?<br>Tabula是一个开源工具，用于从PDF文档中提取表格数据。<br>它的主要技术包括:</p>
+<ul>
+<li><strong>PDF解析</strong>:Tabula 使用  的 PDFBox 库来解析PDF 文档的内容和布局。它可以定位到每个页的文本块和图像的坐标;</li>
+<li>表格识别:Tabula 通过分析页面上的线条和文本块的布局来识别表格的结构。它会查找垂直和水平的线条作为列和行的分隔符;</li>
+<li>单元格提取:在确定了表格的结构后，Tabula 会分析每个单元格对应的文本块，并提取出单元格中的文本内容;</li>
+<li>数据整理: Tabula 会尝试自动整理从表格中提取的数据例如:纵向和横向合并单元格外理跨页的表格等。它也会执行一定的文本清理;</li>
+<li>导出格式: Tabula 支持将提取出来的数据导出为 CSV 和JSON 格式。用户可以导入到Excel 等其他工具中进行后续分析。</li>
+<li>优化算法: Tabula 在表格分析和数据提取方面使用了一些优化的算法和启发式规则,以提高正确率。同时它也提供了交互式的编辑接口供用户校正结果。</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>maven依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;technology.tabula&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;tabula&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.0.5&lt;/version&gt;</span><br><span class="line">      &lt;exclusions&gt;</span><br><span class="line">          &lt;exclusion&gt;</span><br><span class="line">              &lt;artifactId&gt;slf4j-simple&lt;/artifactId&gt;</span><br><span class="line">              &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">          &lt;/exclusion&gt;</span><br><span class="line">      &lt;/exclusions&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>实现通用的获取文件内容的方案,由于各种表格字段不尽相同,使用jsonArray 来接收。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    String path = &quot;&quot;;</span><br><span class="line">    // 参考下面方法</span><br><span class="line">    JSONArray jsonArray = getListByFilePath(path);</span><br><span class="line">    List&lt;UserPO&gt; res = new ArrayList&lt;&gt;();</span><br><span class="line">    for (int i = 0; i &lt; jsonArray.size(); i++) &#123;</span><br><span class="line">        JSONArray jsonPage = jsonArray.getJSONArray(i);</span><br><span class="line">        for (int i1 = 0; i1 &lt; jsonPage.size(); i1++) &#123;</span><br><span class="line">            //获取实际数据节点</span><br><span class="line">            JSONArray data = jsonPage.getJSONObject(i).getJSONArray(&quot;data&quot;);</span><br><span class="line">            // 遍历获取所以的data</span><br><span class="line">            for (int i2 = 0; i2 &lt; data.size(); i2++) &#123;</span><br><span class="line">                JSONArray dataD = data.getJSONArray(i2);</span><br><span class="line">                String xuhao = dataD.getJSONObject(0).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;);</span><br><span class="line">                if (xuhao.contains(&quot;序号&quot;)) &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                UserPO userPO = new UserPO();</span><br><span class="line">                // 正常取节点的数据</span><br><span class="line">                String name = dataD.getJSONObject(1).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;);</span><br><span class="line">                Integer age = Integer.parseInt(dataD.getJSONObject(2).get(&quot;text&quot;).toString().replaceAll(&quot;\r&quot;, &quot;&quot;));</span><br><span class="line">                userPO.setName(name);</span><br><span class="line">                userPO.setAge(age);</span><br><span class="line">                res.add(userPO);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 读取pdf,转化成 json</span><br><span class="line"> *</span><br><span class="line"> * @param pathName 文件名称</span><br><span class="line"> * @return JSONArray</span><br><span class="line"> */</span><br><span class="line">public static JSONArray getListByFilePath(String pathName) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        String[] args = new String[]&#123;&quot;-f=JSON&quot;, &quot;-p=all&quot;, pathName, &quot;-I&quot;&#125;;</span><br><span class="line">        CommandLineParser parser = new DefaultParser();</span><br><span class="line">        CommandLine cmd = parser.parse(CommandLineApp.buildOptions(), args);</span><br><span class="line">        StringBuilder stringBuilder = new StringBuilder();</span><br><span class="line">        new CommandLineApp(stringBuilder, cmd).extractTables(cmd);</span><br><span class="line">        return JSONArray.parseArray(stringBuilder.toString());</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考博客: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014539731/article/details/118549366">https://blog.csdn.net/u014539731/article/details/118549366</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/24/2021-03-24ExportExcel%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94/" class="post-title-link" itemprop="url">ExportExcel 内存对比</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-24 10:14:34" itemprop="dateCreated datePublished" datetime="2021-03-24T10:14:34+08:00">2021-03-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 22:43:24" itemprop="dateModified" datetime="2024-09-15T22:43:24+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="php使用excel组件"><a href="#php使用excel组件" class="headerlink" title="php使用excel组件"></a>php使用excel组件</h3><ul>
+<li>Maatwebsite\Excel</li>
+<li>todo</li>
+</ul>
+<h3 id="大文件导出需设置内存"><a href="#大文件导出需设置内存" class="headerlink" title="大文件导出需设置内存"></a>大文件导出需设置内存</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置不限制内存</span></span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;memory_limit&#x27;</span>, -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;本次程序占用内存:&quot;</span> . <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">memory_usage</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">memory_usage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="variable">$memory</span>  = ( ! <span class="title function_ invoke__">function_exists</span>(<span class="string">&#x27;memory_get_usage&#x27;</span>)) ? <span class="string">&#x27;0&#x27;</span> : <span class="title function_ invoke__">round</span>(<span class="title function_ invoke__">memory_get_usage</span>()/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>).<span class="string">&#x27;MB&#x27;</span>;</span><br><span class="line">       <span class="keyword">return</span> <span class="variable">$memory</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="excel导出两种格式导出占用内存使用分布情况"><a href="#excel导出两种格式导出占用内存使用分布情况" class="headerlink" title="excel导出两种格式导出占用内存使用分布情况"></a>excel导出两种格式导出占用内存使用分布情况</h3><pre><code> | 数量    |  xlsx    |  csv |  预计提升 |
+ | ---- | ---- | ----- | ---- |
+ | 1000   | 27.34MB  | 25.12MB  | ~~8.1%|
+ | 10000  | 54.23MB  | 47.98MB  | ~~13%|
+ | 100000 | 309.1MB  | 256.88MB | ~~16.9%|
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/17/2021-03-17Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/17/2021-03-17Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-17 13:35:16" itemprop="dateCreated datePublished" datetime="2021-03-17T13:35:16+08:00">2021-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 23:04:56" itemprop="dateModified" datetime="2024-09-15T23:04:56+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Centos-linux-服务器时区切换"><a href="#Centos-linux-服务器时区切换" class="headerlink" title="Centos.linux 服务器时区切换"></a>Centos.linux 服务器时区切换</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">tzselect-&gt; </span><span class="language-bash"> <span class="built_in">cp</span> /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Vim-操作"><a href="#Vim-操作" class="headerlink" title="Vim 操作"></a>Vim 操作</h3><ul>
+<li><p>格式化： <code>gg=G</code></p>
+</li>
+<li><p>格式化n行： <code>n==</code></p>
+</li>
+<li><p>复制：  <code>2yy</code>  </p>
+</li>
+<li><p>粘贴：  <code>p</code></p>
+</li>
+<li><p>删除列的方法</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 Ctrl + v(j/k 上下选择。左右选择多列)</span><br><span class="line">2 G 全选所有行</span><br><span class="line">3 按下x 即可删除对应列</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="获取某些进程并kill掉"><a href="#获取某些进程并kill掉" class="headerlink" title="获取某些进程并kill掉"></a>获取某些进程并kill掉</h3><ul>
+<li><code>ps aux | grep &quot;play&quot; | cut -c 17-22 | xargs kill -9</code></li>
+</ul>
+<h3 id="重启supervisor"><a href="#重启supervisor" class="headerlink" title="重启supervisor"></a>重启supervisor</h3><ul>
+<li><code>sudo supervisorctl reload</code></li>
+</ul>
+<h3 id="Linux-统计："><a href="#Linux-统计：" class="headerlink" title="Linux 统计："></a>Linux 统计：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rep -o include  sms.com| wc -l</span><br><span class="line">cat sms.com | grep -o fastcgi | wc -l</span><br><span class="line">cat api.access.log | awk &#x27;&#123;print $1&#125;&#x27; | sort|uniq &gt; a.txt</span><br><span class="line">分割：</span><br><span class="line">awk -F200 &#x27;&#123;print $5&#125;&#x27; app.access.log  ##指定200分割</span><br><span class="line">awk &#x27;&#123;print $7&#125;&#x27; app.access.log |sort|uniq &gt; a.txt ##分割默认空格,统计</span><br><span class="line">Find  / -name &#x27;ss*&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="软连接命令"><a href="#软连接命令" class="headerlink" title="软连接命令"></a>软连接命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">ln</span> -s /application/system/php7/bin/php /usr/local/bin/php7</span><br><span class="line">````</span><br><span class="line"><span class="comment">###  mac 使用Chrome生成pdf</span></span><br><span class="line"></span><br><span class="line">```sh</span><br><span class="line">  /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --disable-gpu --print-to-pdf=220.pdf https://mo.fish/main/home/hot</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/08/2021-03-08redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/08/2021-03-08redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="post-title-link" itemprop="url">redis分布式锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-08 23:05:40" itemprop="dateCreated datePublished" datetime="2021-03-08T23:05:40+08:00">2021-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 22:30:48" itemprop="dateModified" datetime="2024-09-15T22:30:48+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="锁的概念"><a href="#锁的概念" class="headerlink" title="锁的概念"></a>锁的概念</h3><p>在多线程、分布式系统中，锁的目的是确保对共享资源的互斥访问。</p>
+<p><code>分布式锁</code>: 当多个进程不在同一个系统中，用分布式锁控制多个进程对资源的访问。<br>比如 库存扣减，线程资源竞争，都能用到锁，可以保证业务的原子性，要么都成功，要么都失败。</p>
+<h3 id="Redisson-分布式锁"><a href="#Redisson-分布式锁" class="headerlink" title="Redisson 分布式锁"></a>Redisson 分布式锁</h3><p>以 为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.redisson&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;redisson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.19.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">String lockKey = &quot;lock&quot;;</span><br><span class="line">//加锁，获取锁失败重试</span><br><span class="line">RLock lock = this.redissonClient.getLock(lockKey);</span><br><span class="line">lock.lock():</span><br><span class="line">// 做业务处理，最后需要释放锁</span><br><span class="line">lock.unlock();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="redis原子性命令"><a href="#redis原子性命令" class="headerlink" title="redis原子性命令"></a>redis原子性命令</h3><ul>
+<li>setnx 不存在就设置值，存在就不执行。</li>
+<li>getset 存在，返回旧值。</li>
+<li>incr, decr 递增，递减，通常用于计数。</li>
+<li>lpush,rpush 队列插入元素</li>
 </ul>
 
       
@@ -234,7 +487,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/08/2021-03-08Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -248,7 +501,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/" class="post-title-link" itemprop="url">PHP执行原理和PHP7比PHP5快的原因</a>
+            <a href="/2021/03/08/2021-03-08Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/" class="post-title-link" itemprop="url">Redis及持久化</a>
         </h2>
 
         <div class="post-meta">
@@ -258,151 +511,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-03-06 16:10:22" itemprop="dateCreated datePublished" datetime="2021-03-06T16:10:22+08:00">2021-03-06</time>
+              <time title="创建时间：2021-03-08 14:48:25" itemprop="dateCreated datePublished" datetime="2021-03-08T14:48:25+08:00">2021-03-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-29 22:40:17" itemprop="dateModified" datetime="2023-10-29T22:40:17+08:00">2023-10-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><ol>
-<li>php初始化执行，启动zend引擎，加载已注册的扩展模块</li>
-<li>读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树</li>
-<li>zend引擎编译语法树，生成opcode中间代码</li>
-<li>zend引擎执行opcode，返回执行结果</li>
-</ol>
-<p>总结:<br>一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。</p>
-<h2 id="性能提升的原因"><a href="#性能提升的原因" class="headerlink" title="性能提升的原因"></a>性能提升的原因</h2><ol>
-<li>存储变量的结构体变小，尽量使结构体里成员共用内存空间，减少引用，这样内存占用降低，变量的操作速度得到提升。</li>
-<li>字符串结构体的改变，字符串信息和数据本身原来是分成两个独立内存块存放，php7尽量将它们存入同一块内存，提升了cpu缓存命中率。</li>
-<li>数组结构的改变，数组元素和hash映射表在php5中会存入多个内存块，php7尽量将它们分配在同一块内存里，降低了内存占用、提升了cpu缓存命中率。</li>
-<li>改进了函数的调用机制，通过对参数传递环节的优化，减少一些指令操作，提高了执行效率。</li>
-</ol>
-<h2 id="为什么PHP7的性能可以提高这么多？"><a href="#为什么PHP7的性能可以提高这么多？" class="headerlink" title="为什么PHP7的性能可以提高这么多？"></a>为什么PHP7的性能可以提高这么多？</h2><ol>
-<li>JIT</li>
-<li>Zval的改变</li>
-<li>内部类型zend_string</li>
-<li>PHP数组的变化（HashTable和Zend Array）</li>
-<li>函数调用机制（Function Calling Convention）</li>
-<li>通过宏定义和内联函数（inline），让编译器提前完成部分工作</li>
-</ol>
-<h2 id="为什么PHP7的在实际的业务性能提高才30-左右？"><a href="#为什么PHP7的在实际的业务性能提高才30-左右？" class="headerlink" title="为什么PHP7的在实际的业务性能提高才30%左右？"></a>为什么PHP7的在实际的业务性能提高才30%左右？</h2><ol>
-<li>实际的业务不一定有很复杂的计算逻辑</li>
-<li>实际的业务会用到Redis 和MYSQL，网络和IO的瓶颈 影响了PHP7的整体性能</li>
-<li>HTTPS的性能问题 限制了PHP7的能力</li>
-</ol>
-<h2 id="php-fpm"><a href="#php-fpm" class="headerlink" title="php-fpm"></a>php-fpm</h2><ul>
-<li><p>FastCGI</p>
-<ul>
-<li>一种协议，FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口</li>
-<li>监听 事先启动，等待server 请求发起连接，并使用php-cgi 解析程序并返回结果</li>
-<li>一 master 多 worker 模式</li>
-<li>平滑启动</li>
-</ul>
-</li>
-<li><p>php-fpm进程管理器<br>  php-fpm是对fastcgi协议的实现<br>  php-fpm是进程管理器，启动时包括master和worker进程俩部分，<br>  master进程负责管理worker进程，worker进程一般具有多个，用来监听端口，接收来自webserver请求，且每个worker进程都有一个cgi进程解释器，用来执行php代码</p>
-</li>
-</ul>
-<h2 id="php概念"><a href="#php概念" class="headerlink" title="php概念"></a>php概念</h2><p>zval： 变量内存存储结构</p>
-<p>hashTable： 数据结构</p>
-<p>HashTable </p>
-<ul>
-<li>bucket <ul>
-<li>zval[0] , zval[1]</li>
-</ul>
-</li>
-</ul>
-<h3 id="ZVAL-结构体（保存内存变量的结构）"><a href="#ZVAL-结构体（保存内存变量的结构）" class="headerlink" title="ZVAL 结构体（保存内存变量的结构）"></a>ZVAL 结构体（保存内存变量的结构）</h3><p>hashtable </p>
-<ol>
-<li>PHP5</li>
-</ol>
-<ul>
-<li>_zval_struct总的字节 &#x3D; value（16）+ refcount__gc（4）+ type（1）+ is_ref__gc（1） + 内存对齐2 &#x3D; 占用22字节。</li>
-<li>HashTable 占用72字节</li>
-<li>burst IO  2次，64为一次</li>
-<li>bucket  72 字节 存放zval</li>
-</ul>
-<ol start="2">
-<li>PHP7</li>
-</ol>
-<ul>
-<li>zval_struct 占用16字节</li>
-<li>HashTable&#x2F; zend_array  占用 57字节 （向内存索取空间，默认每次是64字节，不够再向内存索取）</li>
-<li>burst IO  一次</li>
-<li>bucket  32 字节</li>
-</ul>
-<h3 id="PHP-5-到-PHP-7-HashTable-主要做了如下修改"><a href="#PHP-5-到-PHP-7-HashTable-主要做了如下修改" class="headerlink" title="PHP 5 到 PHP 7 HashTable 主要做了如下修改"></a>PHP 5 到 PHP 7 HashTable 主要做了如下修改</h3><p>优化 HashTable 的数据结构：</p>
-<ul>
-<li>PHP数组zend_array 的内存占用从PHP5点72个字节，降低到了56个字节</li>
-<li>使用内存缓存局部性的特点，优化PHP数组效率</li>
-<li>PHP5的 Bucket ，包括 zval 都是独立分配（在内存中是离散的）</li>
-<li>PHP7使用一块连续的空间存储 Bucket， Bucket 和 zval 在内存中都是连续存储的</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/12/2021-01-12Redis%E5%8F%8A%E6%8C%81%E4%B9%85%E5%8C%96/" class="post-title-link" itemprop="url">Redis及持久化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-01-12 14:48:25" itemprop="dateCreated datePublished" datetime="2021-01-12T14:48:25+08:00">2021-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
+                <time title="修改时间：2024-09-15 22:30:39" itemprop="dateModified" datetime="2024-09-15T22:30:39+08:00">2024-09-15</time>
               </span>
 
           
@@ -459,163 +575,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/01/07/2021-01-07k8s-use/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/07/2021-01-07k8s-use/" class="post-title-link" itemprop="url">k8s-use</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-01-07 10:31:59" itemprop="dateCreated datePublished" datetime="2021-01-07T10:31:59+08:00">2021-01-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-29 21:56:24" itemprop="dateModified" datetime="2023-10-29T21:56:24+08:00">2023-10-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h4 id="mac-开启k8"><a href="#mac-开启k8" class="headerlink" title="mac 开启k8"></a>mac 开启k8</h4><h2 id="配置config-map"><a href="#配置config-map" class="headerlink" title="配置config map"></a>配置config map</h2><ul>
-<li>把配置文件放在config 目录下<br>kubectl create configmap test-conf –from-file&#x3D;config -n test</li>
-</ul>
-<h2 id="deployment"><a href="#deployment" class="headerlink" title="deployment"></a>deployment</h2><p> 创建- 搞好配置</p>
-<h2 id="暴露-expose-创建了service"><a href="#暴露-expose-创建了service" class="headerlink" title="暴露 expose 创建了service"></a>暴露 expose 创建了service</h2><p>kubectl expose deployment test –port&#x3D;80 –target-port&#x3D;80 -n test</p>
-<p>或<br>kubectl expose deployment hello-world –type&#x3D;LoadBalancer –name&#x3D;my-service</p>
-<h2 id="映射本地-端口"><a href="#映射本地-端口" class="headerlink" title="映射本地 端口"></a>映射本地 端口</h2><p>kubectl port-forward services&#x2F;test 10080:80 -n test</p>
-<p>通过端口映射就能访问。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">php生成pdf或图片</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-01 14:56:48" itemprop="dateCreated datePublished" datetime="2020-04-01T14:56:48+08:00">2020-04-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="wkhtmltopdf-扩展"><a href="#wkhtmltopdf-扩展" class="headerlink" title="wkhtmltopdf 扩展"></a>wkhtmltopdf 扩展</h3><p> 支持 Linux，mac ，windows</p>
-<p> 官网地址：<br> <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/">https://wkhtmltopdf.org/</a></p>
-<p> <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/downloads.html">https://wkhtmltopdf.org/downloads.html</a></p>
-<p> 官方文档：<br> <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt">https://wkhtmltopdf.org/usage/wkhtmltopdf.txt</a></p>
-<h3 id="安装相关插件"><a href="#安装相关插件" class="headerlink" title="安装相关插件"></a>安装相关插件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 插件</span><br><span class="line">composer require barryvdh/laravel-snappy</span><br><span class="line"></span><br><span class="line">## 生成命令</span><br><span class="line">composer require h4cc/wkhtmltopdf-amd64</span><br><span class="line">composer require h4cc/wkhtmltoimage-amd64</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装支持环境的扩展和中文字体"><a href="#安装支持环境的扩展和中文字体" class="headerlink" title="安装支持环境的扩展和中文字体"></a>安装支持环境的扩展和中文字体</h3><p>生成会出现乱码和环境问题，则需要配置环境和按需加载字体</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install libXrender libXext fontconfig</span><br><span class="line"></span><br><span class="line">yum install -y fontconfig mkfontscale</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> /usr/share/fonts/msyh</span><br><span class="line"><span class="comment">##  此处需要增加字体库文件，再进行编译和查看</span></span><br><span class="line"></span><br><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line">fc-cache -fv</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"> </span><br><span class="line">执行 fc-list :lang=zh 可看到字体已经安装</span><br></pre></td></tr></table></figure>
-<p>或者 拷贝字体文件到&#x2F;usr&#x2F;share&#x2F;fonts目录下</p>
-<h3 id="生成图片"><a href="#生成图片" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">PDF</span>;</span><br><span class="line"><span class="variable">$data</span> = [<span class="string">&#x27;name&#x27;</span>=&gt;<span class="string">&#x27;测试&#x27;</span>];</span><br><span class="line"><span class="variable">$fileName</span> = <span class="string">&#x27;a.pdf&#x27;</span>;</span><br><span class="line"><span class="variable">$type</span> = <span class="string">&#x27;a4&#x27;</span>;</span><br><span class="line"><span class="comment">// 生成并保存- 保存时放绝对路径</span></span><br><span class="line">PDF::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">setPaper</span>(<span class="variable">$type</span>)-&gt;<span class="title function_ invoke__">setOrientation</span>(<span class="string">&#x27;landscape&#x27;</span>)</span><br><span class="line">-&gt;<span class="title function_ invoke__">save</span>(<span class="variable">$fileName</span>);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line"><span class="variable">$pdf</span> = PDF::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">setPaper</span>(<span class="variable">$type</span>)-&gt;<span class="title function_ invoke__">setOrientation</span>(<span class="string">&#x27;landscape&#x27;</span>);</span><br><span class="line"><span class="variable">$pdf</span>-&gt;<span class="title function_ invoke__">stream</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="生成图片-1"><a href="#生成图片-1" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">SnappyImage</span>;</span><br><span class="line"><span class="variable">$data</span> = [<span class="string">&#x27;name&#x27;</span>=&gt;<span class="string">&#x27;测试&#x27;</span>];</span><br><span class="line"><span class="variable">$fileName</span> = <span class="string">&#x27;a.png&#x27;</span>;</span><br><span class="line"><span class="comment">// 生成并保存 保存时放绝对路径</span></span><br><span class="line"><span class="title class_">SnappyImage</span>::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">save</span>(<span class="variable">$fileName</span>);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line"><span class="title class_">SnappyImage</span>::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">stream</span>();</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>详情安装查看:<br><a target="_blank" rel="noopener" href="https://packagist.org/packages/barryvdh/laravel-snappy">https://packagist.org/packages/barryvdh/laravel-snappy</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -681,14 +644,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

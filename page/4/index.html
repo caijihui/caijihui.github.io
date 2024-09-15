@@ -165,6 +165,456 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/06/2021-03-05PHP7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94PHP5%E5%BF%AB/" class="post-title-link" itemprop="url">PHP执行原理和PHP7比PHP5快的原因</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-06 16:10:22" itemprop="dateCreated datePublished" datetime="2021-03-06T16:10:22+08:00">2021-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 22:42:51" itemprop="dateModified" datetime="2024-09-15T22:42:51+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><ol>
+<li>php初始化执行，启动zend引擎，加载已注册的扩展模块</li>
+<li>读取脚本文件，zend引擎对脚本进行词法分析、语法分析、生成语法生成树</li>
+<li>zend引擎编译语法树，生成opcode中间代码</li>
+<li>zend引擎执行opcode，返回执行结果</li>
+</ol>
+<p>总结:<br>一段PHP代码会经过词法解析、语法解析等阶段，会被翻译成一个个指令（opcode），然后 zend 虚拟机会顺序执行这些指令。</p>
+<h2 id="性能提升的原因"><a href="#性能提升的原因" class="headerlink" title="性能提升的原因"></a>性能提升的原因</h2><ol>
+<li>存储变量的结构体变小，尽量使结构体里成员共用内存空间，减少引用，这样内存占用降低，变量的操作速度得到提升。</li>
+<li>字符串结构体的改变，字符串信息和数据本身原来是分成两个独立内存块存放，php7尽量将它们存入同一块内存，提升了cpu缓存命中率。</li>
+<li>数组结构的改变，数组元素和hash映射表在php5中会存入多个内存块，php7尽量将它们分配在同一块内存里，降低了内存占用、提升了cpu缓存命中率。</li>
+<li>改进了函数的调用机制，通过对参数传递环节的优化，减少一些指令操作，提高了执行效率。</li>
+</ol>
+<h2 id="为什么PHP7的性能可以提高这么多？"><a href="#为什么PHP7的性能可以提高这么多？" class="headerlink" title="为什么PHP7的性能可以提高这么多？"></a>为什么PHP7的性能可以提高这么多？</h2><ol>
+<li>JIT</li>
+<li>Zval的改变</li>
+<li>内部类型zend_string</li>
+<li>PHP数组的变化（HashTable和Zend Array）</li>
+<li>函数调用机制（Function Calling Convention）</li>
+<li>通过宏定义和内联函数（inline），让编译器提前完成部分工作</li>
+</ol>
+<h2 id="为什么PHP7的在实际的业务性能提高才30-左右？"><a href="#为什么PHP7的在实际的业务性能提高才30-左右？" class="headerlink" title="为什么PHP7的在实际的业务性能提高才30%左右？"></a>为什么PHP7的在实际的业务性能提高才30%左右？</h2><ol>
+<li>实际的业务不一定有很复杂的计算逻辑</li>
+<li>实际的业务会用到Redis 和MYSQL，网络和IO的瓶颈 影响了PHP7的整体性能</li>
+<li>HTTPS的性能问题 限制了PHP7的能力</li>
+</ol>
+<h2 id="php-fpm"><a href="#php-fpm" class="headerlink" title="php-fpm"></a>php-fpm</h2><ul>
+<li><p>FastCGI</p>
+<ul>
+<li>一种协议，FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口</li>
+<li>监听 事先启动，等待server 请求发起连接，并使用php-cgi 解析程序并返回结果</li>
+<li>一 master 多 worker 模式</li>
+<li>平滑启动</li>
+</ul>
+</li>
+<li><p>php-fpm进程管理器<br>  php-fpm是对fastcgi协议的实现<br>  php-fpm是进程管理器，启动时包括master和worker进程俩部分，<br>  master进程负责管理worker进程，worker进程一般具有多个，用来监听端口，接收来自webserver请求，且每个worker进程都有一个cgi进程解释器，用来执行php代码</p>
+</li>
+</ul>
+<h2 id="php概念"><a href="#php概念" class="headerlink" title="php概念"></a>php概念</h2><p>zval： 变量内存存储结构</p>
+<p>hashTable： 数据结构</p>
+<p>HashTable </p>
+<ul>
+<li>bucket <ul>
+<li>zval[0] , zval[1]</li>
+</ul>
+</li>
+</ul>
+<h3 id="ZVAL-结构体（保存内存变量的结构）"><a href="#ZVAL-结构体（保存内存变量的结构）" class="headerlink" title="ZVAL 结构体（保存内存变量的结构）"></a>ZVAL 结构体（保存内存变量的结构）</h3><p>hashtable </p>
+<ol>
+<li>PHP5</li>
+</ol>
+<ul>
+<li>_zval_struct总的字节 &#x3D; value（16）+ refcount__gc（4）+ type（1）+ is_ref__gc（1） + 内存对齐2 &#x3D; 占用22字节。</li>
+<li>HashTable 占用72字节</li>
+<li>burst IO  2次，64为一次</li>
+<li>bucket  72 字节 存放zval</li>
+</ul>
+<ol start="2">
+<li>PHP7</li>
+</ol>
+<ul>
+<li>zval_struct 占用16字节</li>
+<li>HashTable&#x2F; zend_array  占用 57字节 （向内存索取空间，默认每次是64字节，不够再向内存索取）</li>
+<li>burst IO  一次</li>
+<li>bucket  32 字节</li>
+</ul>
+<h3 id="PHP-5-到-PHP-7-HashTable-主要做了如下修改"><a href="#PHP-5-到-PHP-7-HashTable-主要做了如下修改" class="headerlink" title="PHP 5 到 PHP 7 HashTable 主要做了如下修改"></a>PHP 5 到 PHP 7 HashTable 主要做了如下修改</h3><p>优化 HashTable 的数据结构：</p>
+<ul>
+<li>PHP数组zend_array 的内存占用从PHP5点72个字节，降低到了56个字节</li>
+<li>使用内存缓存局部性的特点，优化PHP数组效率</li>
+<li>PHP5的 Bucket ，包括 zval 都是独立分配（在内存中是离散的）</li>
+<li>PHP7使用一块连续的空间存储 Bucket， Bucket 和 zval 在内存中都是连续存储的</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/02/08/2021-03-08Mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/08/2021-03-08Mysql/" class="post-title-link" itemprop="url">mysql</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-08 11:02:32" itemprop="dateCreated datePublished" datetime="2021-02-08T11:02:32+08:00">2021-02-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 22:30:59" itemprop="dateModified" datetime="2024-09-15T22:30:59+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Mysql-创建用户和分配权限"><a href="#Mysql-创建用户和分配权限" class="headerlink" title="Mysql 创建用户和分配权限"></a>Mysql 创建用户和分配权限</h3><blockquote>
+<ol>
+<li>创建用户</li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &#x27;username&#x27;@&#x27;host&#x27; IDENTIFIED BY &#x27;password&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>username - 你将创建的用户名,</p>
+</li>
+<li><p>host - 指定该用户在哪个主机上可以登陆，此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录;也可以指定某台机器可以远程登录;</p>
+</li>
+<li><p>password - 该用户的登陆密码,密码可以为空,如果为空则该用户可以不需要密码登陆服务器。</p>
+<p>  如果遇到 ERROR 1819 (HY000): Your password does not satisfy the current policy requirements  ,是由于mysql 密码安全策略，执行下方语句即可</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global validate_password_policy=0;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="2">
+<li>分配权限</li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT (all,select,insert,update) privileges ON databasename.tablename TO &#x27;username&#x27;@&#x27;host&#x27; identified by &#x27;password&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>privileges 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;<br>databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用*表示, 如 <em>.</em>.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 查看所有用户</span><br><span class="line">select * from mysql.user；</span><br><span class="line">##  创建拥有全部权限的用户</span><br><span class="line">GRANT all privileges ON *.* TO &#x27;test&#x27;@&#x27;%&#x27; identified by &#x27;pwd&#x27;;</span><br><span class="line">##  创建拥有查看权限的用户</span><br><span class="line">GRANT select privileges ON *.* TO &#x27;test&#x27;@&#x27;%&#x27; identified by &#x27;pwd&#x27;;</span><br><span class="line">##  创建只拥有查看 test 数据库 user 表数据的 权限的用户</span><br><span class="line">GRANT select privileges ON test.user TO &#x27;test&#x27;@&#x27;%&#x27; identified by &#x27;pwd&#x27;;</span><br><span class="line"></span><br><span class="line">## 执行刷新</span><br><span class="line">flush privileges;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="show-processlist-神器"><a href="#show-processlist-神器" class="headerlink" title="show processlist 神器"></a>show processlist 神器</h3><p> 查看mysql线程</p>
+<ul>
+<li>show full processlist;</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询执行时间超过3分钟的线程，然后拼接成 kill 语句</span></span><br><span class="line"><span class="keyword">select</span> concat(<span class="string">&#x27;kill &#x27;</span>, id, <span class="string">&#x27;;&#x27;</span>)</span><br><span class="line"><span class="keyword">from</span> information_schema.processlist</span><br><span class="line"><span class="keyword">where</span> command <span class="operator">!=</span> <span class="string">&#x27;Sleep&#x27;</span></span><br><span class="line"><span class="keyword">and</span> <span class="type">time</span> <span class="operator">&gt;</span> <span class="number">3</span><span class="operator">*</span><span class="number">60</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="type">time</span> <span class="keyword">desc</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="mysql索引"><a href="#mysql索引" class="headerlink" title="mysql索引"></a>mysql索引</h2><h4 id="innodb和myisam-区别"><a href="#innodb和myisam-区别" class="headerlink" title="innodb和myisam 区别"></a>innodb和myisam 区别</h4><pre><code> | 区别  | Innodb	| Myisam |
+ | :----: | :------: | :----: |
+ | 事务	|  安全	    | 非安全 |
+ |  锁   |  行级	    | 表级 |
+ | 效率  | 低        |  高 |
+ | 索引	| 聚集索引   | 非聚集索引 |
+ | 外键	| 支持 |	不支持 |
+ | 使用环境 | 支持事务，大量增，改	| 多查询，不支持事务|
+</code></pre>
+<h2 id="Btree"><a href="#Btree" class="headerlink" title="Btree"></a>Btree</h2><p>存储信息： 主键-指针(子节点所在磁盘块的地址)-data</p>
+<h2 id="B-tree"><a href="#B-tree" class="headerlink" title="B+tree"></a>B+tree</h2><p>所有数据记录节点都是<br>按照键值大小顺序存放在同一层的叶子节点上，<br>而非叶子节点上只存储key值信息,不存储data。<br>存储数据比btree多。</p>
+<h3 id="主键索引和非主键索引的区别是："><a href="#主键索引和非主键索引的区别是：" class="headerlink" title="主键索引和非主键索引的区别是："></a>主键索引和非主键索引的区别是：</h3><p>非主键索引的叶子节点存放的是主键的值，<br>而主键索引的叶子节点存放的是整行数据，<br>其中非主键索引也被称为二级索引，而主键索引也被称为聚簇索引。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/gsQM61GSzIPclD4o4fib8iavdJChXslcoDFWm1OF64Pgktj8K3gyVHdxS12EQOMtB5On8keMicpSwngLlBvibdfr5A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="主键索引和非主键索引的示意图如下"></p>
+<h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><ul>
+<li>属于Innodb, 大部分是主键,只有一个聚集索引,并顺序存放</li>
+<li>InnoDB表中聚簇索引首选主键，其次选择不含null值的唯一索引，如果两者都无，则会内置rowid作为隐含的聚集索引。</li>
+<li>子节点存放的就是数据</li>
+</ul>
+<h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><ul>
+<li>就是普通索引，二级索引</li>
+<li>需要大量的硬盘空间和内存</li>
+<li>叶子节点存放的是主键的值</li>
+<li>普通索引指向主键索引, 普通索引-&gt;主键-&gt;数据行</li>
+<li>非主键索引的查询需要多扫描一颗索引树, 效率相对更低</li>
+</ul>
+<h3 id="假如-Mysql-忘记了密码"><a href="#假如-Mysql-忘记了密码" class="headerlink" title="假如 Mysql 忘记了密码"></a>假如 Mysql 忘记了密码</h3><p>vim &#x2F;etc&#x2F;my.cnf   在【mysqld】的段中，加上skip-grant-tables<br>查看user表，修改即可，参考其他数据库user</p>
+<p>设置查询缓存大小<br>SET GLOBAL innodb_buffer_pool_size&#x3D;33554432;</p>
+<h2 id="mysql-锁"><a href="#mysql-锁" class="headerlink" title="mysql 锁"></a>mysql 锁</h2><ul>
+<li>乐观锁 （加版本）</li>
+<li>悲观锁 （锁数据，行锁，事务） select xx for update</li>
+<li>mvcc</li>
+</ul>
+<h2 id="mysql-事务4特性-ACID"><a href="#mysql-事务4特性-ACID" class="headerlink" title="mysql 事务4特性 ACID"></a>mysql 事务4特性 ACID</h2><p>数据库管理系统中事务(transaction)的四个特性（分析时根据首字母缩写依次解释）：</p>
+<ul>
+<li>原子性（Atomicity）、</li>
+<li>一致性（Consistency）、</li>
+<li>隔离性（Isolation）、</li>
+<li>持久性（Durability）</li>
+</ul>
+<p>所谓事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。（执行单个逻辑功能的一组指令或操作称为事务）</p>
+<h2 id="Mysql-三种日志"><a href="#Mysql-三种日志" class="headerlink" title="Mysql 三种日志"></a>Mysql 三种日志</h2><h3 id="redo-log-（重做日志）"><a href="#redo-log-（重做日志）" class="headerlink" title="redo log （重做日志）"></a>redo log （重做日志）</h3><ul>
+<li>先写 内存 ，提交后再写入到磁盘中</li>
+<li>存储在引擎innodb </li>
+<li>InnoDB引擎会把更新记录先写在redo log中，</li>
+<li>在修改Buffer Pool中的数据， 当提交事务时，调用fsync把redo log刷入磁盘</li>
+</ul>
+<h3 id="undo-log-（回滚日志）"><a href="#undo-log-（回滚日志）" class="headerlink" title="undo log （回滚日志）"></a>undo log （回滚日志）</h3><ul>
+<li>实现事务的原子性，也是存储在磁盘中</li>
+<li>记录的是数据修改前的状态，在数据修改的流程中，同时会记录一条与当前操作相反的逻辑日志到undo log中。</li>
+<li>如果遇到事务回滚，就借助 undo log 回滚到以前的状态</li>
+<li>undo log只负责记录事务开始前要修改数据的原始版本，当我们再次对这行数据进行修改，所产生的修改记录会写入到redo log，undo log负责完成回滚，redo log负责完成前滚</li>
+</ul>
+<h3 id="bin-log-（归档日志）"><a href="#bin-log-（归档日志）" class="headerlink" title="bin log （归档日志）"></a>bin log （归档日志）</h3><ul>
+<li>Server层 ，二进制形式存储在磁盘中</li>
+<li>记录了数据库所有DDL和DML操作</li>
+</ul>
+<h3 id="mysql-执行计划"><a href="#mysql-执行计划" class="headerlink" title="mysql 执行计划"></a>mysql 执行计划</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain xxsql</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2021/01/07/2021-01-07k8s-use/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/07/2021-01-07k8s-use/" class="post-title-link" itemprop="url">k8s-use</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-07 10:31:59" itemprop="dateCreated datePublished" datetime="2021-01-07T10:31:59+08:00">2021-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-29 21:56:24" itemprop="dateModified" datetime="2023-10-29T21:56:24+08:00">2023-10-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h4 id="mac-开启k8"><a href="#mac-开启k8" class="headerlink" title="mac 开启k8"></a>mac 开启k8</h4><h2 id="配置config-map"><a href="#配置config-map" class="headerlink" title="配置config map"></a>配置config map</h2><ul>
+<li>把配置文件放在config 目录下<br>kubectl create configmap test-conf –from-file&#x3D;config -n test</li>
+</ul>
+<h2 id="deployment"><a href="#deployment" class="headerlink" title="deployment"></a>deployment</h2><p> 创建- 搞好配置</p>
+<h2 id="暴露-expose-创建了service"><a href="#暴露-expose-创建了service" class="headerlink" title="暴露 expose 创建了service"></a>暴露 expose 创建了service</h2><p>kubectl expose deployment test –port&#x3D;80 –target-port&#x3D;80 -n test</p>
+<p>或<br>kubectl expose deployment hello-world –type&#x3D;LoadBalancer –name&#x3D;my-service</p>
+<h2 id="映射本地-端口"><a href="#映射本地-端口" class="headerlink" title="映射本地 端口"></a>映射本地 端口</h2><p>kubectl port-forward services&#x2F;test 10080:80 -n test</p>
+<p>通过端口映射就能访问。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/01/2020-04-01php%E7%94%9F%E6%88%90pdf%E6%88%96%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">php生成pdf或图片</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-01 14:56:48" itemprop="dateCreated datePublished" datetime="2020-04-01T14:56:48+08:00">2020-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 23:04:44" itemprop="dateModified" datetime="2024-09-15T23:04:44+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="wkhtmltopdf-扩展"><a href="#wkhtmltopdf-扩展" class="headerlink" title="wkhtmltopdf 扩展"></a>wkhtmltopdf 扩展</h3><p> 支持 Linux，mac ，windows</p>
+<p> 官网地址：<br> <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/">https://wkhtmltopdf.org/</a></p>
+<p> <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/downloads.html">https://wkhtmltopdf.org/downloads.html</a></p>
+<p> 官方文档：<br> <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt">https://wkhtmltopdf.org/usage/wkhtmltopdf.txt</a></p>
+<h3 id="安装相关插件"><a href="#安装相关插件" class="headerlink" title="安装相关插件"></a>安装相关插件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 插件</span><br><span class="line">composer require barryvdh/laravel-snappy</span><br><span class="line"></span><br><span class="line">## 生成命令</span><br><span class="line">composer require h4cc/wkhtmltopdf-amd64</span><br><span class="line">composer require h4cc/wkhtmltoimage-amd64</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装支持环境的扩展和中文字体"><a href="#安装支持环境的扩展和中文字体" class="headerlink" title="安装支持环境的扩展和中文字体"></a>安装支持环境的扩展和中文字体</h3><p>生成会出现乱码和环境问题，则需要配置环境和按需加载字体</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install libXrender libXext fontconfig</span><br><span class="line"></span><br><span class="line">yum install -y fontconfig mkfontscale</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> /usr/share/fonts/msyh</span><br><span class="line"><span class="comment">##  此处需要增加字体库文件，再进行编译和查看</span></span><br><span class="line"></span><br><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line">fc-cache -fv</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"> </span><br><span class="line">执行 fc-list :lang=zh 可看到字体已经安装</span><br></pre></td></tr></table></figure>
+<p>或者 拷贝字体文件到&#x2F;usr&#x2F;share&#x2F;fonts目录下</p>
+<h3 id="生成图片"><a href="#生成图片" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">PDF</span>;</span><br><span class="line"><span class="variable">$data</span> = [<span class="string">&#x27;name&#x27;</span>=&gt;<span class="string">&#x27;测试&#x27;</span>];</span><br><span class="line"><span class="variable">$fileName</span> = <span class="string">&#x27;a.pdf&#x27;</span>;</span><br><span class="line"><span class="variable">$type</span> = <span class="string">&#x27;a4&#x27;</span>;</span><br><span class="line"><span class="comment">// 生成并保存- 保存时放绝对路径</span></span><br><span class="line">PDF::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">setPaper</span>(<span class="variable">$type</span>)-&gt;<span class="title function_ invoke__">setOrientation</span>(<span class="string">&#x27;landscape&#x27;</span>)</span><br><span class="line">-&gt;<span class="title function_ invoke__">save</span>(<span class="variable">$fileName</span>);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line"><span class="variable">$pdf</span> = PDF::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">setPaper</span>(<span class="variable">$type</span>)-&gt;<span class="title function_ invoke__">setOrientation</span>(<span class="string">&#x27;landscape&#x27;</span>);</span><br><span class="line"><span class="variable">$pdf</span>-&gt;<span class="title function_ invoke__">stream</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成图片-1"><a href="#生成图片-1" class="headerlink" title="生成图片"></a>生成图片</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">SnappyImage</span>;</span><br><span class="line"><span class="variable">$data</span> = [<span class="string">&#x27;name&#x27;</span>=&gt;<span class="string">&#x27;测试&#x27;</span>];</span><br><span class="line"><span class="variable">$fileName</span> = <span class="string">&#x27;a.png&#x27;</span>;</span><br><span class="line"><span class="comment">// 生成并保存 保存时放绝对路径</span></span><br><span class="line"><span class="title class_">SnappyImage</span>::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">save</span>(<span class="variable">$fileName</span>);</span><br><span class="line"><span class="comment">// 在线预览</span></span><br><span class="line"><span class="title class_">SnappyImage</span>::<span class="title function_ invoke__">loadView</span>(<span class="string">&#x27;view&#x27;</span>, <span class="variable">$data</span>)-&gt;<span class="title function_ invoke__">stream</span>();</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>详情安装查看:<br><a target="_blank" rel="noopener" href="https://packagist.org/packages/barryvdh/laravel-snappy">https://packagist.org/packages/barryvdh/laravel-snappy</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2020/03/31/2021-03-31%E6%96%B0mac%E6%90%AD%E5%BB%BA%E9%80%9A%E7%94%A8%E7%8E%AF%E5%A2%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -265,362 +715,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2019/10/10/2019-10-10%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/10/2019-10-10%E8%B5%84%E6%BA%90%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">资源合集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-10 09:24:45" itemprop="dateCreated datePublished" datetime="2019-10-10T09:24:45+08:00">2019-10-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-29 21:56:16" itemprop="dateModified" datetime="2023-10-29T21:56:16+08:00">2023-10-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="laravel-excel"><a href="#laravel-excel" class="headerlink" title="laravel-excel"></a>laravel-excel</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require maatwebsite/excel</span><br></pre></td></tr></table></figure>
-
-<p>参考： <a target="_blank" rel="noopener" href="https://blog.csdn.net/beyond__devil/article/details/83008782">https://blog.csdn.net/beyond__devil/article/details/83008782</a></p>
-<h3 id="laravel-admin-后台"><a href="#laravel-admin-后台" class="headerlink" title="laravel-admin 后台"></a>laravel-admin 后台</h3><p>参考： <a target="_blank" rel="noopener" href="https://laravel-admin.org/docs/zh">https://laravel-admin.org/docs/zh</a></p>
-<h3 id="crontab-生成表达式"><a href="#crontab-生成表达式" class="headerlink" title="crontab 生成表达式"></a>crontab 生成表达式</h3><p>参考：<a target="_blank" rel="noopener" href="http://cron.qqe2.com/">http://cron.qqe2.com/</a></p>
-<h3 id="Linux-deployer用户-创建及设置"><a href="#Linux-deployer用户-创建及设置" class="headerlink" title="Linux  deployer用户 创建及设置"></a>Linux  deployer用户 创建及设置</h3><p>参考：<a target="_blank" rel="noopener" href="https://www.codercto.com/a/20403.html">https://www.codercto.com/a/20403.html</a></p>
-<h3 id="phpstorm-x2F-webstorm-activation-code"><a href="#phpstorm-x2F-webstorm-activation-code" class="headerlink" title="phpstorm&#x2F;webstorm  activation code"></a>phpstorm&#x2F;webstorm  activation code</h3><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33733970">https://blog.csdn.net/qq_33733970</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2019/07/30/2019-07-30%E7%B1%BBself%E5%92%8Cstatic%E5%8C%BA%E5%88%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/30/2019-07-30%E7%B1%BBself%E5%92%8Cstatic%E5%8C%BA%E5%88%86/" class="post-title-link" itemprop="url">类 self和static区分</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-30 09:48:14" itemprop="dateCreated datePublished" datetime="2019-07-30T09:48:14+08:00">2019-07-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>类的静态延迟绑定<br>在 PHP 类中，self指向的是当前方法存在的这个类，也就是父类。static指向的是最终那个子类。</p>
-<h3 id="self"><a href="#self" class="headerlink" title="self"></a>self</h3><p>取决于定义当前方法所在的类,调用当前所在层的方法。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">self</span>::<span class="title function_ invoke__">who</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">B::<span class="title function_ invoke__">test</span>();<span class="comment">//A</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>后期静态绑定,取初始调用类</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">static</span>::<span class="title function_ invoke__">who</span>(); <span class="comment">// 后期静态绑定从这里开始</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span> . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B::<span class="title function_ invoke__">test</span>();<span class="comment">// 输出  B</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2019/06/28/2019-06-28Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/28/2019-06-28Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Linux基本命令总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-28 17:38:31" itemprop="dateCreated datePublished" datetime="2019-06-28T17:38:31+08:00">2019-06-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-29 21:55:51" itemprop="dateModified" datetime="2023-10-29T21:55:51+08:00">2023-10-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>总结部分服务命令</code></p>
-<h3 id="linux-权限赋予"><a href="#linux-权限赋予" class="headerlink" title="linux 权限赋予"></a>linux 权限赋予</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">adduser test</span><br><span class="line">passwd test</span><br><span class="line">usermod -g root test</span><br><span class="line">vim /etc/sudoers -&gt;</span><br><span class="line">添加</span><br><span class="line">deployer   ALL=(ALL)    ALL</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="配置全局命令-如-php"><a href="#配置全局命令-如-php" class="headerlink" title="配置全局命令(如 php)"></a>配置全局命令(如 php)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 在最底下添加相应的命令</span></span></span><br><span class="line">export PATH=$PATH:/usr/local/php/bin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line">export PATH=$PATH:/usr/local/php/sbin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 保存后</span></span></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">然后就 可以使用相关命令</span><br><span class="line"></span><br><span class="line">php -v</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="filebeat-解析日志设置索引"><a href="#filebeat-解析日志设置索引" class="headerlink" title="filebeat 解析日志设置索引"></a>filebeat 解析日志设置索引</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 配置日志源 ，自定义需要区分的字段</span><br><span class="line">filebeat.prospectors:</span><br><span class="line">    </span><br><span class="line">- type: log</span><br><span class="line">  enabled: true</span><br><span class="line">  paths:</span><br><span class="line">          - /var/logs/*.log</span><br><span class="line">  log_type: caiyuanzi</span><br><span class="line">  json.keys_under_root: true</span><br><span class="line">  json.overwrite_keys: true</span><br><span class="line">  fields:</span><br><span class="line">     from: caiyuanzi</span><br><span class="line">  fields_under_root: true</span><br><span class="line"></span><br><span class="line">## 输出并自定义设置索引</span><br><span class="line">output.elasticsearch:</span><br><span class="line">   hosts: [&quot;localhost:9200&quot;]</span><br><span class="line">   index: &quot;test_web-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">   indices:</span><br><span class="line"></span><br><span class="line">     - index: &quot;tcaiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;caiy&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;caiyuanzi-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          from: &quot;caiyuanzi&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;api-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;api&quot;</span><br><span class="line"></span><br><span class="line">     - index: &quot;unnormal-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">       when.contains:</span><br><span class="line">          message: &quot;异常&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><ul>
-<li>配置    &#x2F;etc</li>
-<li>命令    &#x2F;usr&#x2F;bin</li>
-<li>运行服务 &#x2F;var&#x2F;run</li>
-</ul>
-<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t          ## 测试配置是否正确</span><br><span class="line">sudo nginx -s stop     ## 关闭</span><br><span class="line">sudo nginx -s reload   ## 重启</span><br></pre></td></tr></table></figure>
-
-<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><blockquote>
-<ol>
-<li>php.ini 配置</li>
-<li>php-fpm.conf 配置</li>
-</ol>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo killall  php-fpm</span><br><span class="line">sudo php-fpm</span><br><span class="line"></span><br><span class="line">kill  -USR2    php平滑重启</span><br></pre></td></tr></table></figure>
-
-<h3 id="supervisor-服务监控者"><a href="#supervisor-服务监控者" class="headerlink" title="supervisor (服务监控者)"></a>supervisor (服务监控者)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo supervisorctl status   </span><br><span class="line">sudo supervisorctl reload   </span><br><span class="line">sudo supervisorctl start name</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="gitlab-runner"><a href="#gitlab-runner" class="headerlink" title="gitlab-runner"></a>gitlab-runner</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  ## 安装</span><br><span class="line">  ## 注册 gitlab-runenr 服务</span><br><span class="line">  gitlab-runner register </span><br><span class="line">  </span><br><span class="line">  eg: gitlab-runner register --name my-runner --url http://gitlab.example.com --registration-token my-registration-token</span><br><span class="line"></span><br><span class="line">  ## 设置 run 运行配置  服务 日志 运行日志</span><br><span class="line">gitlab-runner  run --working-directory /home/deployer --config  /etc/gitlab-runner/config.toml --service gitlab-runner --syslog --user deployer</span><br><span class="line"></span><br><span class="line">## 注销的方法</span><br><span class="line">gitlab-runner unregister --name [name]  注销</span><br><span class="line">gitlab-runner unregister --url [url] --token [token]  注销</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gitlab-runner restart </span><br><span class="line">gitlab-runner status  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br><span class="line">service mysqld stop</span><br><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="docker-基本服务配置"><a href="#docker-基本服务配置" class="headerlink" title="docker 基本服务配置"></a>docker 基本服务配置</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## redis 6380</span></span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -p -d 6380:6379 --name redis6380  -v /application/system/redis6380/redis.conf:/etc/redis/redis.conf  -v /application/system/redis6380/data:/data   a4fe14ff1981  redis-server /etc/redis/redis.conf --appendonly <span class="built_in">yes</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">## mysql 3307</span></span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> --name mysql3307  -d -p 3307:3306 -eMYSQL_ROOT_PASSWORD=cjh123456 -v /application/system/mysql3307/data:/var/lib/mysql -v /application/system/mysql3307/my.cnf:/etc/mysql/my.cnf  7faa3c53e6d6</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="清理磁盘"><a href="#清理磁盘" class="headerlink" title="清理磁盘"></a>清理磁盘</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  ## 查看</span><br><span class="line">du -sh *</span><br><span class="line">  ## 列出目录占用空间</span><br><span class="line">ls |grep -v proc |xargs du -sh |sort -h</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="phpstorm-常用"><a href="#phpstorm-常用" class="headerlink" title="phpstorm 常用"></a>phpstorm 常用</h3><ul>
-<li>ctrl+shift+n 搜索文件</li>
-<li>ctrl+f       本页面搜索</li>
-<li>ctrl+shift+f    全文件搜索</li>
-<li>Shift + F2      可以快速跳到错误行或无用行</li>
-<li>ctrl + 鼠标选中   批量增减</li>
-<li>alt + l     跳行</li>
-</ul>
-<h3 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h3><ul>
-<li>Alt+Shift+下键（上下左右的下）</li>
-<li>Alt+Shift+上键（上下左右的上)</li>
-<li>ctrl+shift+k  删除当前行</li>
-<li>shift+ 上下键 选中行</li>
-</ul>
-<h3 id="docs"><a href="#docs" class="headerlink" title="docs"></a>docs</h3><p>一般站点的 docs 为 <code>gitbook</code> 生成的。</p>
-<p><code>gitbook</code>  请查看 <a target="_blank" rel="noopener" href="https://docs.gitbook.com/">参考文档</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2019/04/10/2019-04-10swoole%E5%8A%A0%E9%80%9Flaravel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/10/2019-04-10swoole%E5%8A%A0%E9%80%9Flaravel/" class="post-title-link" itemprop="url">swoole加速laravel</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-10 16:44:41" itemprop="dateCreated datePublished" datetime="2019-04-10T16:44:41+08:00">2019-04-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-04 22:23:34" itemprop="dateModified" datetime="2023-03-04T22:23:34+08:00">2023-03-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>（以laravel 为例）<br>现有轮子：</p>
-<ul>
-<li>swooletw&#x2F;laravel-swoole</li>
-<li>garveen&#x2F;laravoole</li>
-</ul>
-<ol>
-<li><p>安装</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require swooletw/laravel-swoole</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在 config&#x2F;app.php 的 providers 数组中加上</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SwooleTW\Http\LaravelServiceProvider::class,</span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
-<li><p>配置文件执行命令或在config文件夹创建swoole_http.php</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php artisan vendor:publish --provider=<span class="string">&quot;SwooleTW\Http\HttpServiceProvider&quot;</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<p> 去 config&#x2F;swoole_http.php 中配置信息</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;server&#x27;</span> =&gt; [</span><br><span class="line">        <span class="string">&#x27;host&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_HOST&#x27;</span>, <span class="string">&#x27;0.0.0.0&#x27;</span>),<span class="comment">//监听任意ip</span></span><br><span class="line">        <span class="string">&#x27;port&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_PORT&#x27;</span>, <span class="string">&#x27;1215&#x27;</span>),</span><br><span class="line">        <span class="string">&#x27;options&#x27;</span> =&gt; [</span><br><span class="line">            <span class="string">&#x27;pid_file&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_PID_FILE&#x27;</span>, <span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;storage/logs/swoole_http.pid&#x27;</span>)),</span><br><span class="line">            <span class="string">&#x27;log_file&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_LOG_FILE&#x27;</span>, <span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;storage/logs/swoole_http.log&#x27;</span>)),</span><br><span class="line">            <span class="string">&#x27;daemonize&#x27;</span> =&gt; <span class="title function_ invoke__">env</span>(<span class="string">&#x27;SWOOLE_HTTP_DAEMONIZE&#x27;</span>, <span class="number">1</span>),<span class="comment">//1-程序将转入后台作为守护进程运行</span></span><br><span class="line">        ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure></li>
-<li><p>启动swoole HTTP服务</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 启动</span></span><br><span class="line">php artisan swoole:http start</span><br><span class="line">    </span><br><span class="line"><span class="comment">## 重启    </span></span><br><span class="line">php artisan swoole:http restart</span><br></pre></td></tr></table></figure>
-<p> 打开 <a target="_blank" rel="noopener" href="http://127.0.0.1:1215/">http://127.0.0.1:1215</a>，即可访问应用</p>
-<p> <code>不支持热启动</code>，每次需要重启。</p>
-</li>
-<li><p>nginx 配置,支持热启动</p>
-</li>
-</ol>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> stu.com;</span><br><span class="line">    <span class="attribute">root</span> /path/app/ublic;</span><br><span class="line">    <span class="attribute">index</span> index.php;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> = /index.php &#123;</span><br><span class="line">        <span class="comment"># Ensure that there is no such file named &quot;not_exists&quot;</span></span><br><span class="line">        <span class="comment"># in your &quot;public&quot; directory.</span></span><br><span class="line">        <span class="attribute">try_files</span> /not_exists <span class="variable">@swoole</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@swoole</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> <span class="variable">@swoole</span> &#123;</span><br><span class="line">        <span class="attribute">set</span> <span class="variable">$suffix</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">if</span> (<span class="variable">$uri</span> = /index.php) &#123;</span><br><span class="line">            <span class="attribute">set</span> <span class="variable">$suffix</span> <span class="string">&quot;/&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> SERVER_PORT <span class="variable">$server_port</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> REMOTE_ADDR <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># IF https</span></span><br><span class="line">        <span class="comment"># proxy_set_header HTTPS &quot;on&quot;;</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:1215<span class="variable">$suffix</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>参考：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017553188">https://segmentfault.com/a/1190000017553188</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -686,14 +784,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

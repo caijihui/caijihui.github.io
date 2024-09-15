@@ -165,6 +165,239 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/08/2018-03-09%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/08/2018-03-09%E6%90%AD%E5%BB%BAsvn%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">搭建svn服务器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-08 16:51:00" itemprop="dateCreated datePublished" datetime="2018-03-08T16:51:00+08:00">2018-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 23:01:44" itemprop="dateModified" datetime="2024-09-15T23:01:44+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>安装svn  :   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install subversion</span><br></pre></td></tr></table></figure></li>
+<li>切换到home目录并创建svn文件：<br>bash<br>cd &#x2F;home  mkdir svn</li>
+</ol>
+<ul>
+<li><p>创建项目目录：cd svn mkdir project</p>
+</li>
+<li><p>使用svn 创建svn配置文件 ： svnadmin create &#x2F;home&#x2F;svn&#x2F;project</p>
+</li>
+<li><p>修改配置文件：<br>cd &#x2F;data&#x2F;svn&#x2F;project&#x2F;conf&#x2F;<br>进入conf目录，然后编辑svnserve.conf、authz和passwd文件。<br>具体的，可以参考以下内容进行编辑。</p>
+<ul>
+<li>编辑 svnserve.conf文件</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@arui conf]<span class="comment"># vi svnserve.conf</span></span><br><span class="line">[general]</span><br><span class="line">anon-access = none</span><br><span class="line">auth-access = write</span><br><span class="line">password-db = passwd</span><br><span class="line">authz-db = authz</span><br><span class="line">realm = project</span><br></pre></td></tr></table></figure>
+<pre><code>* 编辑authz文件
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@arui conf]<span class="comment"># vi authz</span></span><br><span class="line">[<span class="built_in">groups</span>]</span><br><span class="line">manager=<span class="built_in">test</span></span><br><span class="line">[project:/]</span><br><span class="line">@manager = rw</span><br></pre></td></tr></table></figure>
+<pre><code>* 给project仓库添加一个名称为test的用户，权限为读写。
+
+* 编辑passwd文件
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@arui conf]<span class="comment"># vi passwd</span></span><br><span class="line"><span class="built_in">test</span> = 123456</span><br></pre></td></tr></table></figure>
+<pre><code>   将test用户的密码设置为123456
+</code></pre>
+<h2 id="启动svn-服务"><a href="#启动svn-服务" class="headerlink" title="启动svn 服务"></a>启动svn 服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r /home/svn/project</span><br></pre></td></tr></table></figure>
+
+<h2 id="开启防火墙"><a href="#开启防火墙" class="headerlink" title="开启防火墙"></a>开启防火墙</h2><ul>
+<li>使用SVN客户端连接到svn:&#x2F;&#x2F;VPS IP&#x2F;project，根据提示输入用户名test、密码123456，如果顺利，即可连接成功。</li>
+<li>如果无法连接，可能是VSP服务器的3690端口未开放，此时可以用telnet测试下。如果未开放，需要在VPS上设置Iptable解除端口限制。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/iptables</span><br><span class="line">添加：</span><br><span class="line">-A OUTPUT -p tcp -m tcp –dport 3690 -jACCEPT</span><br></pre></td></tr></table></figure></li>
+<li>以后即可在其他地方访问svn了.</li>
+</ul>
+<p>使用示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn import /data/test svn://ip/svn/project/myapp/ -m ‘f’ –force;</span><br></pre></td></tr></table></figure>
+<p>按照提示输入用户名和密码，然后就创建一个库成功了。<br>关于一点错误提示：<br>svn: E170001报错的原因以及解决方案<br>默认情况下是记录了开始输入的账户密码，需要清除才能验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /root/.subversion/auth/</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/08/2018-03-08%E6%90%AD%E5%BB%BAss/" class="post-title-link" itemprop="url">搭建 ShadowSocks （VPS搭建SS）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-08 16:23:03" itemprop="dateCreated datePublished" datetime="2018-03-08T16:23:03+08:00">2018-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 22:58:39" itemprop="dateModified" datetime="2024-09-15T22:58:39+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="搭建梯子说明"><a href="#搭建梯子说明" class="headerlink" title="搭建梯子说明"></a>搭建梯子说明</h3><p>只支持国外的vps,国内的服务商ip被墙了。</p>
+<h3 id="编写ss-sh"><a href="#编写ss-sh" class="headerlink" title="编写ss.sh"></a>编写ss.sh</h3><p>内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /bin/bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">log</span>路径</span></span><br><span class="line">export log_path=/etc/ss.log</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置端口号</span></span><br><span class="line">echo -n -e &#x27;\033[36mPlease enter PORT(1225 default): \033[0m&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> -n <span class="string">&quot;please enter port(1225 default):&quot;</span></span></span><br><span class="line">read port</span><br><span class="line">if [ ! -n &quot;$port&quot; ];then</span><br><span class="line">        echo &quot;port will be set to 1225&quot;</span><br><span class="line">        port=1225</span><br><span class="line">else</span><br><span class="line">        echo &quot;port will be set to $port&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置密码</span></span><br><span class="line">echo -n -e &#x27;\033[36mPlease enter PASSWORD(123456 default): \033[0m&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> -n <span class="string">&quot;please enter password(123456 default):&quot;</span></span></span><br><span class="line">read pwd</span><br><span class="line">if [ ! -n &quot;$pwd&quot; ];then</span><br><span class="line">        echo &quot;password will be set to 123456&quot;</span><br><span class="line">        pwd=123456</span><br><span class="line">else</span><br><span class="line">        echo &quot;password will be set to $pwd&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">写shadowsocks.json配置文件</span></span><br><span class="line"><span class="meta prompt_">cat&gt;</span><span class="language-bash">/etc/shadowsocks.json&lt;&lt;<span class="string">EOF</span></span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:$port,</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;$pwd&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">安装 shadowsocks 防火墙等</span></span></span><br><span class="line">ret=`yum install -y m2crypto python-setuptools &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`easy_install pip &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`pip install shadowsocks &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`yum install -y firewalld &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`systemctl start firewalld &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">开启端口</span></span></span><br><span class="line">ret=`firewall-cmd --permanent --zone=public --add-port=22/tcp &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`firewall-cmd --permanent --zone=public --add-port=$port/tcp &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line">ret=`firewall-cmd --reload &gt;&gt; $&#123;log_path&#125; 2&gt;&amp;1`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">如果有相同功能的进程则杀死</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">pkill -9 ssserver</span></span></span><br><span class="line">ps -ef|grep ssserver|grep shadowsocks|awk &#x27;&#123; print $2 &#125;&#x27;|xargs kill -9</span><br><span class="line">/usr/bin/ssserver -c /etc/shadowsocks.json -d start</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">成功</span></span></span><br><span class="line">if [ $? -eq 0 ];then</span><br><span class="line">clear</span><br><span class="line">cat&lt;&lt;EOF</span><br><span class="line">***************Congratulation!*************</span><br><span class="line">Shadowsocks installed successfully!</span><br><span class="line"></span><br><span class="line">PORT: $port</span><br><span class="line">PASSWORD: $pwd</span><br><span class="line">METHOD: aes-256-cfb</span><br><span class="line"></span><br><span class="line">***************JUST ENJOY IT!**************</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">失败</span></span></span><br><span class="line">else</span><br><span class="line">clear</span><br><span class="line">cat&lt;&lt;EOF</span><br><span class="line">************Failed,retry please!***********</span><br><span class="line"></span><br><span class="line">cat /etc/ss.log to get something you need…</span><br><span class="line"></span><br><span class="line">************Failed,retry please!***********</span><br><span class="line">EOF</span><br><span class="line">fi</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<h3 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash ss.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置端口号并回车，直接回车是设置为1225</span></span><br><span class="line">Please enter PORT(1225 default):</span><br><span class="line"><span class="comment"># 设置密码并回车，直接回车是设置为123456</span></span><br><span class="line">Please enter PASSWORD(123456 default):</span><br><span class="line"><span class="comment"># 等待一会……就完成了（初次执行约2-5min）</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/01/15/2018-01-15%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E5%9F%9F%E5%90%8Ddev-app-%E7%BB%93%E5%B0%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cai JiHui">
+      <meta itemprop="description" content="技术和分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园子">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/15/2018-01-15%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E5%9F%9F%E5%90%8Ddev-app-%E7%BB%93%E5%B0%BE/" class="post-title-link" itemprop="url">2018-01-15配置虚拟域名dev app 结尾</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-15 22:32:38" itemprop="dateCreated datePublished" datetime="2018-01-15T22:32:38+08:00">2018-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-15 20:53:49" itemprop="dateModified" datetime="2024-09-15T20:53:49+08:00">2024-09-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="配置虚拟主机不以-dev-app-结尾"><a href="#配置虚拟主机不以-dev-app-结尾" class="headerlink" title="配置虚拟主机不以 .dev  .app 结尾"></a>配置虚拟主机不以 .dev  .app 结尾</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">由于 Chrome 升级了浏览器版本到 63，</span><br><span class="line">现在所有的 .dev 和 .app 都将会自动将 HTTP 到 HTTPS 上，</span><br><span class="line">原因是谷歌已经拿下了 .dev 的顶级域名；</span><br><span class="line">目前唯一的方法就是修改你的 .dev 或者 .app 域名了，或者换成火狐或者其他浏览器开发；</span><br><span class="line">建议将你的域名改成 .test 或者 .localhost</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2018/01/14/2018-01-14base%E7%BB%86%E8%8A%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,7 +429,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-27 22:34:26" itemprop="dateModified" datetime="2024-08-27T22:34:26+08:00">2024-08-27</time>
+                <time title="修改时间：2024-09-15 22:43:04" itemprop="dateModified" datetime="2024-09-15T22:43:04+08:00">2024-09-15</time>
               </span>
 
           
@@ -278,7 +511,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-29 22:38:45" itemprop="dateModified" datetime="2023-10-29T22:38:45+08:00">2023-10-29</time>
+                <time title="修改时间：2024-09-15 20:51:59" itemprop="dateModified" datetime="2024-09-15T20:51:59+08:00">2024-09-15</time>
               </span>
 
           
@@ -294,7 +527,7 @@
       
           <ol>
 <li><p>redis key-value</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">set</span>(<span class="variable">$key</span>,<span class="variable">$value</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">get</span>(<span class="variable">$key</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">exists</span>(<span class="variable">$key</span>);</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$redis-&gt;set($key,$value);</span><br><span class="line">$redis-&gt;get($key);</span><br><span class="line">$redis-&gt;exists($key);</span><br></pre></td></tr></table></figure></li>
 <li><p>redis订阅发布： —未实现，阻塞</p>
  <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$redis</span>=<span class="keyword">new</span> <span class="title class_">Redis</span>();</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">connect</span>(“<span class="number">127.0</span>.<span class="number">0.1</span>”,<span class="number">6379</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">auth</span>(“<span class="number">123</span>”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">publish</span>(‘test.<span class="number">22</span>’,”nihao”);</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">publish</span>(‘test’,”nihao”);</span><br><span class="line"><span class="variable">$channelName</span>=”test”;</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">subscribe</span>(<span class="keyword">array</span>(<span class="variable">$channelName</span>), ‘callback’);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params"><span class="variable">$redis</span>,<span class="variable">$channelName</span>,<span class="variable">$message</span></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="variable">$message</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>redis 先进先出，队列</p>
@@ -307,82 +540,9 @@
  <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  <span class="variable">$mobile</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$hmobile</span>=”user:&#123;<span class="variable">$mobile</span>&#125;”;<span class="comment">//此处是设置key</span></span><br><span class="line">  <span class="variable">$r</span>= <span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">exists</span>(<span class="variable">$hmobile</span>);<span class="comment">//是否存在</span></span><br><span class="line">  <span class="variable">$m</span>=<span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">hExists</span>(<span class="variable">$hmobile</span>,”mobile”);<span class="comment">//也可以判断存在 返回为bool</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="variable">$r</span>==<span class="number">0</span>)&#123;</span><br><span class="line">  <span class="variable">$mobile</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$name</span>=<span class="variable">$_POST</span>[‘mobile’];</span><br><span class="line">  <span class="variable">$pwd</span>=<span class="variable">$_POST</span>[‘pwd’];</span><br><span class="line">  <span class="variable">$age</span>=<span class="variable">$_POST</span>[‘age’];</span><br><span class="line">  <span class="comment">//   HSET  key field value   哈希的格式</span></span><br><span class="line">  <span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">hSet</span>(<span class="variable">$hmobile</span>,”name”,<span class="variable">$name</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">hSet</span>(<span class="variable">$hmobile</span>,”mobile”,<span class="variable">$mobile</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">hSet</span>(<span class="variable">$hmobile</span>,”pwd”,<span class="variable">$pwd</span>);</span><br><span class="line">  <span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">hSet</span>(<span class="variable">$hmobile</span>,”age”,<span class="variable">$age</span>);</span><br><span class="line">  <span class="keyword">echo</span> “注册成功！”;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> “存在，不可注册”;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$all</span>= <span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">hGetAll</span>(<span class="variable">$key</span>); <span class="comment">//当前key的所有字段 结果 ，返回的是数组</span></span><br><span class="line">    <span class="title function_ invoke__">dump</span>(<span class="variable">$all</span>);</span><br><span class="line">    <span class="variable">$s</span>=<span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">hGet</span>(<span class="variable">$key</span>,”mobile”);<span class="comment">//单个字段的结果</span></span><br><span class="line">    <span class="title function_ invoke__">dump</span>(<span class="variable">$s</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>集合使用验证</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 发送</span></span><br><span class="line"><span class="variable">$codeKey</span> = <span class="string">&quot;code_cell1_type1&quot;</span>;</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">sadd</span>(<span class="variable">$codeKey</span>, <span class="variable">$code</span>);</span><br><span class="line"><span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">expire</span>(<span class="variable">$codeKey</span>, <span class="number">1800</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">## 验证</span></span><br><span class="line"><span class="variable">$validateCode</span> = <span class="variable">$redis</span>-&gt;<span class="title function_ invoke__">smembers</span>(<span class="variable">$codeKey</span>);</span><br><span class="line"><span class="variable">$res</span> = <span class="title function_ invoke__">in_array</span>(<span class="variable">$code</span>, <span class="variable">$validateCode</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$res</span>)&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&quot;验证通过&quot;</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&quot;验证失败&quot;</span>;</span><br><span class="line">&#125; </span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">## 发送</span><br><span class="line">$codeKey = &quot;code_cell1_type1&quot;;</span><br><span class="line">$redis-&gt;sadd($codeKey, $code);</span><br><span class="line">$redis-&gt;expire($codeKey, 1800);</span><br><span class="line"></span><br><span class="line">## 验证</span><br><span class="line">$validateCode = $redis-&gt;smembers($codeKey);</span><br><span class="line">$res = in_array($code, $validateCode);</span><br><span class="line">if($res)&#123;</span><br><span class="line">  echo &quot;验证通过&quot;;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">  echo &quot;验证失败&quot;;</span><br><span class="line">&#125; </span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
 </ol>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://caijihui.github.io/2017/03/30/2017-03-30%E5%85%B3%E4%BA%8ELinux%E5%AE%89%E8%A3%85mysql%E6%9F%A5%E8%AF%A2%E6%98%BE%E7%A4%BA%E5%87%BA%E7%8E%B0%E4%B9%B1%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Cai JiHui">
-      <meta itemprop="description" content="技术和分享">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园子">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/03/30/2017-03-30%E5%85%B3%E4%BA%8ELinux%E5%AE%89%E8%A3%85mysql%E6%9F%A5%E8%AF%A2%E6%98%BE%E7%A4%BA%E5%87%BA%E7%8E%B0%E4%B9%B1%E7%A0%81/" class="post-title-link" itemprop="url">关于Linux安装mysql查询显示出现乱码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-03-30 18:34:30" itemprop="dateCreated datePublished" datetime="2017-03-30T18:34:30+08:00">2017-03-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-27 22:31:46" itemprop="dateModified" datetime="2024-08-27T22:31:46+08:00">2024-08-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h3><p>大概原因有以下几点：</p>
-<p>1、网页head 没有设置 charset&#x3D;”UTF-8”<br>2、mysql 数据库没有设置成uf8，set names utf8;<br>3、创建数据库和数据库字符没有设置utf8 ; default character utf8;<br>4、mysql 服务器和客户端没有设置成utf8</p>
-<h3 id="一些查看和修改步骤"><a href="#一些查看和修改步骤" class="headerlink" title="一些查看和修改步骤"></a>一些查看和修改步骤</h3><p>一开始直接修改下数据库的编码：<br>mysql&gt;alter database mydatabase character set utf8;<br>mysql&gt;show variables like ‘character%’; #执行编码显示<br>修改&#x2F;etc&#x2F;mysql&#x2F;my.cnf      </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/mysql/my.cnf</span><br></pre></td></tr></table></figure>
-<p>在my.cnf文件中的[client]段和 [mysqld]段加上以下两行内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[client] default-character-set=utf8</span><br><span class="line">[mysqld] character-server-set=utf8</span><br><span class="line">init_connect=&#x27;SET NAMES utf8&#x27; （设定连接mysql数据库时使用utf8编码，以让mysql数据库为utf8运行）</span><br></pre></td></tr></table></figure>
-<p>重新启动MySQL：sudo &#x2F;etc&#x2F;init.d&#x2F;mysql restart<br>如果重启失败，查看一下是否端口被占用：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i  tcp:3306   </span><br></pre></td></tr></table></figure>
-<p>或者配置文件乱修改了，出现错误，暴力解决方法-重装mysql哈<br>如果被占用杀掉再重启 kill pid<br>查看一下现在mysql的编码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#x27;character%&#x27;; </span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -400,7 +560,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -466,14 +626,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
